@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/subtask_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/dark_gray"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
     android:descendantFocusability="blocksDescendants"
     android:orientation="horizontal"
     tools:context="com.violenthoboenterprises.taskkillernoexcuses.activities.MainActivity">
@@ -20,14 +20,19 @@
 
         <TextView
             android:id="@+id/tvSubtask"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center_vertical"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:textColor="@color/gray" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     </android.support.constraint.ConstraintLayout>
 

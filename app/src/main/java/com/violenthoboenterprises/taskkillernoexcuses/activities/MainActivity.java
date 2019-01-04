@@ -396,7 +396,7 @@ public class MainActivity extends AppCompatActivity implements
         MobileAds.initialize(this, "ca-app-pub-2378583121223638~1405620900");
 
 //        toolbarDark = findViewById(R.id.toolbar_dark);
-        toolbarLight = findViewById(R.id.toolbar_light);
+        toolbarLight = findViewById(R.id.tb);
 //        setSupportActionBar(toolbarDark);
         setSupportActionBar(toolbarLight);
 

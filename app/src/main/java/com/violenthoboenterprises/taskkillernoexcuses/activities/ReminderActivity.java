@@ -398,48 +398,38 @@ private final String TAG = this.getClass().getSimpleName();
 
         //Highlight the repeat type or highlight "No Repeat" if none exists
         if (reminderPresenter.getRepeatInterval() == null) {
-            imgCancelRepeat.setVisibility(View.INVISIBLE);
-            imgCancelRepeat.setVisibility(View.VISIBLE);
+//            imgCancelRepeatFaded.setVisibility(View.INVISIBLE);
+//            imgCancelRepeat.setVisibility(View.VISIBLE);
         } else if (reminderPresenter.getRepeatInterval().equals(REPEAT_DAY)) {
-            imgDailyFaded.setVisibility(View.INVISIBLE);
-            imgDaily.setVisibility(View.VISIBLE);
+//            imgDailyFaded.setVisibility(View.INVISIBLE);
+//            imgDaily.setVisibility(View.VISIBLE);
         } else if (reminderPresenter.getRepeatInterval().equals(REPEAT_WEEK)) {
-            imgWeeklyFaded.setVisibility(View.INVISIBLE);
-            imgWeekly.setVisibility(View.VISIBLE);
+//            imgWeeklyFaded.setVisibility(View.INVISIBLE);
+//            imgWeekly.setVisibility(View.VISIBLE);
         } else if (reminderPresenter.getRepeatInterval().equals(REPEAT_MONTH)) {
-            imgMonthlyFaded.setVisibility(View.INVISIBLE);
-            imgMonthly.setVisibility(View.VISIBLE);
+//            imgMonthlyFaded.setVisibility(View.INVISIBLE);
+//            imgMonthly.setVisibility(View.VISIBLE);
         }
 
         //Actions to occur when user selects to set/change date
-        btnDate.setOnClickListener(new View.OnClickListener() {
+        btnDate.setOnClickListener(v -> {
 
-            @Override
-            public void onClick(View v) {
+            vibrate.vibrate(50);
 
-                vibrate.vibrate(50);
+            DialogFragment dialogfragment = new DatePickerDialogFrag();
 
-                DialogFragment dialogfragment = new DatePickerDialogFrag();
-
-                dialogfragment.show(getFragmentManager(), "Date");
-
-            }
+            dialogfragment.show(getFragmentManager(), "Date");
 
         });
 
         //Actions to occur when user selects to set/change time
-        btnTime.setOnClickListener(new View.OnClickListener() {
+        btnTime.setOnClickListener(v -> {
 
-            @Override
-            public void onClick(View v) {
+            vibrate.vibrate(50);
 
-                vibrate.vibrate(50);
+            DialogFragment dialogfragment = new TimePickerDialogFrag();
 
-                DialogFragment dialogfragment = new TimePickerDialogFrag();
-
-                dialogfragment.show(getFragmentManager(), "Time");
-
-            }
+            dialogfragment.show(getFragmentManager(), "Time");
 
         });
 

@@ -8,7 +8,6 @@
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     tools:context="com.violenthoboenterprises.taskkillernoexcuses.activities.MainActivity"
     android:descendantFocusability="beforeDescendants"
-    android:background="@color/dark_gray"
     android:id="@+id/taskLayout">
 
     <!--<RelativeLayout-->
@@ -51,7 +50,6 @@
                 android:id="@+id/tvTask"
                 android:paddingTop="5dp"
                 android:textSize="25sp"
-                android:textColor="@color/gray"
                 ads:layout_constraintEnd_toEndOf="@+id/viewTaskParent"
                 ads:layout_constraintStart_toStartOf="@+id/viewTaskParent"
                 ads:layout_constraintTop_toTopOf="@+id/viewTaskParent"/>
