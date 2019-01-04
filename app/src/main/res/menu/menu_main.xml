@@ -2,10 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
     <item
-        android:id="@+id/buy"
+        android:id="@+id/itemBuy"
         android:title="@string/buy"
         android:orderInCategory="1"
         android:icon="@drawable/pro"
@@ -33,14 +33,14 @@
         android:checked="false"/>
 
     <item
-        android:id="@+id/mute"
+        android:id="@+id/itemMute"
         android:title="@string/soundFX"
         app:showAsAction="collapseActionView"
         android:orderInCategory="5"
         android:checkable="true"/>
 
     <item
-        android:id="@+id/motivation"
+        android:id="@+id/itemMotivation"
         android:title="@string/motivation"
         app:showAsAction="collapseActionView"
         android:orderInCategory="6"

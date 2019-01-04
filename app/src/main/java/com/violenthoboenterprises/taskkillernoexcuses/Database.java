@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.violenthoboenterprises.taskkillernoexcuses.activities.MainActivity;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -405,14 +407,14 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues content = new ContentValues();
         content.put(COL1, id);
-        if(MainActivity.inNote) {
+//        if(MainActivity.inNote) {
+//            content.put(COL2, note);
+//        }else if(MainActivity.inChecklist){
+//            content.put(COL3, checklist);
+//        }else{
             content.put(COL2, note);
-        }else if(MainActivity.inChecklist){
             content.put(COL3, checklist);
-        }else{
-            content.put(COL2, note);
-            content.put(COL3, checklist);
-        }
+//        }
         db.update(TABLE, content, "ID = ?", new String[] {id});
         return true;
     }

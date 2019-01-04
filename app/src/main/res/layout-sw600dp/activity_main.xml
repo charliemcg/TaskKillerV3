@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.violenthoboenterprises.taskkiller.MainActivity"
+    tools:context="com.violenthoboenterprises.taskkillernoexcuses.activities.MainActivity"
     android:orientation="vertical"
     android:id="@+id/activityRoot">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_dark"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        style="@style/HeaderBar"
-        app:title="@string/app_name"
-        app:subtitle="@string/noExcuses"
-        app:subtitleTextColor="@color/gray"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.DarkTheme"
-        app:popupTheme="@style/ThemeOverlay.DarkTheme"
-        android:background="@color/dark_gray"
-        android:visibility="gone"/>
+    <!--<android.support.v7.widget.Toolbar-->
+        <!--android:id="@+id/toolbar_dark"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="?attr/actionBarSize"-->
+        <!--style="@style/HeaderBar"-->
+        <!--app:title="@string/app_name"-->
+        <!--app:subtitle="@string/noExcuses"-->
+        <!--app:subtitleTextColor="@color/gray"-->
+        <!--android:elevation="4dp"-->
+        <!--android:theme="@style/ThemeOverlay.DarkTheme"-->
+        <!--app:popupTheme="@style/ThemeOverlay.DarkTheme"-->
+        <!--android:background="@color/dark_gray"-->
+        <!--android:visibility="gone"/>-->
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_light"
+        android:id="@+id/tb"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         style="@style/HeaderBar"
@@ -34,263 +35,291 @@
         android:theme="@style/ThemeOverlay.LightTheme"
         app:popupTheme="@style/ThemeOverlay.LightTheme"
         android:background="@color/white"
-        android:visibility="gone"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <TextView
-        android:id="@+id/divider"
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/toolbar_dark"
-        android:background="@color/mid_gray"/>
+        android:layout_height="wrap_content"
+        android:elevation="100dp"
+        android:visibility="gone"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="ca-app-pub-2378583121223638/3959260925"
+        app:layout_constraintBottom_toTopOf="@id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tb" />
 
-    <LinearLayout
-        android:id="@+id/purchases"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/color_picker_border_white"
-        android:elevation="4dp"
-        android:layout_margin="30dp"
-        android:visibility="gone">
+    <ImageView
+        android:id="@+id/imgBanner"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:elevation="100dp"
+        android:onClick="showPro"
+        android:src="@drawable/banner"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tb" />
 
-        <LinearLayout
-            android:id="@+id/removeAds"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:onClick="removeAds"
-            android:background="@drawable/purchases_dropshadow">
+    <!--<TextView-->
+        <!--android:id="@+id/divider"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_below="@+id/toolbar_dark"-->
+        <!--android:background="@color/mid_gray"/>-->
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:layout_margin="5dp"
-                android:paddingLeft="5dp"
-                android:orientation="vertical">
+    <!--<LinearLayout-->
+        <!--android:id="@+id/purchases"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="vertical"-->
+        <!--android:background="@drawable/color_picker_border_white"-->
+        <!--android:elevation="4dp"-->
+        <!--android:layout_margin="30dp"-->
+        <!--android:visibility="gone">-->
 
-                <TextView
-                    android:id="@+id/removeAdsTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:textSize="30sp"
-                    android:text="@string/removeAds"/>
+        <!--<LinearLayout-->
+            <!--android:id="@+id/removeAds"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:onClick="removeAds"-->
+            <!--android:background="@drawable/purchases_dropshadow">-->
 
-                <TextView
-                    android:id="@+id/removeAdsDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:textSize="22sp"
-                    android:text="@string/permanentlyRemoveAds"/>
+            <!--<LinearLayout-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="2"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:paddingLeft="5dp"-->
+                <!--android:orientation="vertical">-->
 
-            </LinearLayout>
+                <!--<TextView-->
+                    <!--android:id="@+id/removeAdsTitle"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textSize="30sp"-->
+                    <!--android:text="@string/removeAds"/>-->
 
-            <ImageView
-                android:id="@+id/removeAdsImage"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:src="@drawable/remove_ads"
-                android:contentDescription="@string/accessGenericLookingAd"/>
+                <!--<TextView-->
+                    <!--android:id="@+id/removeAdsDescription"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0dp"-->
+                    <!--android:layout_weight="3"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:textSize="22sp"-->
+                    <!--android:text="@string/permanentlyRemoveAds"/>-->
 
-            <ImageView
-                android:id="@+id/removeAdsImagePurchased"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:src="@drawable/remove_ads_purchased"
-                android:contentDescription="@string/accessAdCrossedOutPurchased"
-                android:visibility="gone"/>
+            <!--</LinearLayout>-->
 
-        </LinearLayout>
+            <!--<ImageView-->
+                <!--android:id="@+id/removeAdsImage"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_margin="10dp"-->
+                <!--android:src="@drawable/remove_ads"-->
+                <!--android:contentDescription="@string/accessGenericLookingAd"/>-->
 
-        <LinearLayout
-            android:id="@+id/getReminders"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:onClick="getReminders"
-            android:background="@drawable/purchases_dropshadow">
+            <!--<ImageView-->
+                <!--android:id="@+id/removeAdsImagePurchased"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_margin="10dp"-->
+                <!--android:src="@drawable/remove_ads_purchased"-->
+                <!--android:contentDescription="@string/accessAdCrossedOutPurchased"-->
+                <!--android:visibility="gone"/>-->
 
-            <ImageView
-                android:id="@+id/getRemindersImage"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:src="@drawable/bell"
-                android:contentDescription="@string/accessBell"/>
+        <!--</LinearLayout>-->
 
-            <ImageView
-                android:id="@+id/getRemindersImagePurchased"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:src="@drawable/bell_purchased"
-                android:contentDescription="@string/accessBellPurchased"
-                android:visibility="gone"/>
+        <!--<LinearLayout-->
+            <!--android:id="@+id/getReminders"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:onClick="getReminders"-->
+            <!--android:background="@drawable/purchases_dropshadow">-->
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:layout_margin="5dp"
-                android:paddingRight="5dp"
-                android:orientation="vertical">
+            <!--<ImageView-->
+                <!--android:id="@+id/getRemindersImage"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_margin="10dp"-->
+                <!--android:src="@drawable/bell"-->
+                <!--android:contentDescription="@string/accessBell"/>-->
 
-                <TextView
-                    android:id="@+id/getRemindersTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:textSize="30sp"
-                    android:gravity="right"
-                    android:text="@string/getReminders"/>
+            <!--<ImageView-->
+                <!--android:id="@+id/getRemindersImagePurchased"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_margin="10dp"-->
+                <!--android:src="@drawable/bell_purchased"-->
+                <!--android:contentDescription="@string/accessBellPurchased"-->
+                <!--android:visibility="gone"/>-->
 
-                <TextView
-                    android:id="@+id/getremindersDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center_vertical|right"
-                    android:textSize="22sp"
-                    android:text="@string/setUnlimitedDueDates"/>
+            <!--<LinearLayout-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="2"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:paddingRight="5dp"-->
+                <!--android:orientation="vertical">-->
 
-            </LinearLayout>
+                <!--<TextView-->
+                    <!--android:id="@+id/getRemindersTitle"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textSize="30sp"-->
+                    <!--android:gravity="right"-->
+                    <!--android:text="@string/getReminders"/>-->
 
-        </LinearLayout>
+                <!--<TextView-->
+                    <!--android:id="@+id/getremindersDescription"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0dp"-->
+                    <!--android:layout_weight="3"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:gravity="center_vertical|right"-->
+                    <!--android:textSize="22sp"-->
+                    <!--android:text="@string/setUnlimitedDueDates"/>-->
 
-        <LinearLayout
-            android:id="@+id/cycleColors"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:onClick="cycleColors"
-            android:background="@drawable/purchases_dropshadow">
+            <!--</LinearLayout>-->
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:layout_margin="5dp"
-                android:paddingLeft="5dp"
-                android:orientation="vertical">
+        <!--</LinearLayout>-->
 
-                <TextView
-                    android:id="@+id/cycleColorsTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1.5"
-                    android:textSize="30sp"
-                    android:text="@string/cycleColors"/>
+        <!--<LinearLayout-->
+            <!--android:id="@+id/cycleColors"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:onClick="cycleColors"-->
+            <!--android:background="@drawable/purchases_dropshadow">-->
 
-                <TextView
-                    android:id="@+id/cycleColorsDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center_vertical"
-                    android:textSize="22sp"
-                    android:text="@string/featureColorSlowly"/>
+            <!--<LinearLayout-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="2"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:paddingLeft="5dp"-->
+                <!--android:orientation="vertical">-->
 
-            </LinearLayout>
+                <!--<TextView-->
+                    <!--android:id="@+id/cycleColorsTitle"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0dp"-->
+                    <!--android:layout_weight="1.5"-->
+                    <!--android:textSize="30sp"-->
+                    <!--android:text="@string/cycleColors"/>-->
 
-            <ImageView
-                android:id="@+id/cycleColorsImage"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:src="@drawable/auto_color"
-                android:contentDescription="@string/accessArrowCircular"/>
+                <!--<TextView-->
+                    <!--android:id="@+id/cycleColorsDescription"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0dp"-->
+                    <!--android:layout_weight="3"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:gravity="center_vertical"-->
+                    <!--android:textSize="22sp"-->
+                    <!--android:text="@string/featureColorSlowly"/>-->
 
-            <ImageView
-                android:id="@+id/cycleColorsImagePurchased"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:src="@drawable/auto_color_purchased"
-                android:contentDescription="@string/accessArrowCircularPurchased"
-                android:visibility="gone"/>
+            <!--</LinearLayout>-->
 
-        </LinearLayout>
+            <!--<ImageView-->
+                <!--android:id="@+id/cycleColorsImage"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_margin="10dp"-->
+                <!--android:src="@drawable/auto_color"-->
+                <!--android:contentDescription="@string/accessArrowCircular"/>-->
 
-        <LinearLayout
-            android:id="@+id/unlockAll"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:onClick="unlockAll"
-            android:orientation="horizontal"
-            android:background="@drawable/purchases_dropshadow">
+            <!--<ImageView-->
+                <!--android:id="@+id/cycleColorsImagePurchased"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_margin="10dp"-->
+                <!--android:src="@drawable/auto_color_purchased"-->
+                <!--android:contentDescription="@string/accessArrowCircularPurchased"-->
+                <!--android:visibility="gone"/>-->
 
-            <ImageView
-                android:id="@+id/unlockAllImage"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:src="@drawable/unlock_all"
-                android:contentDescription="@string/accessAllInAppImages"/>
+        <!--</LinearLayout>-->
 
-            <ImageView
-                android:id="@+id/unlockAllImagePurchased"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:src="@drawable/unlock_all_purchased"
-                android:contentDescription="@string/accessAllInAppImagesGray"
-                android:visibility="gone"/>
+        <!--<LinearLayout-->
+            <!--android:id="@+id/unlockAll"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_margin="10dp"-->
+            <!--android:onClick="unlockAll"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:background="@drawable/purchases_dropshadow">-->
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:layout_margin="5dp"
-                android:paddingRight="5dp"
-                android:orientation="vertical">
+            <!--<ImageView-->
+                <!--android:id="@+id/unlockAllImage"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_margin="10dp"-->
+                <!--android:src="@drawable/unlock_all"-->
+                <!--android:contentDescription="@string/accessAllInAppImages"/>-->
 
-                <TextView
-                    android:id="@+id/unlockAllTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:textSize="30sp"
-                    android:gravity="right"
-                    android:text="@string/unlockAll"/>
+            <!--<ImageView-->
+                <!--android:id="@+id/unlockAllImagePurchased"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:layout_margin="10dp"-->
+                <!--android:src="@drawable/unlock_all_purchased"-->
+                <!--android:contentDescription="@string/accessAllInAppImagesGray"-->
+                <!--android:visibility="gone"/>-->
 
-                <TextView
-                    android:id="@+id/unlockAllDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center_vertical|right"
-                    android:textSize="22sp"
-                    android:text="@string/ultimateValuePack"/>
+            <!--<LinearLayout-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="2"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:paddingRight="5dp"-->
+                <!--android:orientation="vertical">-->
 
-            </LinearLayout>
+                <!--<TextView-->
+                    <!--android:id="@+id/unlockAllTitle"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:textSize="30sp"-->
+                    <!--android:gravity="right"-->
+                    <!--android:text="@string/unlockAll"/>-->
 
-        </LinearLayout>
+                <!--<TextView-->
+                    <!--android:id="@+id/unlockAllDescription"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="0dp"-->
+                    <!--android:layout_weight="3"-->
+                    <!--android:layout_marginTop="5dp"-->
+                    <!--android:gravity="center_vertical|right"-->
+                    <!--android:textSize="22sp"-->
+                    <!--android:text="@string/ultimateValuePack"/>-->
 
-    </LinearLayout>
+            <!--</LinearLayout>-->
+
+        <!--</LinearLayout>-->
+
+    <!--</LinearLayout>-->
 
     <!--<Button-->
         <!--android:id="@+id/showDb"-->
@@ -320,28 +349,46 @@
         <!--android:layout_height="100dp"-->
         <!--android:text="Subtasks DB"/>-->
 
-    <ListView
+    <!--<ListView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/theListView"-->
+        <!--android:layout_below="@+id/divider"-->
+        <!--android:background="@color/dark_gray"-->
+        <!--android:descendantFocusability="blocksDescendants"/>-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/theListView"
-        android:layout_below="@+id/divider"
-        android:background="@color/dark_gray"
-        android:descendantFocusability="blocksDescendants"/>
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgBanner"
+        tools:listitem="@layout/item_task" />
+
+    <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/imgNoTasks"-->
+        <!--android:src="@drawable/no_tasks_dark"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent"/>-->
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/noTasks"
-        android:src="@drawable/no_tasks_dark"/>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/noTasksWhite"
-        android:src="@drawable/no_tasks_light"/>
+        android:id="@+id/imgNoTasks"
+        android:src="@drawable/no_tasks_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
-        android:id="@+id/taskNameEditText"
+        android:id="@+id/etTaskName"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:paddingLeft="5dp"
@@ -351,43 +398,70 @@
         android:layout_alignParentBottom="true"
         android:visibility="gone"
         android:hint="@string/taskTitle"
-        android:imeOptions="actionDone"/>
+        android:imeOptions="actionDone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
-    <RelativeLayout
-        android:layout_width="130dp"
-        android:layout_height="180dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp">
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="84dp"
+        android:layout_height="124dp"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="32dp"
+        android:src="@drawable/ic_add"
+        app:backgroundTint="@color/lightGreen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.942"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.974" />
 
-        <Button
-            android:id="@+id/add"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:background="#00FFFFFF"
-            android:contentDescription="@string/accessPlusSign"/>
+    <!--<RelativeLayout-->
+        <!--android:layout_width="130dp"-->
+        <!--android:layout_height="180dp"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_marginRight="20dp">-->
 
-        <TextView
-            android:layout_width="180dp"
-            android:layout_height="180dp"
-            android:id="@+id/addIcon"
-            android:text="+"
-            android:gravity="center"
-            android:textSize="140sp"/>
+        <!--<Button-->
+            <!--android:id="@+id/add"-->
+            <!--android:layout_width="80dp"-->
+            <!--android:layout_height="80dp"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:background="#00FFFFFF"-->
+            <!--android:contentDescription="@string/accessPlusSign"/>-->
 
-    </RelativeLayout>
+        <!--<TextView-->
+            <!--android:layout_width="180dp"-->
+            <!--android:layout_height="180dp"-->
+            <!--android:id="@+id/addIcon"-->
+            <!--android:text="+"-->
+            <!--android:gravity="center"-->
+            <!--android:textSize="140sp"/>-->
+
+    <!--</RelativeLayout>-->
 
     <RelativeLayout
         android:id="@+id/toastView"
         android:layout_width="wrap_content"
         android:layout_height="65dp"
         android:background="@color/black"
-        android:visibility="gone">
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/recyclerView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.845">
 
         <TextView
-            android:id="@+id/toast"
+            android:id="@+id/tvToast"
             android:layout_width="wrap_content"
             android:layout_height="65dp"
             android:textColor="@color/dark_gray"
@@ -399,4 +473,4 @@
 
     </RelativeLayout>
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
