@@ -14,7 +14,7 @@
     <!--android:elevation="4dp"/>-->
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/tbDue"
+        android:id="@+id/tbReminder"
         style="@style/HeaderBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"

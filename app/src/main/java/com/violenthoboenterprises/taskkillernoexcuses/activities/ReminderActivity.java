@@ -90,7 +90,7 @@ private final String TAG = this.getClass().getSimpleName();
         super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_reminder);
 
-        tbReminder = findViewById(R.id.dueToolbar);
+        tbReminder = findViewById(R.id.tbReminder);
         setSupportActionBar(tbReminder);
 
 //        TAG = "ReminderActivity";

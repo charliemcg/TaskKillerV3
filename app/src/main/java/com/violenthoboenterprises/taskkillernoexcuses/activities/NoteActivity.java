@@ -51,7 +51,7 @@ public class NoteActivity extends MainActivity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note);
-        tbNote = findViewById(R.id.noteToolbar);
+        tbNote = findViewById(R.id.tbNote);
         setSupportActionBar(tbNote);
 
 //        noteTextView = findViewById(R.id.noteTextView);

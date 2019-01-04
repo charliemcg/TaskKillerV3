@@ -66,7 +66,7 @@ public class SubtasksActivity extends MainActivity implements SubtasksView {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subtasks);
-        Toolbar subTasksToolbar = findViewById(R.id.subTasksToolbar);
+        Toolbar subTasksToolbar = findViewById(R.id.tbSubtasks);
 
 //        keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 //        checklistEditText = findViewById(R.id.checklistEditText);
