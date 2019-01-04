@@ -830,14 +830,14 @@ private final String TAG = this.getClass().getSimpleName();
 
             vibrate.vibrate(50);
 
-            imgCancelRepeatFaded.setVisibility(View.INVISIBLE);
-            imgCancelRepeat.setVisibility(View.VISIBLE);
-            imgDailyFaded.setVisibility(View.VISIBLE);
-            imgDaily.setVisibility(View.INVISIBLE);
-            imgWeeklyFaded.setVisibility(View.VISIBLE);
-            imgWeekly.setVisibility(View.INVISIBLE);
-            imgMonthlyFaded.setVisibility(View.VISIBLE);
-            imgMonthly.setVisibility(View.INVISIBLE);
+//            imgCancelRepeatFaded.setVisibility(View.INVISIBLE);
+//            imgCancelRepeat.setVisibility(View.VISIBLE);
+//            imgDailyFaded.setVisibility(View.VISIBLE);
+//            imgDaily.setVisibility(View.INVISIBLE);
+//            imgWeeklyFaded.setVisibility(View.VISIBLE);
+//            imgWeekly.setVisibility(View.INVISIBLE);
+//            imgMonthlyFaded.setVisibility(View.VISIBLE);
+//            imgMonthly.setVisibility(View.INVISIBLE);
 
             if (reminderPresenter.getYear() == 0 && reminderPresenter.getHour() == 0) {
 
@@ -862,14 +862,14 @@ private final String TAG = this.getClass().getSimpleName();
             vibrate.vibrate(50);
 
             //Show user which button they selected by highlighting it
-            imgCancelRepeatFaded.setVisibility(View.VISIBLE);
-            imgCancelRepeat.setVisibility(View.INVISIBLE);
-            imgDailyFaded.setVisibility(View.INVISIBLE);
-            imgDaily.setVisibility(View.VISIBLE);
-            imgWeeklyFaded.setVisibility(View.VISIBLE);
-            imgWeekly.setVisibility(View.INVISIBLE);
-            imgMonthlyFaded.setVisibility(View.VISIBLE);
-            imgMonthly.setVisibility(View.INVISIBLE);
+//            imgCancelRepeatFaded.setVisibility(View.VISIBLE);
+//            imgCancelRepeat.setVisibility(View.INVISIBLE);
+//            imgDailyFaded.setVisibility(View.INVISIBLE);
+//            imgDaily.setVisibility(View.VISIBLE);
+//            imgWeeklyFaded.setVisibility(View.VISIBLE);
+//            imgWeekly.setVisibility(View.INVISIBLE);
+//            imgMonthlyFaded.setVisibility(View.VISIBLE);
+//            imgMonthly.setVisibility(View.INVISIBLE);
 
             miKillReminder.setVisible(true);
 
@@ -890,14 +890,14 @@ private final String TAG = this.getClass().getSimpleName();
             vibrate.vibrate(50);
 
             //Show user which button they selected by highlighting it
-            imgCancelRepeatFaded.setVisibility(View.VISIBLE);
-            imgCancelRepeat.setVisibility(View.INVISIBLE);
-            imgDailyFaded.setVisibility(View.VISIBLE);
-            imgDaily.setVisibility(View.INVISIBLE);
-            imgWeeklyFaded.setVisibility(View.INVISIBLE);
-            imgWeekly.setVisibility(View.VISIBLE);
-            imgMonthlyFaded.setVisibility(View.VISIBLE);
-            imgMonthly.setVisibility(View.INVISIBLE);
+//            imgCancelRepeatFaded.setVisibility(View.VISIBLE);
+//            imgCancelRepeat.setVisibility(View.INVISIBLE);
+//            imgDailyFaded.setVisibility(View.VISIBLE);
+//            imgDaily.setVisibility(View.INVISIBLE);
+//            imgWeeklyFaded.setVisibility(View.INVISIBLE);
+//            imgWeekly.setVisibility(View.VISIBLE);
+//            imgMonthlyFaded.setVisibility(View.VISIBLE);
+//            imgMonthly.setVisibility(View.INVISIBLE);
 
             miKillReminder.setVisible(true);
 
@@ -918,14 +918,14 @@ private final String TAG = this.getClass().getSimpleName();
             vibrate.vibrate(50);
 
             //Show user which button they selected by highlighting it
-            imgCancelRepeatFaded.setVisibility(View.VISIBLE);
-            imgCancelRepeat.setVisibility(View.INVISIBLE);
-            imgDailyFaded.setVisibility(View.VISIBLE);
-            imgDaily.setVisibility(View.INVISIBLE);
-            imgWeeklyFaded.setVisibility(View.VISIBLE);
-            imgWeekly.setVisibility(View.INVISIBLE);
-            imgMonthlyFaded.setVisibility(View.INVISIBLE);
-            imgMonthly.setVisibility(View.VISIBLE);
+//            imgCancelRepeatFaded.setVisibility(View.VISIBLE);
+//            imgCancelRepeat.setVisibility(View.INVISIBLE);
+//            imgDailyFaded.setVisibility(View.VISIBLE);
+//            imgDaily.setVisibility(View.INVISIBLE);
+//            imgWeeklyFaded.setVisibility(View.VISIBLE);
+//            imgWeekly.setVisibility(View.INVISIBLE);
+//            imgMonthlyFaded.setVisibility(View.INVISIBLE);
+//            imgMonthly.setVisibility(View.VISIBLE);
 
             miKillReminder.setVisible(true);
 
@@ -1197,14 +1197,14 @@ private final String TAG = this.getClass().getSimpleName();
             tvTime.setTextSize(15);
         }
 
-        imgCancelRepeat.setVisibility(View.INVISIBLE);
-        imgCancelRepeat.setVisibility(View.VISIBLE);
-        imgDailyFaded.setVisibility(View.VISIBLE);
-        imgDaily.setVisibility(View.INVISIBLE);
-        imgWeeklyFaded.setVisibility(View.VISIBLE);
-        imgWeekly.setVisibility(View.INVISIBLE);
-        imgMonthlyFaded.setVisibility(View.VISIBLE);
-        imgMonthly.setVisibility(View.INVISIBLE);
+//        imgCancelRepeat.setVisibility(View.INVISIBLE);
+//        imgCancelRepeat.setVisibility(View.VISIBLE);
+//        imgDailyFaded.setVisibility(View.VISIBLE);
+//        imgDaily.setVisibility(View.INVISIBLE);
+//        imgWeeklyFaded.setVisibility(View.VISIBLE);
+//        imgWeekly.setVisibility(View.INVISIBLE);
+//        imgMonthlyFaded.setVisibility(View.VISIBLE);
+//        imgMonthly.setVisibility(View.INVISIBLE);
 
         tvDate.setText(R.string.addDate);
         tvTime.setText(R.string.addTime);
