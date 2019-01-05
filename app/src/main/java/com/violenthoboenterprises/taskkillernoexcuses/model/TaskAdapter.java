@@ -73,17 +73,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         final Task currentTask = tasks.get(position);
         holder.tvTask.setText(currentTask.getTask());
         //checking if any status icons need to be displayed
-        holder.noteIcon.setVisibility(View.GONE);
-        holder.subtasksIcon.setVisibility(View.GONE);
-        holder.repeatIcon.setVisibility(View.GONE);
-        holder.dueIcon.setVisibility(View.GONE);
+//        holder.noteIcon.setVisibility(View.GONE);
+//        holder.subtasksIcon.setVisibility(View.GONE);
+//        holder.repeatIcon.setVisibility(View.GONE);
+//        holder.dueIcon.setVisibility(View.GONE);
         holder.tvDue.setVisibility(View.GONE);
         holder.taskProperties.setVisibility(View.GONE);
         holder.tvDue.setTextColor(Color.BLACK);
 
         //checking if needed to display due icon
         if (currentTask.getTimestamp() != 0) {
-            holder.dueIcon.setVisibility(View.VISIBLE);
+            holder.dueIcon.setBackgroundColor(context.getResources().getColor(R.color.lightGreen));
+//            holder.dueIcon.setVisibility(View.VISIBLE);
             long repeatsAdjustedTimestamp;
             if(currentTask.getRepeatInterval() != null) {
                 repeatsAdjustedTimestamp = getRepeatsAdjustedTimestamp(currentTask);
@@ -111,7 +112,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
         //checking if needed to display note icon
         if (currentTask.getNote() != null) {
-            holder.noteIcon.setVisibility(View.VISIBLE);
+            holder.noteIcon.setBackgroundColor(context.getResources().getColor(R.color.lightGreen));
+//            holder.noteIcon.setVisibility(View.VISIBLE);
 //            holder.postItNote.setImageDrawable(context.getResources()
 //                    .getDrawable(R.drawable.note_icon_solid_dot));
         }else{
@@ -123,7 +125,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         List<Subtask> subtasks = subtasksPresenter.getSubtasksByParent(currentTask.getId());
         int subtasksSize = subtasks.size();
         if (subtasksSize > 0) {
-            holder.subtasksIcon.setVisibility(View.VISIBLE);
+            holder.subtasksIcon.setBackgroundColor(context.getResources().getColor(R.color.lightGreen));
+//            holder.subtasksIcon.setVisibility(View.VISIBLE);
 //            holder.clipBoard.setImageDrawable(context.getResources()
 //                    .getDrawable(R.drawable.subtasks_icon_solid_dot));
         }else{
@@ -133,7 +136,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
         //checking if needed to display repeat icon
         if (currentTask.getRepeatInterval() != null) {
-            holder.repeatIcon.setVisibility(View.VISIBLE);
+            holder.repeatIcon.setBackgroundColor(context.getResources().getColor(R.color.lightGreen));
+//            holder.repeatIcon.setVisibility(View.VISIBLE);
         }
 
         //show properties on click
