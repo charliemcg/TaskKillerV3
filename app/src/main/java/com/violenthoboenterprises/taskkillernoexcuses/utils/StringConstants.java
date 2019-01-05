@@ -20,5 +20,7 @@ public class StringConstants {
     public static String WEEK = "week";
     public static String MONTH = "month";
     public static String REINSTATE_REMINDERS_AFTER_REBOOT = "reinstate_reminders_after_reboot";
+    public static String HIGHLIGHT_COLOR_KEY = "highlight_color_key";
+    public static String DEC_HIGHLIGHT_COLOR_KEY = "dec_highlight_color_key";
 
 }

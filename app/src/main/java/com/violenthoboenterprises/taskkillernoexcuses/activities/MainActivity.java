@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.GradientDrawable;
@@ -70,6 +71,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.violenthoboenterprises.taskkillernoexcuses.Database;
 import com.violenthoboenterprises.taskkillernoexcuses.R;
+import com.violenthoboenterprises.taskkillernoexcuses.databinding.ActivityMainBinding;
 import com.violenthoboenterprises.taskkillernoexcuses.model.MainActivityPresenterImpl;
 import com.violenthoboenterprises.taskkillernoexcuses.model.SubtaskViewModel;
 import com.violenthoboenterprises.taskkillernoexcuses.model.SubtasksPresenterImpl;
@@ -242,7 +244,9 @@ public class MainActivity extends AppCompatActivity implements
 //            "#eeef0000", "#eeef4800", "#eeef8f00", "#eeff38ec", "#eeef1a7a", "#eeef85d4",
 //            "#eeae87f4", "#eeb2a2f4", "#eef4a2d4", "#eef46c6c", "#eef46f35", "#eef38797"};
     //Decimal version of the highlight color
-//    static String highlightDec;
+    private String strHighlightColorDec;
+    //User selected highlight color
+    private String strHighlightColor;
 
     //Required for setting notification alarms
 //    static Intent alertIntent;
@@ -387,6 +391,8 @@ public class MainActivity extends AppCompatActivity implements
 //    ImageView unlockAllImg;
 //    ImageView unlockAllPurchasedImg;
 
+    ActivityMainBinding binding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -394,7 +400,8 @@ public class MainActivity extends AppCompatActivity implements
             getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.dark_gray));
         }
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         MobileAds.initialize(this, "ca-app-pub-2378583121223638~1405620900");
 
@@ -440,6 +447,11 @@ public class MainActivity extends AppCompatActivity implements
         intShowReviewPrompt = preferences.getInt(StringConstants.SHOW_REVIEW_KEY, 0);
         lngTimeInstalled = preferences.getLong(StringConstants.TIME_INSTALLED_KEY, 0);
         boolColorCyclingAllowed = preferences.getBoolean(StringConstants.COLOR_CYCLING_AVAILABLE_KEY, false);
+        strHighlightColor = preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00");
+        strHighlightColorDec = preferences.getString(StringConstants.DEC_HIGHLIGHT_COLOR_KEY, "#ff34ff00");
+
+        //binding the highlight color to attributes in layout file
+        binding.setHighlightColor(Color.parseColor(strHighlightColor));
 
         //Initialising variables
 //        taskPropertiesShowing = false;
@@ -1980,11 +1992,14 @@ public class MainActivity extends AppCompatActivity implements
                         tb.setTitleTextColor(Color.parseColor(tempHighlight));
 //                            addIcon.setTextColor(Color.parseColor(tempHighlight));//TODO change fab color
                         etTask.setBackgroundColor(Color.parseColor(tempHighlight));
+                        Log.d(TAG, "dec: " + selectedColor + " hex: " + tempHighlight);
                     }).setPositiveButton(getString(R.string.oK), (dialog, selectedColor, allColors) -> {
-//                            highlight = "#" + Integer.toHexString(selectedColor);//TODO reinstate this
-//                            highlightDec = String.valueOf(selectedColor);//TODO reinstate this
+                            strHighlightColor = "#" + Integer.toHexString(selectedColor);
+                            strHighlightColorDec = String.valueOf(selectedColor);
 //                            db.updateHighlight(highlight);
 //                            db.updateHighlightDec(String.valueOf(selectedColor));
+                preferences.edit().putString(StringConstants.HIGHLIGHT_COLOR_KEY, strHighlightColor).apply();
+                preferences.edit().putString(StringConstants.DEC_HIGHLIGHT_COLOR_KEY, strHighlightColorDec).apply();
 
 //                            toast.setBackgroundColor(Color.parseColor(highlight));//TODO reinstate this
                         int[] colors = {0, selectedColor, 0};
@@ -1997,9 +2012,9 @@ public class MainActivity extends AppCompatActivity implements
 //                            }//TODO reinstate this
                     }).setNegativeButton(getString(R.string.cancel), (dialog, which) -> {
 //                            toolbarDark.setTitleTextColor(Color.parseColor(highlight));
-//                            tb.setTitleTextColor(Color.parseColor(highlight));//TODO reinstate this
+                            tb.setTitleTextColor(Color.parseColor(preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00")));
 //                            addIcon.setTextColor(Color.parseColor(highlight));//TODO reinstate this
-//                            taskNameEditText.setBackgroundColor(Color.parseColor(highlight));//TODO reinstate this
+                            etTask.setBackgroundColor(Color.parseColor(preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00")));
                     }).build().show();
 
             return true;
