@@ -60,10 +60,10 @@ import android.widget.Toast;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
-//import com.flask.colorpicker.ColorPickerView;
-//import com.flask.colorpicker.OnColorSelectedListener;
-//import com.flask.colorpicker.builder.ColorPickerClickListener;
-//import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.OnColorSelectedListener;
+import com.flask.colorpicker.builder.ColorPickerClickListener;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -103,6 +103,8 @@ public class MainActivity extends AppCompatActivity implements
     public static boolean boolDueInPast;
     //used to determine if the keyboard is showing
     public static boolean boolKeyboardShowing;
+    //used to determine if user has access to color cycling
+    private boolean boolColorCyclingAllowed;
     //Indicates if a task's options are showing
 //    static boolean taskOptionsShowing;
     //Indicates if tasks can be clicked on
@@ -437,6 +439,7 @@ public class MainActivity extends AppCompatActivity implements
         intRenameHint = preferences.getInt(StringConstants.RENAME_HINT_KEY, 0);
         intShowReviewPrompt = preferences.getInt(StringConstants.SHOW_REVIEW_KEY, 0);
         lngTimeInstalled = preferences.getLong(StringConstants.TIME_INSTALLED_KEY, 0);
+        boolColorCyclingAllowed = preferences.getBoolean(StringConstants.COLOR_CYCLING_AVAILABLE_KEY, false);
 
         //Initialising variables
 //        taskPropertiesShowing = false;
@@ -1960,53 +1963,44 @@ public class MainActivity extends AppCompatActivity implements
 
             Log.d(TAG, "Show colour picker");
 
-//            int colorPickerTheme;
+            int colorPickerTheme;
 //            if(lightDark){
-//                colorPickerTheme = R.style.ColorPickerThemeLight;
+                colorPickerTheme = R.style.ColorPickerThemeLight;
 //            }else{
 //                colorPickerTheme = R.style.ColorPickerThemeDark;
 //            }
-//
-//            ColorPickerDialogBuilder
-//                    .with(MainActivity.this, colorPickerTheme).setTitle(getString(R.string.chooseColor))
-//                    .initialColor(Integer.parseInt(highlightDec))
-//                    .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
-//                    .density(10).noSliders().setOnColorSelectedListener(new OnColorSelectedListener() {
-//                        @Override
-//                        public void onColorSelected(int selectedColor) {
-//                            String tempHighlight = "#" + Integer.toHexString(selectedColor);
+
+            ColorPickerDialogBuilder
+                    .with(MainActivity.this, colorPickerTheme).setTitle(getString(R.string.chooseColor))
+//                    .initialColor(Integer.parseInt(highlightDec))//TODO get initial color
+                    .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                    .density(10).noSliders().setOnColorSelectedListener(selectedColor -> {
+                        String tempHighlight = "#" + Integer.toHexString(selectedColor);
 //                            toolbarDark.setTitleTextColor(Color.parseColor(tempHighlight));
-//                            toolbarLight.setTitleTextColor(Color.parseColor(tempHighlight));
-//                            addIcon.setTextColor(Color.parseColor(tempHighlight));
-//                            taskNameEditText.setBackgroundColor(Color.parseColor(tempHighlight));
-//                        }
-//                    }).setPositiveButton(getString(R.string.oK), new ColorPickerClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
-//                            highlight = "#" + Integer.toHexString(selectedColor);
-//                            highlightDec = String.valueOf(selectedColor);
+                        tb.setTitleTextColor(Color.parseColor(tempHighlight));
+//                            addIcon.setTextColor(Color.parseColor(tempHighlight));//TODO change fab color
+                        etTask.setBackgroundColor(Color.parseColor(tempHighlight));
+                    }).setPositiveButton(getString(R.string.oK), (dialog, selectedColor, allColors) -> {
+//                            highlight = "#" + Integer.toHexString(selectedColor);//TODO reinstate this
+//                            highlightDec = String.valueOf(selectedColor);//TODO reinstate this
 //                            db.updateHighlight(highlight);
 //                            db.updateHighlightDec(String.valueOf(selectedColor));
-//
-//                            toast.setBackgroundColor(Color.parseColor(highlight));
-//                            int[] colors = {0, selectedColor, 0};
+
+//                            toast.setBackgroundColor(Color.parseColor(highlight));//TODO reinstate this
+                        int[] colors = {0, selectedColor, 0};
 //                            theListView.setDivider(new GradientDrawable
-//                                    (GradientDrawable.Orientation.RIGHT_LEFT, colors));
-//                            if(!lightDark) {
-//                                theListView.setDividerHeight(1);
-//                            }else{
-//                                theListView.setDividerHeight(3);
-//                            }
-//                        }
-//                    }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
+//                                    (GradientDrawable.Orientation.RIGHT_LEFT, colors));//TODO reinstate this
+//                            if(!lightDark) {//TODO reinstate this
+//                                theListView.setDividerHeight(1);//TODO reinstate this
+//                            }else{//TODO reinstate this
+//                                theListView.setDividerHeight(3);//TODO reinstate this
+//                            }//TODO reinstate this
+                    }).setNegativeButton(getString(R.string.cancel), (dialog, which) -> {
 //                            toolbarDark.setTitleTextColor(Color.parseColor(highlight));
-//                            toolbarLight.setTitleTextColor(Color.parseColor(highlight));
-//                            addIcon.setTextColor(Color.parseColor(highlight));
-//                            taskNameEditText.setBackgroundColor(Color.parseColor(highlight));
-//                        }
-//                    }).build().show();
+//                            tb.setTitleTextColor(Color.parseColor(highlight));//TODO reinstate this
+//                            addIcon.setTextColor(Color.parseColor(highlight));//TODO reinstate this
+//                            taskNameEditText.setBackgroundColor(Color.parseColor(highlight));//TODO reinstate this
+                    }).build().show();
 
             return true;
 
@@ -2015,7 +2009,7 @@ public class MainActivity extends AppCompatActivity implements
 
             Log.d(TAG, "Cycle colors");
 
-//            if(colorCyclingAllowed){
+            if(boolColorCyclingAllowed){
 //                if(colorCyclingEnabled){
 //                    colorCyclingEnabled = false;
 //                    item.setChecked(false);
@@ -2025,7 +2019,8 @@ public class MainActivity extends AppCompatActivity implements
 //                    item.setChecked(true);
 //                    db.updateCycleEnabled(true);
 //                }
-//            }else{
+            }else{
+                showPurchases();
 //                purchasesShowing = true;
 //                add.setClickable(false);
 //                theListView.setOnItemClickListener(null);
@@ -2041,14 +2036,10 @@ public class MainActivity extends AppCompatActivity implements
 //
 //                final Handler handler = new Handler();
 //
-//                final Runnable runnable = new Runnable() {
-//                    public void run() {
-//                        purchases.setVisibility(View.VISIBLE);
-//                    }
-//                };
+//                final Runnable runnable = () -> purchases.setVisibility(View.VISIBLE);
 //
 //                handler.postDelayed(runnable, 200);
-//            }
+            }
 
             return true;
 

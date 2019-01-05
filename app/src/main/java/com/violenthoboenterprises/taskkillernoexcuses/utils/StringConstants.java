@@ -5,6 +5,7 @@ public class StringConstants {
     public static String MUTE_KEY = "mute_key";
     public static String ADS_REMOVED_KEY = "ads_removed_key";
     public static String REMINDERS_AVAILABLE_KEY = "reminders_available_key";
+    public static String COLOR_CYCLING_AVAILABLE_KEY = "color_cycling_available_key";
     public static String MOTIVATION_KEY = "motivation_key";
     public static String REPEAT_HINT_KEY = "repeat_hint_key";
     public static String RENAME_HINT_KEY = "rename_hint_key";
