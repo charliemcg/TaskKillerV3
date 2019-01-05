@@ -3,6 +3,7 @@ package com.violenthoboenterprises.taskkillernoexcuses.model;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.drm.DrmStore;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -104,8 +105,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 //            holder.alarmClock.setImageDrawable(context.getResources()
 //                    .getDrawable(R.drawable.due_icon_solid_dot));
         }else{
-            holder.alarmClock.setImageDrawable(context.getResources()
-                    .getDrawable(R.drawable.due_icon_light_solid));
+//            holder.alarmClock.setImageDrawable(context.getResources()
+//                    .getDrawable(R.drawable.due_icon_light_solid));
         }
 
         //checking if needed to display note icon
@@ -114,8 +115,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 //            holder.postItNote.setImageDrawable(context.getResources()
 //                    .getDrawable(R.drawable.note_icon_solid_dot));
         }else{
-            holder.postItNote.setImageDrawable(context.getResources()
-                    .getDrawable(R.drawable.note_icon_light_solid));
+//            holder.postItNote.setImageDrawable(context.getResources()
+//                    .getDrawable(R.drawable.note_icon_light_solid));
         }
 
         //checking if needed to display subtasks icon
@@ -126,8 +127,8 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 //            holder.clipBoard.setImageDrawable(context.getResources()
 //                    .getDrawable(R.drawable.subtasks_icon_solid_dot));
         }else{
-            holder.clipBoard.setImageDrawable(context.getResources()
-                    .getDrawable(R.drawable.subtasks_icon_light_solid));
+//            holder.clipBoard.setImageDrawable(context.getResources()
+//                    .getDrawable(R.drawable.subtasks_icon_light_solid));
         }
 
         //checking if needed to display repeat icon
@@ -147,7 +148,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 MainActivity.boolPropertiesShowing = false;
                 holder.taskProperties.startAnimation(AnimationUtils.loadAnimation(context, R.anim.exit_out_left));
                 Handler handler = new Handler();
-                Runnable runnable = () -> holder.taskProperties.setVisibility(View.GONE);
+                Runnable runnable = () -> {
+                    holder.taskProperties.setVisibility(View.GONE);
+                    notifyDataSetChanged();
+                };
+//                Runnable runnable = () -> holder.taskProperties.setVisibility(View.GONE);
                 handler.postDelayed(runnable, 500);
                 mainActivityPresenter.toggleFab(true);
                 //redrawing the UI to remove properties from view
@@ -173,7 +178,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
         //show reminder activity
         holder.btnAlarm.setOnClickListener(view -> {
-            holder.taskProperties.setVisibility(View.GONE);
+//            holder.taskProperties.setVisibility(View.GONE);
             MainActivity.boolPropertiesShowing = false;
             if (mainActivityPresenter.getDuesSet() < 5 || currentTask.getTimestamp() != 0
                     || preferences.getBoolean(StringConstants.REMINDERS_AVAILABLE_KEY, false)) {
@@ -187,7 +192,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
         //show subtasks activity
         holder.btnSubtasks.setOnClickListener(view -> {
-            holder.taskProperties.setVisibility(View.GONE);
+//            holder.taskProperties.setVisibility(View.GONE);
             MainActivity.boolPropertiesShowing = false;
             Intent intent = new Intent(context, SubtasksActivity.class);
             intent.putExtra("task", currentTask);
@@ -196,7 +201,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
         //show note activity
         holder.btnNote.setOnClickListener(view -> {
-            holder.taskProperties.setVisibility(View.GONE);
+//            holder.taskProperties.setVisibility(View.GONE);
             MainActivity.boolPropertiesShowing = false;
             Intent intent = new Intent(context, NoteActivity.class);
             intent.putExtra("task", currentTask);
