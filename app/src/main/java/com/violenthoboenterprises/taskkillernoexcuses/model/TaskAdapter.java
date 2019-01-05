@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
+import java.util.logging.LogRecord;
 
 /*
  * Adding tasks to the recycler view
@@ -142,13 +145,17 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             preferences.edit().putInt(StringConstants.REFRESH_THIS_ITEM, position).apply();
             if (holder.taskProperties.getVisibility() == View.VISIBLE) {
                 MainActivity.boolPropertiesShowing = false;
-                holder.taskProperties.setVisibility(View.GONE);
+                holder.taskProperties.startAnimation(AnimationUtils.loadAnimation(context, R.anim.exit_out_left));
+                Handler handler = new Handler();
+                Runnable runnable = () -> holder.taskProperties.setVisibility(View.GONE);
+                handler.postDelayed(runnable, 500);
                 mainActivityPresenter.toggleFab(true);
                 //redrawing the UI to remove properties from view
                 activityRootView.postInvalidate();
             } else {
                 MainActivity.boolPropertiesShowing = true;
                 holder.taskProperties.setVisibility(View.VISIBLE);
+                holder.taskProperties.startAnimation(AnimationUtils.loadAnimation(context, R.anim.enter_from_right));
                 mainActivityPresenter.toggleFab(false);
                 //hide keyboard if it is showing
                 if(MainActivity.boolKeyboardShowing){

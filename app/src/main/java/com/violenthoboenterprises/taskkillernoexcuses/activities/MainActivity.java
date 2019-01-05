@@ -324,7 +324,7 @@ public class MainActivity extends AppCompatActivity implements
 
     //The action bar
 //    private Toolbar toolbarDark;
-    private Toolbar toolbarLight;
+    private Toolbar tb;
 //    static RelativeLayout.LayoutParams toolbarParams;
 
     //Action bar options
@@ -396,9 +396,9 @@ public class MainActivity extends AppCompatActivity implements
         MobileAds.initialize(this, "ca-app-pub-2378583121223638~1405620900");
 
 //        toolbarDark = findViewById(R.id.toolbar_dark);
-        toolbarLight = findViewById(R.id.tb);
+        tb = findViewById(R.id.tb);
 //        setSupportActionBar(toolbarDark);
-        setSupportActionBar(toolbarLight);
+        setSupportActionBar(tb);
 
         preferences = this.getSharedPreferences("com.violenthoboenterprises.blistful",
                 Context.MODE_PRIVATE);
@@ -1705,10 +1705,10 @@ public class MainActivity extends AppCompatActivity implements
 //        }
         if (!menu.hasVisibleItems()) {
             getMenuInflater().inflate(R.menu.menu_main, menu);
-            miPro = this.toolbarLight.getMenu().findItem(R.id.itemBuy);
-            MenuItem miMotivation = this.toolbarLight.getMenu().findItem(R.id.itemMotivation);
+            miPro = this.tb.getMenu().findItem(R.id.itemBuy);
+            MenuItem miMotivation = this.tb.getMenu().findItem(R.id.itemMotivation);
             //Action bar options
-            MenuItem miMute = this.toolbarLight.getMenu().findItem(R.id.itemMute);
+            MenuItem miMute = this.tb.getMenu().findItem(R.id.itemMute);
             if (boolShowMotivation) {
                 miMotivation.setChecked(true);
             }
