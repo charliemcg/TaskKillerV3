@@ -35,6 +35,7 @@ import com.violenthoboenterprises.taskkillernoexcuses.presenter.ReminderPresente
 import com.violenthoboenterprises.taskkillernoexcuses.utils.AlertReceiver;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Locale;
 
 public class ReminderActivity extends MainActivity {
@@ -400,15 +401,19 @@ private final String TAG = this.getClass().getSimpleName();
         if (reminderPresenter.getRepeatInterval() == null) {
 //            imgCancelRepeatFaded.setVisibility(View.INVISIBLE);
 //            imgCancelRepeat.setVisibility(View.VISIBLE);
+            imgCancelRepeatFaded.setBackgroundColor(getResources().getColor(R.color.lightGreen));
         } else if (reminderPresenter.getRepeatInterval().equals(REPEAT_DAY)) {
 //            imgDailyFaded.setVisibility(View.INVISIBLE);
 //            imgDaily.setVisibility(View.VISIBLE);
+            imgDailyFaded.setBackgroundColor(getResources().getColor(R.color.lightGreen));
         } else if (reminderPresenter.getRepeatInterval().equals(REPEAT_WEEK)) {
 //            imgWeeklyFaded.setVisibility(View.INVISIBLE);
 //            imgWeekly.setVisibility(View.VISIBLE);
+            imgWeeklyFaded.setBackgroundColor(getResources().getColor(R.color.lightGreen));
         } else if (reminderPresenter.getRepeatInterval().equals(REPEAT_MONTH)) {
 //            imgMonthlyFaded.setVisibility(View.INVISIBLE);
 //            imgMonthly.setVisibility(View.VISIBLE);
+            imgMonthlyFaded.setBackgroundColor(getResources().getColor(R.color.lightGreen));
         }
 
         //Actions to occur when user selects to set/change date
@@ -839,6 +844,11 @@ private final String TAG = this.getClass().getSimpleName();
 //            imgMonthlyFaded.setVisibility(View.VISIBLE);
 //            imgMonthly.setVisibility(View.INVISIBLE);
 
+            imgCancelRepeatFaded.setBackgroundColor(getResources().getColor(R.color.lightGreen));
+            imgDailyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+            imgWeeklyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+            imgMonthlyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+
             if (reminderPresenter.getYear() == 0 && reminderPresenter.getHour() == 0) {
 
                 miKillReminder.setVisible(false);
@@ -871,6 +881,11 @@ private final String TAG = this.getClass().getSimpleName();
 //            imgMonthlyFaded.setVisibility(View.VISIBLE);
 //            imgMonthly.setVisibility(View.INVISIBLE);
 
+            imgCancelRepeatFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+            imgDailyFaded.setBackgroundColor(getResources().getColor(R.color.lightGreen));
+            imgWeeklyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+            imgMonthlyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+
             miKillReminder.setVisible(true);
 
             reminderPresenter.setRepeatInterval(REPEAT_DAY);
@@ -899,6 +914,11 @@ private final String TAG = this.getClass().getSimpleName();
 //            imgMonthlyFaded.setVisibility(View.VISIBLE);
 //            imgMonthly.setVisibility(View.INVISIBLE);
 
+            imgCancelRepeatFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+            imgDailyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+            imgWeeklyFaded.setBackgroundColor(getResources().getColor(R.color.lightGreen));
+            imgMonthlyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+
             miKillReminder.setVisible(true);
 
             reminderPresenter.setRepeatInterval(REPEAT_WEEK);
@@ -926,6 +946,11 @@ private final String TAG = this.getClass().getSimpleName();
 //            imgWeekly.setVisibility(View.INVISIBLE);
 //            imgMonthlyFaded.setVisibility(View.INVISIBLE);
 //            imgMonthly.setVisibility(View.VISIBLE);
+
+            imgCancelRepeatFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+            imgDailyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+            imgWeeklyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+            imgMonthlyFaded.setBackgroundColor(getResources().getColor(R.color.lightGreen));
 
             miKillReminder.setVisible(true);
 

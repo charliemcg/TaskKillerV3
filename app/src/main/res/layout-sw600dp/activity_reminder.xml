@@ -4,8 +4,8 @@
     android:id="@+id/pickerRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <!--<android.support.v7.widget.Toolbar-->
     <!--android:id="@+id/tbDue"-->
@@ -19,21 +19,21 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:elevation="4dp"
-        app:titleTextColor="@color/lightGreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/lightGreen" />
     <!--style="@style/HeaderBar"-->
 
     <TextView
         android:id="@+id/reminderDivider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:background="@color/mid_gray"
+        app:layout_constraintBottom_toTopOf="@+id/btnDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tbReminder"
-        app:layout_constraintBottom_toTopOf="@+id/btnDate"
-        android:background="@color/mid_gray" />
+        app:layout_constraintTop_toBottomOf="@id/tbReminder" />
 
     <!--<LinearLayout-->
     <!--android:id="@+id/btnDate"-->
@@ -110,7 +110,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btnTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reminderDivider"/>
+        app:layout_constraintTop_toBottomOf="@+id/reminderDivider" />
 
     <TextView
         android:id="@+id/divTwo"
@@ -232,17 +232,28 @@
     <!--android:contentDescription="@string/accessNoRepeat"-->
     <!--android:src="@drawable/no_repeat_dark" />-->
 
-    <ImageView
-        android:id="@+id/imgCancelRepeatFaded"
-        android:layout_width="0dp"
-        android:layout_height="85dp"
-        android:contentDescription="@string/accessNoRepeat"
-        android:src="@drawable/no_repeat_light"
-        android:background="@color/lightGreen"
+    <RelativeLayout
+        android:id="@+id/imgCancelRepeatFadedLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/viewRepeatLayout"
-        app:layout_constraintLeft_toLeftOf="@+id/viewRepeatLayout"
-        app:layout_constraintRight_toLeftOf="@+id/imgDailyRepeatFaded"
-        app:layout_constraintTop_toTopOf="@+id/viewRepeatLayout" />
+        app:layout_constraintLeft_toLeftOf="@id/viewRepeatLayout"
+        app:layout_constraintRight_toRightOf="@id/viewRepeatLayout"
+        app:layout_constraintTop_toTopOf="@+id/viewRepeatLayout">
+
+        <ImageView
+            android:id="@+id/imgCancelRepeatFaded"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:background="@color/gray"
+            android:contentDescription="@string/accessNoRepeat"
+            android:src="@drawable/no_repeat_light"/>
+            <!--app:layout_constraintBottom_toBottomOf="@+id/viewRepeatLayout"-->
+            <!--app:layout_constraintLeft_toLeftOf="@+id/viewRepeatLayout"-->
+            <!--app:layout_constraintRight_toLeftOf="@+id/imgDailyRepeatFadedLayout"-->
+            <!--app:layout_constraintTop_toTopOf="@+id/viewRepeatLayout" />-->
+
+    </RelativeLayout>
 
     <!--</RelativeLayout>-->
 
@@ -253,23 +264,34 @@
     <!--android:gravity="center">-->
 
     <!--<ImageView-->
-        <!--android:id="@+id/imgDailyRepeatFaded"-->
-        <!--android:layout_width="100dp"-->
-        <!--android:layout_height="100dp"-->
-        <!--android:contentDescription="@string/accessDailyRepeat"-->
-        <!--android:src="@drawable/repeat_daily_dark" />-->
+    <!--android:id="@+id/imgDailyRepeatFaded"-->
+    <!--android:layout_width="100dp"-->
+    <!--android:layout_height="100dp"-->
+    <!--android:contentDescription="@string/accessDailyRepeat"-->
+    <!--android:src="@drawable/repeat_daily_dark" />-->
 
-    <ImageView
-        android:id="@+id/imgDailyRepeatFaded"
-        android:layout_width="0dp"
-        android:layout_height="85dp"
-        android:contentDescription="@string/accessDailyRepeat"
-        android:src="@drawable/repeat_daily_light"
-        android:background="@color/gray"
-        app:layout_constraintLeft_toRightOf="@+id/imgCancelRepeatFaded"
-        app:layout_constraintRight_toLeftOf="@+id/imgWeeklyRepeatFaded"
+    <RelativeLayout
+        android:id="@+id/imgDailyRepeatFadedLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/viewRepeatLayout"
-        app:layout_constraintTop_toTopOf="@+id/viewRepeatLayout" />
+        app:layout_constraintLeft_toRightOf="@+id/imgCancelRepeatFadedLayout"
+        app:layout_constraintRight_toLeftOf="@id/imgWeeklyRepeatFadedLayout"
+        app:layout_constraintTop_toTopOf="@+id/viewRepeatLayout">
+
+        <ImageView
+            android:id="@+id/imgDailyRepeatFaded"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:background="@color/gray"
+            android:contentDescription="@string/accessDailyRepeat"
+            android:src="@drawable/repeat_daily_light" />
+        <!--app:layout_constraintBottom_toBottomOf="@+id/viewRepeatLayout"-->
+        <!--app:layout_constraintLeft_toRightOf="@+id/imgCancelRepeatFaded"-->
+        <!--app:layout_constraintRight_toLeftOf="@+id/imgWeeklyRepeatFadedLayout"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/viewRepeatLayout" />-->
+
+    </RelativeLayout>
 
     <!--</RelativeLayout>-->
 
@@ -279,17 +301,28 @@
     <!--android:layout_weight="1"-->
     <!--android:gravity="center">-->
 
-    <ImageView
-        android:id="@+id/imgWeeklyRepeatFaded"
-        android:layout_width="0dp"
-        android:layout_height="85dp"
-        android:contentDescription="Circular arrow that says weekly repeat."
-        android:src="@drawable/repeat_weekly_light"
-        android:background="@color/gray"
-        app:layout_constraintLeft_toRightOf="@+id/imgDailyRepeatFaded"
-        app:layout_constraintRight_toLeftOf="@+id/imgMonthlyRepeatFaded"
+    <RelativeLayout
+        android:id="@+id/imgWeeklyRepeatFadedLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@+id/viewRepeatLayout"
-        app:layout_constraintTop_toTopOf="@+id/viewRepeatLayout" />
+        app:layout_constraintLeft_toRightOf="@+id/imgDailyRepeatFadedLayout"
+        app:layout_constraintRight_toLeftOf="@id/imgMonthlyRepeatFadedLayout"
+        app:layout_constraintTop_toTopOf="@+id/viewRepeatLayout">
+
+        <ImageView
+            android:id="@+id/imgWeeklyRepeatFaded"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:background="@color/gray"
+            android:contentDescription="Circular arrow that says weekly repeat."
+            android:src="@drawable/repeat_weekly_light" />
+        <!--app:layout_constraintBottom_toBottomOf="@+id/viewRepeatLayout"-->
+        <!--app:layout_constraintLeft_toRightOf="@+id/imgDailyRepeatFaded"-->
+        <!--app:layout_constraintRight_toLeftOf="@+id/imgMonthlyRepeatFadedLayout"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/viewRepeatLayout" />-->
+
+    </RelativeLayout>
 
     <!--</RelativeLayout>-->
 
@@ -299,19 +332,30 @@
     <!--android:layout_weight="1"-->
     <!--android:gravity="center">-->
 
-    <ImageView
-        android:id="@+id/imgMonthlyRepeatFaded"
-        android:layout_width="0dp"
-        android:layout_height="85dp"
-        android:contentDescription="@string/accessMonthlyRepeat"
-        android:src="@drawable/repeat_monthly_light"
-        android:background="@color/gray"
-        app:layout_constraintLeft_toRightOf="@+id/imgWeeklyRepeatFaded"
+    <RelativeLayout
+        android:id="@+id/imgMonthlyRepeatFadedLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/viewRepeatLayout"
+        app:layout_constraintLeft_toRightOf="@+id/imgWeeklyRepeatFadedLayout"
         app:layout_constraintRight_toRightOf="@id/viewRepeatLayout"
-        app:layout_constraintBottom_toBottomOf="@+id/viewRepeatLayout"
-        app:layout_constraintTop_toTopOf="@+id/viewRepeatLayout" />
+        app:layout_constraintTop_toTopOf="@+id/viewRepeatLayout">
 
-    <!--</RelativeLayout>-->
+        <ImageView
+            android:id="@+id/imgMonthlyRepeatFaded"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:background="@color/gray"
+            android:contentDescription="@string/accessMonthlyRepeat"
+            android:src="@drawable/repeat_monthly_light" />
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="85dp"-->
+        <!--app:layout_constraintBottom_toBottomOf="@+id/viewRepeatLayout"-->
+        <!--app:layout_constraintLeft_toRightOf="@+id/imgWeeklyRepeatFaded"-->
+        <!--app:layout_constraintRight_toRightOf="@id/viewRepeatLayout"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/viewRepeatLayout" />-->
+
+    </RelativeLayout>
 
     <!--</LinearLayout>-->
 
