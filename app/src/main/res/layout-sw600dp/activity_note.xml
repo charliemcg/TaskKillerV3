@@ -5,7 +5,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/noteRoot">
+    android:id="@+id/noteRoot"
+    android:background="@color/white">
 
     <!--<android.support.v7.widget.Toolbar-->
         <!--android:id="@+id/tbNote"-->
@@ -16,19 +17,24 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/tbNote"
-        style="@style/HeaderBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:elevation="4dp"
+        app:titleTextColor="@color/lightGreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <!--style="@style/HeaderBar"-->
 
     <TextView
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/noteToolbar"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tbNote"
+        app:layout_constraintBottom_toTopOf="@+id/tvNote"
+        android:background="@color/mid_gray"/>
 
     <!--<TextView-->
         <!--android:id="@+id/tvNote"-->

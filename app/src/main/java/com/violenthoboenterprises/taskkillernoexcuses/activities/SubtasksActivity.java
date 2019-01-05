@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -358,6 +359,10 @@ public class SubtasksActivity extends MainActivity implements SubtasksView {
         RecyclerView recyclerView = findViewById(R.id.subTasksRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                getResources().getConfiguration().orientation);
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
         //setting up the adapter
         final SubtasksAdapter subtasksAdapter = new SubtasksAdapter(this);

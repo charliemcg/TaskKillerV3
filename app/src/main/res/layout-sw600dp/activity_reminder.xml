@@ -4,7 +4,8 @@
     android:id="@+id/pickerRoot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white">
 
     <!--<android.support.v7.widget.Toolbar-->
     <!--android:id="@+id/tbDue"-->
@@ -15,18 +16,23 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/tbReminder"
-        style="@style/HeaderBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:elevation="4dp"
+        app:titleTextColor="@color/lightGreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <!--style="@style/HeaderBar"-->
 
     <TextView
+        android:id="@+id/reminderDivider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/toolbar_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tbReminder"
+        app:layout_constraintBottom_toTopOf="@+id/btnDate"
         android:background="@color/mid_gray" />
 
     <!--<LinearLayout-->
@@ -103,7 +109,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btnTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tbReminder" />
+        app:layout_constraintTop_toBottomOf="@+id/reminderDivider" />
 
     <TextView
         android:id="@+id/divTwo"
@@ -229,7 +235,8 @@
         android:layout_width="0dp"
         android:layout_height="85dp"
         android:contentDescription="@string/accessNoRepeat"
-        android:src="@drawable/no_repeat_dark"
+        android:src="@drawable/no_repeat_light"
+        android:background="@color/lightGreen"
         app:layout_constraintBottom_toBottomOf="@+id/viewRepeatLayout"
         app:layout_constraintLeft_toLeftOf="@+id/viewRepeatLayout"
         app:layout_constraintRight_toLeftOf="@+id/imgDailyRepeatFaded"
@@ -255,7 +262,8 @@
         android:layout_width="0dp"
         android:layout_height="85dp"
         android:contentDescription="@string/accessDailyRepeat"
-        android:src="@drawable/repeat_daily_dark"
+        android:src="@drawable/repeat_daily_light"
+        android:background="@color/gray"
         app:layout_constraintLeft_toRightOf="@+id/imgCancelRepeatFaded"
         app:layout_constraintRight_toLeftOf="@+id/imgWeeklyRepeatFaded"
         app:layout_constraintBottom_toBottomOf="@+id/viewRepeatLayout"
@@ -274,7 +282,8 @@
         android:layout_width="0dp"
         android:layout_height="85dp"
         android:contentDescription="Circular arrow that says weekly repeat."
-        android:src="@drawable/repeat_weekly_dark"
+        android:src="@drawable/repeat_weekly_light"
+        android:background="@color/gray"
         app:layout_constraintLeft_toRightOf="@+id/imgDailyRepeatFaded"
         app:layout_constraintRight_toLeftOf="@+id/imgMonthlyRepeatFaded"
         app:layout_constraintBottom_toBottomOf="@+id/viewRepeatLayout"
@@ -293,7 +302,8 @@
         android:layout_width="0dp"
         android:layout_height="85dp"
         android:contentDescription="@string/accessMonthlyRepeat"
-        android:src="@drawable/repeat_monthly_dark"
+        android:src="@drawable/repeat_monthly_light"
+        android:background="@color/gray"
         app:layout_constraintLeft_toRightOf="@+id/imgWeeklyRepeatFaded"
         app:layout_constraintRight_toRightOf="@id/viewRepeatLayout"
         app:layout_constraintBottom_toBottomOf="@+id/viewRepeatLayout"
