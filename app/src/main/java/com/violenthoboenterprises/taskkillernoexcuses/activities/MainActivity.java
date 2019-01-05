@@ -424,7 +424,7 @@ public class MainActivity extends AppCompatActivity implements
             mainActivityPresenter.migrateDatabase();
         }
 
-        if(preferences.getBoolean(StringConstants.REINSTATE_REMINDERS_AFTER_REBOOT, false)){
+        if (preferences.getBoolean(StringConstants.REINSTATE_REMINDERS_AFTER_REBOOT, false)) {
             BootReceiver bootReceiver = new BootReceiver();
             bootReceiver.reinstateReminders(this);
             preferences.edit().putBoolean(StringConstants.REINSTATE_REMINDERS_AFTER_REBOOT, false).apply();
@@ -630,8 +630,8 @@ public class MainActivity extends AppCompatActivity implements
                 } else {
 
                     long interval = 0;
-                    if(adapter.getTaskAt(viewHolder.getAdapterPosition())
-                            .getRepeatInterval().equals(StringConstants.MONTH)){
+                    if (adapter.getTaskAt(viewHolder.getAdapterPosition())
+                            .getRepeatInterval().equals(StringConstants.MONTH)) {
                         interval = mainActivityPresenter.getInterval(StringConstants.MONTH,
                                 adapter.getTaskAt(viewHolder.getAdapterPosition()).getTimestamp(),
                                 adapter.getTaskAt(viewHolder.getAdapterPosition()).getOriginalDay());
@@ -646,19 +646,19 @@ public class MainActivity extends AppCompatActivity implements
                     //actions to occur if user kills a task early
                     if (diff < 0) {
                         //cancel reminder
-                        if(preferences.getBoolean(StringConstants.REMINDERS_AVAILABLE_KEY, false)) {
+                        if (preferences.getBoolean(StringConstants.REMINDERS_AVAILABLE_KEY, false)) {
                             PendingIntent.getBroadcast(getApplicationContext(),
                                     adapter.getTaskAt(viewHolder.getAdapterPosition()).getId(),
                                     MainActivity.alertIntent,
                                     PendingIntent.FLAG_UPDATE_CURRENT).cancel();
                         }
-                        if(adapter.getTaskAt(viewHolder.getAdapterPosition()).getRepeatInterval().equals("day")) {
+                        if (adapter.getTaskAt(viewHolder.getAdapterPosition()).getRepeatInterval().equals("day")) {
                             //Add another day to the timestamp
                             newTimestamp += AlarmManager.INTERVAL_DAY;
-                        }else if(adapter.getTaskAt(viewHolder.getAdapterPosition()).getRepeatInterval().equals("week")){
+                        } else if (adapter.getTaskAt(viewHolder.getAdapterPosition()).getRepeatInterval().equals("week")) {
                             //Add another week to the timestamp
                             newTimestamp += (AlarmManager.INTERVAL_DAY * 7);
-                        }else if(adapter.getTaskAt(viewHolder.getAdapterPosition()).getRepeatInterval().equals("month")){
+                        } else if (adapter.getTaskAt(viewHolder.getAdapterPosition()).getRepeatInterval().equals("month")) {
                             //Add another month to the timestamp
                             newTimestamp += interval;
                         }
@@ -688,7 +688,7 @@ public class MainActivity extends AppCompatActivity implements
                         if ((preferences.getInt(StringConstants.REPEAT_HINT_KEY, 0) == 1)
                                 || (preferences.getInt(StringConstants.REPEAT_HINT_KEY, 0) == 10)) {
                             showRepeatHintToast();
-                        }else if(boolShowMotivation) {
+                        } else if (boolShowMotivation) {
                             //showing motivational toast
                             showKilledAffirmationToast();
                         }
@@ -702,7 +702,7 @@ public class MainActivity extends AppCompatActivity implements
                 toggleFab(true);
                 etTask.setText("");
                 //hide keyboard
-                if(boolKeyboardShowing){
+                if (boolKeyboardShowing) {
                     keyboard.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
                 }
 
@@ -1474,7 +1474,7 @@ public class MainActivity extends AppCompatActivity implements
             etTask.setText("");
         }
 
-        if(!boolKeyboardShowing) {
+        if (!boolKeyboardShowing) {
             //Show keyboard
             keyboard.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
         }
@@ -1486,16 +1486,16 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void showPurchases() {
-//        final Dialog dialog = new Dialog(MainActivity.this);
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        dialog.setCancelable(false);
-//
-//        dialog.setContentView(R.layout.dialog_purchases);
-//
+        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+
+        dialog.setContentView(R.layout.dialog_purchases);
+
 //        Button positive = dialog.findViewById(R.id.btnPositive);
-//        Button negative = dialog.findViewById(R.id.btnNegative);
-//
-//        //Buy button actions
+        TextView negative = dialog.findViewById(R.id.btnClosePurchases);
+
+        //Buy button actions
 //        positive.setOnClickListener(v -> {
 //
 //            dialog.dismiss();
@@ -1513,11 +1513,11 @@ public class MainActivity extends AppCompatActivity implements
 //            }
 //
 //        });
-//
-//        //Cancel button options
-//        negative.setOnClickListener(v -> dialog.dismiss());
-//
-//        dialog.show();
+
+        //Cancel button options
+        negative.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
     }
 
     @Override
@@ -1926,17 +1926,15 @@ public class MainActivity extends AppCompatActivity implements
 
             return true;
 
-            //Actions to occur if user selects the pro icon
+        //Actions to occur if user selects the pro icon
         } else if (id == R.id.itemBuy) {
 
             showPurchases();
 
             return true;
 
-        }
-
         //Actions to occur if user selects 'motivation'
-        else if (id == R.id.itemMotivation) {
+        } else if (id == R.id.itemMotivation) {
 
             if (boolShowMotivation) {
                 boolShowMotivation = false;
@@ -1947,6 +1945,110 @@ public class MainActivity extends AppCompatActivity implements
                 item.setChecked(true);
                 preferences.edit().putBoolean(StringConstants.MOTIVATION_KEY, true).apply();
             }
+
+            return true;
+
+        //Actions to occur if user selects to change light/dark mode
+        } else if (id == R.id.lightDark) {
+
+            Log.d(TAG, "Change theme");
+
+            return true;
+
+        //Actions to occur if user selects 'color'
+        }else if (id == R.id.highlight) {
+
+            Log.d(TAG, "Show colour picker");
+
+//            int colorPickerTheme;
+//            if(lightDark){
+//                colorPickerTheme = R.style.ColorPickerThemeLight;
+//            }else{
+//                colorPickerTheme = R.style.ColorPickerThemeDark;
+//            }
+//
+//            ColorPickerDialogBuilder
+//                    .with(MainActivity.this, colorPickerTheme).setTitle(getString(R.string.chooseColor))
+//                    .initialColor(Integer.parseInt(highlightDec))
+//                    .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+//                    .density(10).noSliders().setOnColorSelectedListener(new OnColorSelectedListener() {
+//                        @Override
+//                        public void onColorSelected(int selectedColor) {
+//                            String tempHighlight = "#" + Integer.toHexString(selectedColor);
+//                            toolbarDark.setTitleTextColor(Color.parseColor(tempHighlight));
+//                            toolbarLight.setTitleTextColor(Color.parseColor(tempHighlight));
+//                            addIcon.setTextColor(Color.parseColor(tempHighlight));
+//                            taskNameEditText.setBackgroundColor(Color.parseColor(tempHighlight));
+//                        }
+//                    }).setPositiveButton(getString(R.string.oK), new ColorPickerClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+//                            highlight = "#" + Integer.toHexString(selectedColor);
+//                            highlightDec = String.valueOf(selectedColor);
+//                            db.updateHighlight(highlight);
+//                            db.updateHighlightDec(String.valueOf(selectedColor));
+//
+//                            toast.setBackgroundColor(Color.parseColor(highlight));
+//                            int[] colors = {0, selectedColor, 0};
+//                            theListView.setDivider(new GradientDrawable
+//                                    (GradientDrawable.Orientation.RIGHT_LEFT, colors));
+//                            if(!lightDark) {
+//                                theListView.setDividerHeight(1);
+//                            }else{
+//                                theListView.setDividerHeight(3);
+//                            }
+//                        }
+//                    }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            toolbarDark.setTitleTextColor(Color.parseColor(highlight));
+//                            toolbarLight.setTitleTextColor(Color.parseColor(highlight));
+//                            addIcon.setTextColor(Color.parseColor(highlight));
+//                            taskNameEditText.setBackgroundColor(Color.parseColor(highlight));
+//                        }
+//                    }).build().show();
+
+            return true;
+
+        //Actions to occur if user selects 'cycle colors'
+        } else if (id == R.id.autoColor) {
+
+            Log.d(TAG, "Cycle colors");
+
+//            if(colorCyclingAllowed){
+//                if(colorCyclingEnabled){
+//                    colorCyclingEnabled = false;
+//                    item.setChecked(false);
+//                    db.updateCycleEnabled(false);
+//                }else{
+//                    colorCyclingEnabled = true;
+//                    item.setChecked(true);
+//                    db.updateCycleEnabled(true);
+//                }
+//            }else{
+//                purchasesShowing = true;
+//                add.setClickable(false);
+//                theListView.setOnItemClickListener(null);
+//                taskPropertiesShowing = false;
+//                if(lightDark){
+//                    onCreateOptionsMenu(toolbarLight.getMenu());
+//                }else {
+//                    onCreateOptionsMenu(toolbarDark.getMenu());
+//                }
+//
+//                purchases.startAnimation(AnimationUtils.loadAnimation
+//                        (this, R.anim.enter_from_right));
+//
+//                final Handler handler = new Handler();
+//
+//                final Runnable runnable = new Runnable() {
+//                    public void run() {
+//                        purchases.setVisibility(View.VISIBLE);
+//                    }
+//                };
+//
+//                handler.postDelayed(runnable, 200);
+//            }
 
             return true;
 
@@ -3042,10 +3144,10 @@ public class MainActivity extends AppCompatActivity implements
 //        }
 
         //If task properties are showing then the back button should close them
-        if(boolPropertiesShowing){
+        if (boolPropertiesShowing) {
             adapter.notifyItemChanged(preferences.getInt(StringConstants.REFRESH_THIS_ITEM, 0));
             boolPropertiesShowing = false;
-        }else {
+        } else {
             super.onBackPressed();
         }
 
