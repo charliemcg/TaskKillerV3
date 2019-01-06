@@ -99,8 +99,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             }
             //Switch to overdue icon when appropriate
             if ((repeatsAdjustedTimestamp < Calendar.getInstance().getTimeInMillis())) {
-                holder.dueIcon.setImageDrawable(context.getResources()
-                        .getDrawable(R.drawable.overdue_icon_light));
+                if(MainActivity.boolDarkModeEnabled) {
+                    holder.dueIcon.setImageDrawable(context.getResources()
+                            .getDrawable(R.drawable.overdue_icon_dark));
+                }else{
+                    holder.dueIcon.setImageDrawable(context.getResources()
+                            .getDrawable(R.drawable.overdue_icon_light));
+                }
+                holder.dueIcon.setBackgroundColor(Color.RED);
                 holder.tvDue.setTextColor(Color.RED);
             } else {
                 holder.dueIcon.setImageDrawable(context.getResources()
@@ -229,12 +235,40 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             holder.tvAlarm.setTextColor(context.getResources().getColor(R.color.gray));
             holder.tvSubtasks.setTextColor(context.getResources().getColor(R.color.gray));
             holder.tvNote.setTextColor(context.getResources().getColor(R.color.gray));
+            holder.subtasksIcon.setImageDrawable(context.getResources()
+                    .getDrawable(R.drawable.subtasks_icon_dark));
+            holder.noteIcon.setImageDrawable(context.getResources()
+                    .getDrawable(R.drawable.note_icon_dark));
+            holder.repeatIcon.setImageDrawable(context.getResources()
+                    .getDrawable(R.drawable.repeat_icon_dark));
+            holder.dueIcon.setImageDrawable(context.getResources()
+                    .getDrawable(R.drawable.due_icon_dark));
+            holder.alarmClock.setImageDrawable(context.getResources()
+                    .getDrawable(R.drawable.due_icon_dark_solid));
+            holder.clipBoard.setImageDrawable(context.getResources()
+                    .getDrawable(R.drawable.subtasks_icon_dark_solid));
+            holder.postItNote.setImageDrawable(context.getResources()
+                    .getDrawable(R.drawable.note_icon_dark_solid));
         }else{
             holder.tvTask.setTextColor(context.getResources().getColor(R.color.black));
             holder.tvDue.setTextColor(context.getResources().getColor(R.color.black));
             holder.tvAlarm.setTextColor(context.getResources().getColor(R.color.black));
             holder.tvSubtasks.setTextColor(context.getResources().getColor(R.color.black));
             holder.tvNote.setTextColor(context.getResources().getColor(R.color.black));
+            holder.subtasksIcon.setImageDrawable(context.getResources()
+                    .getDrawable(R.drawable.subtasks_icon_light));
+            holder.noteIcon.setImageDrawable(context.getResources()
+                    .getDrawable(R.drawable.note_icon_light));
+            holder.repeatIcon.setImageDrawable(context.getResources()
+                    .getDrawable(R.drawable.repeat_icon_light));
+            holder.dueIcon.setImageDrawable(context.getResources()
+                    .getDrawable(R.drawable.due_icon_light));
+            holder.alarmClock.setImageDrawable(context.getResources()
+                    .getDrawable(R.drawable.due_icon_light_solid));
+            holder.clipBoard.setImageDrawable(context.getResources()
+                    .getDrawable(R.drawable.subtasks_icon_light_solid));
+            holder.postItNote.setImageDrawable(context.getResources()
+                    .getDrawable(R.drawable.note_icon_light_solid));
         }
     }
 

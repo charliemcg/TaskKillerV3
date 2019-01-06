@@ -973,6 +973,12 @@ public class ReminderActivity extends MainActivity {
             reminderRoot.setBackgroundColor(getResources().getColor(R.color.dark_gray));
             tvDate.setTextColor(getResources().getColor(R.color.gray));
             tvTime.setTextColor(getResources().getColor(R.color.gray));
+            imgCalendarFaded.setImageDrawable(getResources().getDrawable(R.drawable.calendar_faded));
+            imgTimeFaded.setImageDrawable(getResources().getDrawable(R.drawable.time_faded));
+            imgCancelRepeatFaded.setImageDrawable(getResources().getDrawable(R.drawable.repeat_none_dark));
+            imgDailyFaded.setImageDrawable(getResources().getDrawable(R.drawable.repeat_daily_dark));
+            imgWeeklyFaded.setImageDrawable(getResources().getDrawable(R.drawable.repeat_weekly_dark));
+            imgMonthlyFaded.setImageDrawable(getResources().getDrawable(R.drawable.repeat_monthly_dark));
         }else{
             tbReminder.setTitleTextColor(getResources().getColor(R.color.black));
             tbReminder.setSubtitleTextColor(getResources().getColor(R.color.mid_gray));
@@ -980,6 +986,12 @@ public class ReminderActivity extends MainActivity {
             reminderRoot.setBackgroundColor(getResources().getColor(R.color.white));
             tvDate.setTextColor(getResources().getColor(R.color.black));
             tvTime.setTextColor(getResources().getColor(R.color.black));
+            imgCalendarFaded.setImageDrawable(getResources().getDrawable(R.drawable.calendar_faded_light));
+            imgTimeFaded.setImageDrawable(getResources().getDrawable(R.drawable.time_faded_light));
+            imgCancelRepeatFaded.setImageDrawable(getResources().getDrawable(R.drawable.repeat_none_light));
+            imgDailyFaded.setImageDrawable(getResources().getDrawable(R.drawable.repeat_daily_light));
+            imgWeeklyFaded.setImageDrawable(getResources().getDrawable(R.drawable.repeat_weekly_light));
+            imgMonthlyFaded.setImageDrawable(getResources().getDrawable(R.drawable.repeat_monthly_light));
         }
     }
 

@@ -1656,6 +1656,7 @@ public class MainActivity extends AppCompatActivity implements
             activityRootView.setBackgroundColor(getResources().getColor(R.color.dark_gray));
             tb.setSubtitleTextColor(getResources().getColor(R.color.gray));
             adapter.notifyDataSetChanged();
+            imgNoTasks.setImageDrawable(getResources().getDrawable(R.drawable.no_tasks_dark));
 //            theListView.setBackgroundColor(Color.parseColor("#333333"));
 //            toolbarLight.setVisibility(View.INVISIBLE);
 //            toolbarDark.setVisibility(View.VISIBLE);
@@ -1683,6 +1684,7 @@ public class MainActivity extends AppCompatActivity implements
             activityRootView.setBackgroundColor(getResources().getColor(R.color.white));
             tb.setSubtitleTextColor(getResources().getColor(R.color.dark_gray));
             adapter.notifyDataSetChanged();
+            imgNoTasks.setImageDrawable(getResources().getDrawable(R.drawable.no_tasks_light));
 //            theListView.setBackgroundColor(Color.parseColor("#FFFFFF"));
 //            toolbarDark.setVisibility(View.INVISIBLE);
 //            toolbarLight.setVisibility(View.VISIBLE);
