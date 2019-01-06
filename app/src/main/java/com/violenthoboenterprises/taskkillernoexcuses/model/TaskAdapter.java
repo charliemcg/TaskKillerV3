@@ -109,8 +109,13 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 holder.dueIcon.setBackgroundColor(Color.RED);
                 holder.tvDue.setTextColor(Color.RED);
             } else {
-                holder.dueIcon.setImageDrawable(context.getResources()
-                        .getDrawable(R.drawable.due_icon_light));
+                if(MainActivity.boolDarkModeEnabled) {
+                    holder.dueIcon.setImageDrawable(context.getResources()
+                            .getDrawable(R.drawable.due_icon_dark));
+                }else{
+                    holder.dueIcon.setImageDrawable(context.getResources()
+                            .getDrawable(R.drawable.due_icon_light));
+                }
             }
             holder.tvDue.setVisibility(View.VISIBLE);
             String formattedDate = getFormattedDate(currentTask);
