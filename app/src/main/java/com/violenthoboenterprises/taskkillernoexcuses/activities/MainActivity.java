@@ -3020,6 +3020,8 @@ public class MainActivity extends AppCompatActivity implements
 //
 //            getSavedData();
 
+        lngTimeColorLastChanged = preferences.getLong(StringConstants.TIME_COLOR_LAST_CHANGED, lngTimeInstalled);
+
         if(boolColorCyclingAllowed && boolColorCyclingEnabled) {
             Calendar cal = Calendar.getInstance();
             if((cal.getTimeInMillis() / 1000 / 60 / 60) >= (lngTimeColorLastChanged + 4)) {
