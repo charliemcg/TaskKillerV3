@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/subtasksRoot"
-    android:background="@color/white">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/tbSubtasks"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="highlightColor"
+            type="int" />
+    </data>
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/subtasksRoot"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:elevation="4dp"
-        app:titleTextColor="@color/lightGreen"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-    <!--style="@style/HeaderBar"-->
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tbSubtasks"
-        app:layout_constraintBottom_toTopOf="@+id/subTasksRecyclerView"
-        android:background="@color/mid_gray"/>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tbSubtasks"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <!--style="@style/HeaderBar"-->
 
-    <!--<ListView-->
+        <TextView
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/mid_gray"
+            app:layout_constraintBottom_toTopOf="@+id/subTasksRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tbSubtasks" />
+
+        <!--<ListView-->
         <!--android:id="@+id/theChecklist"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent"-->
@@ -37,30 +41,31 @@
         <!--android:background="@color/dark_gray"-->
         <!--android:descendantFocusability="blocksDescendants"/>-->
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/subTasksRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/etSubtask"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tbSubtasks"
-        tools:listitem="@layout/item_task" />
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/subTasksRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/etSubtask"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tbSubtasks"
+            tools:listitem="@layout/item_task" />
 
-    <EditText
-        android:id="@+id/etSubtask"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:maxLines="1"
-        android:maxLength="80"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        android:inputType="textCapSentences"
-        android:background="@color/lightGreen"
-        android:hint="@string/checklistItem"
-        android:imeOptions="actionDone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        <EditText
+            android:id="@+id/etSubtask"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@{highlightColor}"
+            android:hint="@string/checklistItem"
+            android:imeOptions="actionDone"
+            android:inputType="textCapSentences"
+            android:maxLength="80"
+            android:maxLines="1"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+</layout>

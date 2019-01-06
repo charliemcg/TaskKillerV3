@@ -84,6 +84,8 @@ public class MainActivityPresenterImpl implements MainActivityPresenter {
 //        db.updateAdsRemoved(true);
 //        db.updateRemindersAvailable(true);
 //        db.updateReviewOne(true);
+//        db.updateCycleColors(true);
+//        db.updateCycleEnabled(true);
 //
 //        //adding mock task data
 //        db.insertData(3, "", "Task Name",
@@ -119,6 +121,8 @@ public class MainActivityPresenterImpl implements MainActivityPresenter {
             MainActivity.preferences.edit().putBoolean(StringConstants.MOTIVATION_KEY, (cursor.getInt(20) > 0)).apply();
             MainActivity.preferences.edit().putInt(StringConstants.REPEAT_HINT_KEY, (cursor.getInt(21))).apply();
             MainActivity.preferences.edit().putInt(StringConstants.RENAME_HINT_KEY, (cursor.getInt(22))).apply();
+            MainActivity.preferences.edit().putBoolean(StringConstants.COLOR_CYCLING_AVAILABLE_KEY, (cursor.getInt(7) > 0)).apply();
+            MainActivity.preferences.edit().putBoolean(StringConstants.COLOR_CYCLING_ENABLED_KEY, (cursor.getInt(18) > 0)).apply();
             long stampToAdjust = cursor.getInt(24);
             stampToAdjust = stampToAdjust * 1000 * 60 * 60;
             MainActivity.preferences.edit().putLong(StringConstants.TIME_INSTALLED_KEY, stampToAdjust).apply();

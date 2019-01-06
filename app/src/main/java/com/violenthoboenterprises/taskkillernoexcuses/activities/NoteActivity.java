@@ -2,10 +2,13 @@ package com.violenthoboenterprises.taskkillernoexcuses.activities;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,10 +20,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.violenthoboenterprises.taskkillernoexcuses.R;
+import com.violenthoboenterprises.taskkillernoexcuses.databinding.ActivityNoteBinding;
 import com.violenthoboenterprises.taskkillernoexcuses.model.NotePresenterImpl;
 import com.violenthoboenterprises.taskkillernoexcuses.model.Task;
 import com.violenthoboenterprises.taskkillernoexcuses.model.TaskViewModel;
 import com.violenthoboenterprises.taskkillernoexcuses.presenter.NotePresenter;
+import com.violenthoboenterprises.taskkillernoexcuses.utils.StringConstants;
 
 public class NoteActivity extends MainActivity {
 
@@ -48,11 +53,19 @@ public class NoteActivity extends MainActivity {
     //The parent task to which the note belongs
     private Task task;
 
+    ActivityNoteBinding binding;
+
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_note);
+//        setContentView(R.layout.activity_note);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_note);
         tbNote = findViewById(R.id.tbNote);
         setSupportActionBar(tbNote);
+
+        //binding the highlight color to attributes in layout file
+        binding.setHighlightColor(Color.parseColor(preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00")));
+
+//        binding = DataBindingUtil.setContentView(this, R.layout.activity_note);
 
 //        noteTextView = findViewById(R.id.noteTextView);
 //        noteEditText = findViewById(R.id.noteEditText);

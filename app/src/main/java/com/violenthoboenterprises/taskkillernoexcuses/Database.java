@@ -403,20 +403,27 @@ public class Database extends SQLiteOpenHelper {
         return result;
     }
 
-    public boolean updateData(String id, String note, Boolean checklist){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues content = new ContentValues();
-        content.put(COL1, id);
+//    public boolean updateData(String id, String note, Boolean checklist){
+//        SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues content = new ContentValues();
+//        content.put(COL1, id);
 //        if(MainActivity.inNote) {
 //            content.put(COL2, note);
 //        }else if(MainActivity.inChecklist){
 //            content.put(COL3, checklist);
 //        }else{
-            content.put(COL2, note);
-            content.put(COL3, checklist);
+//            content.put(COL2, note);
+//            content.put(COL3, checklist);
 //        }
+//        db.update(TABLE, content, "ID = ?", new String[] {id});
+//        return true;
+//    }
+
+    public void updateNote(String id, String note){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues content = new ContentValues();
+        content.put(COL2, note);
         db.update(TABLE, content, "ID = ?", new String[] {id});
-        return true;
     }
 
     public boolean updateDue(String id, Boolean due){
@@ -602,6 +609,13 @@ public class Database extends SQLiteOpenHelper {
         content.put(UCOL2, mute);
         db.update(UTABLE, content, "ID = ?", new String[] {"0"});
         return true;
+    }
+
+    public void updateTimeCreated(String time){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues content = new ContentValues();
+        content.put(UCOL25, time);
+        db.update(UTABLE, content, "ID = ?", new String[] {"0"});
     }
 
     public boolean updateHighlight(String highlight){

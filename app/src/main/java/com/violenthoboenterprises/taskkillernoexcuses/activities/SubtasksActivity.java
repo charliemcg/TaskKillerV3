@@ -3,6 +3,8 @@ package com.violenthoboenterprises.taskkillernoexcuses.activities;
 import android.app.job.JobScheduler;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -18,6 +20,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.violenthoboenterprises.taskkillernoexcuses.R;
+import com.violenthoboenterprises.taskkillernoexcuses.databinding.ActivitySubtasksBinding;
 import com.violenthoboenterprises.taskkillernoexcuses.model.Subtask;
 import com.violenthoboenterprises.taskkillernoexcuses.model.SubtaskViewModel;
 import com.violenthoboenterprises.taskkillernoexcuses.model.SubtasksAdapter;
@@ -64,10 +67,16 @@ public class SubtasksActivity extends MainActivity implements SubtasksView {
     public static boolean boolSubtasksKeyboardShowing;
     private View subtasksRootView;
 
+    ActivitySubtasksBinding binding;
+
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_subtasks);
+//        setContentView(R.layout.activity_subtasks);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_subtasks);
         Toolbar subTasksToolbar = findViewById(R.id.tbSubtasks);
+
+        //binding the highlight color to attributes in layout file
+        binding.setHighlightColor(Color.parseColor(preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00")));
 
 //        keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 //        checklistEditText = findViewById(R.id.checklistEditText);
@@ -480,7 +489,7 @@ public class SubtasksActivity extends MainActivity implements SubtasksView {
                     scheduler.cancel(StringConstants.DELETE_TASK_ID);
                     subtasksPresenter.reinstateSubTask(subtaskToReinstate);
                 })
-                .setActionTextColor(getResources().getColor(R.color.lightGreen))
+                .setActionTextColor(Color.parseColor(preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00")))
                 .show();
     }
 

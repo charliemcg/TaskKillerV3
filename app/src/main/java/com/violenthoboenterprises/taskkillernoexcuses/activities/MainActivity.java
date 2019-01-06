@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
@@ -107,6 +108,8 @@ public class MainActivity extends AppCompatActivity implements
     public static boolean boolKeyboardShowing;
     //used to determine if user has access to color cycling
     private boolean boolColorCyclingAllowed;
+    //used to determine if color cycling is enabled
+    private boolean boolColorCyclingEnabled;
     //Indicates if a task's options are showing
 //    static boolean taskOptionsShowing;
     //Indicates if tasks can be clicked on
@@ -198,6 +201,8 @@ public class MainActivity extends AppCompatActivity implements
     private int intRenameHint;
     //indicates if the review prompt should be shown
     private int intShowReviewPrompt;
+    //Used to determine if color needs to be changed
+    private long lngTimeColorLastChanged;
     //indicates if the reinstate hint should be shown
 //    static int reinstateHint;
     //timestamp that keeps record of when user downloaded the app.
@@ -239,14 +244,14 @@ public class MainActivity extends AppCompatActivity implements
 //            "-286326712", "-286326784", "-286308352", "-286290176", "-285263636", "-286320006",
 //            "-286292524", "-290551820", "-290282764", "-285957420", "-285971348", "-285970635",
 //            "-286029929"};
-//    String[] lightHighlights = {"#ee0019f8", "#ef0067ff", "#ef00a7ef", "#ee55b3ff", "#ef6b79f2",
-//            "#ef50a9f2", "#ef7c00f8", "#eecc00ff", "#eeff00e6", "#eeff009a", "#eeef0048",
-//            "#eeef0000", "#eeef4800", "#eeef8f00", "#eeff38ec", "#eeef1a7a", "#eeef85d4",
-//            "#eeae87f4", "#eeb2a2f4", "#eef4a2d4", "#eef46c6c", "#eef46f35", "#eef38797"};
+    String[] lightHighlights = {"#ee0019f8", "#ef0067ff", "#ef00a7ef", "#ee55b3ff", "#ef6b79f2",
+            "#ef50a9f2", "#ef7c00f8", "#eecc00ff", "#eeff00e6", "#eeff009a", "#eeef0048",
+            "#eeef0000", "#eeef4800", "#eeef8f00", "#eeff38ec", "#eeef1a7a", "#eeef85d4",
+            "#eeae87f4", "#eeb2a2f4", "#eef4a2d4", "#eef46c6c", "#eef46f35", "#eef38797"};
     //Decimal version of the highlight color
     private String strHighlightColorDec;
     //User selected highlight color
-    private String strHighlightColor;
+    public String strHighlightColor;
 
     //Required for setting notification alarms
 //    static Intent alertIntent;
@@ -447,8 +452,10 @@ public class MainActivity extends AppCompatActivity implements
         intShowReviewPrompt = preferences.getInt(StringConstants.SHOW_REVIEW_KEY, 0);
         lngTimeInstalled = preferences.getLong(StringConstants.TIME_INSTALLED_KEY, 0);
         boolColorCyclingAllowed = preferences.getBoolean(StringConstants.COLOR_CYCLING_AVAILABLE_KEY, false);
+        boolColorCyclingEnabled = preferences.getBoolean(StringConstants.COLOR_CYCLING_ENABLED_KEY, false);
         strHighlightColor = preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00");
-        strHighlightColorDec = preferences.getString(StringConstants.DEC_HIGHLIGHT_COLOR_KEY, "#ff34ff00");
+//        strHighlightColorDec = preferences.getString(StringConstants.DEC_HIGHLIGHT_COLOR_KEY, "");
+        lngTimeColorLastChanged = preferences.getLong(StringConstants.TIME_COLOR_LAST_CHANGED, lngTimeColorLastChanged);
 
         //binding the highlight color to attributes in layout file
         binding.setHighlightColor(Color.parseColor(strHighlightColor));
@@ -1557,7 +1564,7 @@ public class MainActivity extends AppCompatActivity implements
                     scheduler.cancel(StringConstants.DELETE_TASK_ID);
                     mainActivityPresenter.reinstateTask(taskToReinstate);
                 })
-                .setActionTextColor(getResources().getColor(R.color.lightGreen))
+                .setActionTextColor(Color.parseColor(strHighlightColor))
                 .show();
     }
 
@@ -1604,7 +1611,16 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-//    private void switchColor() {
+    private void switchColor() {
+        int i = random.nextInt(lightHighlights.length);
+        strHighlightColor = lightHighlights[i];
+        preferences.edit().putString(StringConstants.HIGHLIGHT_COLOR_KEY, lightHighlights[i]).apply();
+        Calendar calendar = Calendar.getInstance();
+        preferences.edit().putLong(StringConstants.TIME_COLOR_LAST_CHANGED, calendar.getTimeInMillis() / 1000 / 60 / 60).apply();
+        tb.setTitleTextColor(Color.parseColor(strHighlightColor));
+        etTask.setBackgroundColor(Color.parseColor(strHighlightColor));
+        toast.setBackgroundColor(Color.parseColor(strHighlightColor));
+        fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(strHighlightColor)));
 //        if(!lightDark) {
 //            int i = random.nextInt(darkHighlights.length);
 //            db.updateHighlight(darkHighlights[i]);
@@ -1628,7 +1644,7 @@ public class MainActivity extends AppCompatActivity implements
 //        taskNameEditText.setBackgroundColor(Color.parseColor(highlight));
 //        toast.setBackgroundColor(Color.parseColor(highlight));
 //        setDividers(lightDark);
-//    }
+    }
 
 //    private void checkLightDark(boolean lightDark) {
 //        if(!lightDark){
@@ -1725,10 +1741,11 @@ public class MainActivity extends AppCompatActivity implements
 //        }
         if (!menu.hasVisibleItems()) {
             getMenuInflater().inflate(R.menu.menu_main, menu);
+            //Action bar options
             miPro = this.tb.getMenu().findItem(R.id.itemBuy);
             MenuItem miMotivation = this.tb.getMenu().findItem(R.id.itemMotivation);
-            //Action bar options
             MenuItem miMute = this.tb.getMenu().findItem(R.id.itemMute);
+            MenuItem miAutoColor = this.tb.getMenu().findItem(R.id.itemAutoColor);
             if (boolShowMotivation) {
                 miMotivation.setChecked(true);
             }
@@ -1737,6 +1754,9 @@ public class MainActivity extends AppCompatActivity implements
             }
             if (boolAdsRemoved && boolRemindersAvailable) {
                 miPro.setVisible(false);
+            }
+            if (boolColorCyclingEnabled){
+                miAutoColor.setChecked(true);
             }
             return true;
         } else {
@@ -1941,14 +1961,14 @@ public class MainActivity extends AppCompatActivity implements
 
             return true;
 
-        //Actions to occur if user selects the pro icon
+            //Actions to occur if user selects the pro icon
         } else if (id == R.id.itemBuy) {
 
             showPurchases();
 
             return true;
 
-        //Actions to occur if user selects 'motivation'
+            //Actions to occur if user selects 'motivation'
         } else if (id == R.id.itemMotivation) {
 
             if (boolShowMotivation) {
@@ -1963,46 +1983,40 @@ public class MainActivity extends AppCompatActivity implements
 
             return true;
 
-        //Actions to occur if user selects to change light/dark mode
+            //Actions to occur if user selects to change light/dark mode
         } else if (id == R.id.lightDark) {
 
             Log.d(TAG, "Change theme");
 
             return true;
 
-        //Actions to occur if user selects 'color'
-        }else if (id == R.id.highlight) {
-
-            Log.d(TAG, "Show colour picker");
+            //Actions to occur if user selects 'color'
+        } else if (id == R.id.itemHighlight) {
 
             int colorPickerTheme;
 //            if(lightDark){
-                colorPickerTheme = R.style.ColorPickerThemeLight;
+            colorPickerTheme = R.style.ColorPickerThemeLight;
 //            }else{
 //                colorPickerTheme = R.style.ColorPickerThemeDark;
 //            }
 
             ColorPickerDialogBuilder
                     .with(MainActivity.this, colorPickerTheme).setTitle(getString(R.string.chooseColor))
-//                    .initialColor(Integer.parseInt(highlightDec))//TODO get initial color
+                    .initialColor(Color.parseColor(preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00")))
                     .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                     .density(10).noSliders().setOnColorSelectedListener(selectedColor -> {
-                        String tempHighlight = "#" + Integer.toHexString(selectedColor);
-//                            toolbarDark.setTitleTextColor(Color.parseColor(tempHighlight));
-                        tb.setTitleTextColor(Color.parseColor(tempHighlight));
-//                            addIcon.setTextColor(Color.parseColor(tempHighlight));//TODO change fab color
-                        etTask.setBackgroundColor(Color.parseColor(tempHighlight));
-                        Log.d(TAG, "dec: " + selectedColor + " hex: " + tempHighlight);
-                    }).setPositiveButton(getString(R.string.oK), (dialog, selectedColor, allColors) -> {
-                            strHighlightColor = "#" + Integer.toHexString(selectedColor);
-                            strHighlightColorDec = String.valueOf(selectedColor);
-//                            db.updateHighlight(highlight);
-//                            db.updateHighlightDec(String.valueOf(selectedColor));
+                String tempHighlight = "#" + Integer.toHexString(selectedColor);
+                tb.setTitleTextColor(Color.parseColor(tempHighlight));
+                fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(tempHighlight)));
+                etTask.setBackgroundColor(Color.parseColor(tempHighlight));
+            }).setPositiveButton(getString(R.string.oK), (dialog, selectedColor, allColors) -> {
+                strHighlightColor = "#" + Integer.toHexString(selectedColor);
+                strHighlightColorDec = String.valueOf(selectedColor);
                 preferences.edit().putString(StringConstants.HIGHLIGHT_COLOR_KEY, strHighlightColor).apply();
-                preferences.edit().putString(StringConstants.DEC_HIGHLIGHT_COLOR_KEY, strHighlightColorDec).apply();
+//                preferences.edit().putString(StringConstants.DEC_HIGHLIGHT_COLOR_KEY, strHighlightColorDec).apply();
 
-//                            toast.setBackgroundColor(Color.parseColor(highlight));//TODO reinstate this
-                        int[] colors = {0, selectedColor, 0};
+                toast.setBackgroundColor(Color.parseColor(strHighlightColor));
+//                        int[] colors = {0, selectedColor, 0};
 //                            theListView.setDivider(new GradientDrawable
 //                                    (GradientDrawable.Orientation.RIGHT_LEFT, colors));//TODO reinstate this
 //                            if(!lightDark) {//TODO reinstate this
@@ -2010,31 +2024,31 @@ public class MainActivity extends AppCompatActivity implements
 //                            }else{//TODO reinstate this
 //                                theListView.setDividerHeight(3);//TODO reinstate this
 //                            }//TODO reinstate this
-                    }).setNegativeButton(getString(R.string.cancel), (dialog, which) -> {
-//                            toolbarDark.setTitleTextColor(Color.parseColor(highlight));
-                            tb.setTitleTextColor(Color.parseColor(preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00")));
-//                            addIcon.setTextColor(Color.parseColor(highlight));//TODO reinstate this
-                            etTask.setBackgroundColor(Color.parseColor(preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00")));
-                    }).build().show();
+            }).setNegativeButton(getString(R.string.cancel), (dialog, which) -> {
+                int color = Color.parseColor(preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00"));
+                tb.setTitleTextColor(color);
+                fab.setBackgroundTintList(ColorStateList.valueOf(color));
+                etTask.setBackgroundColor(color);
+            }).build().show();
 
             return true;
 
-        //Actions to occur if user selects 'cycle colors'
-        } else if (id == R.id.autoColor) {
+            //Actions to occur if user selects 'cycle colors'
+        } else if (id == R.id.itemAutoColor) {
 
-            Log.d(TAG, "Cycle colors");
-
-            if(boolColorCyclingAllowed){
-//                if(colorCyclingEnabled){
-//                    colorCyclingEnabled = false;
-//                    item.setChecked(false);
+            if (boolColorCyclingAllowed) {
+                if(boolColorCyclingEnabled){
+                    boolColorCyclingEnabled = false;
+                    item.setChecked(false);
+                    preferences.edit().putBoolean(StringConstants.COLOR_CYCLING_ENABLED_KEY, false).apply();
 //                    db.updateCycleEnabled(false);
-//                }else{
-//                    colorCyclingEnabled = true;
-//                    item.setChecked(true);
+                }else{
+                    boolColorCyclingEnabled = true;
+                    item.setChecked(true);
+                    preferences.edit().putBoolean(StringConstants.COLOR_CYCLING_ENABLED_KEY, true).apply();
 //                    db.updateCycleEnabled(true);
-//                }
-            }else{
+                }
+            } else {
                 showPurchases();
 //                purchasesShowing = true;
 //                add.setClickable(false);
@@ -3006,6 +3020,13 @@ public class MainActivity extends AppCompatActivity implements
 //
 //            getSavedData();
 
+        if(boolColorCyclingAllowed && boolColorCyclingEnabled) {
+            Calendar cal = Calendar.getInstance();
+            if((cal.getTimeInMillis() / 1000 / 60 / 60) >= (lngTimeColorLastChanged + 4)) {
+                switchColor();
+            }
+        }
+
         showPrompt();
 
         adapter.notifyItemChanged(preferences.getInt(StringConstants.REFRESH_THIS_ITEM, 0));
@@ -3052,12 +3073,7 @@ public class MainActivity extends AppCompatActivity implements
 //        }
 //        dbResult.close();
 //
-//        if(colorCyclingAllowed && colorCyclingEnabled) {
-//            Calendar cal = Calendar.getInstance();
-//            if((cal.getTimeInMillis() / 1000 / 60 / 60) >= (taskLastChanged + 4)) {
-//                switchColor();
-//            }
-//        }
+
 //
 //        checkLightDark(lightDark);
 //

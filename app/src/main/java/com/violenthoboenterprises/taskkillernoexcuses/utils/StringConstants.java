@@ -6,6 +6,7 @@ public class StringConstants {
     public static String ADS_REMOVED_KEY = "ads_removed_key";
     public static String REMINDERS_AVAILABLE_KEY = "reminders_available_key";
     public static String COLOR_CYCLING_AVAILABLE_KEY = "color_cycling_available_key";
+    public static String COLOR_CYCLING_ENABLED_KEY = "color_cycling_enabled_key";
     public static String MOTIVATION_KEY = "motivation_key";
     public static String REPEAT_HINT_KEY = "repeat_hint_key";
     public static String RENAME_HINT_KEY = "rename_hint_key";
@@ -21,6 +22,7 @@ public class StringConstants {
     public static String MONTH = "month";
     public static String REINSTATE_REMINDERS_AFTER_REBOOT = "reinstate_reminders_after_reboot";
     public static String HIGHLIGHT_COLOR_KEY = "highlight_color_key";
-    public static String DEC_HIGHLIGHT_COLOR_KEY = "dec_highlight_color_key";
+    public static String TIME_COLOR_LAST_CHANGED = "time_color_last_changed";
+//    public static String DEC_HIGHLIGHT_COLOR_KEY = "dec_highlight_color_key";
 
 }

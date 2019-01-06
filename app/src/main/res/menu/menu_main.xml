@@ -19,13 +19,13 @@
         android:checkable="true"/>
 
     <item
-        android:id="@+id/highlight"
+        android:id="@+id/itemHighlight"
         android:title="@string/changeColor"
         app:showAsAction="collapseActionView"
         android:orderInCategory="3"/>
 
     <item
-        android:id="@+id/autoColor"
+        android:id="@+id/itemAutoColor"
         android:title="@string/cycleColorsAuto"
         app:showAsAction="collapseActionView"
         android:orderInCategory="4"

@@ -208,7 +208,7 @@ public class AlertReceiver extends BroadcastReceiver {
 
             notificationChannel.setDescription("Notifications about due being due");
             notificationChannel.enableLights(true);
-            notificationChannel.setLightColor(Color.MAGENTA);
+            notificationChannel.setLightColor(Color.parseColor(MainActivity.preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00")));
             notificationChannel.enableVibration(true);
             notificationManager.createNotificationChannel(notificationChannel);
         }

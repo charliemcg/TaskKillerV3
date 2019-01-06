@@ -401,19 +401,19 @@ private final String TAG = this.getClass().getSimpleName();
         if (reminderPresenter.getRepeatInterval() == null) {
 //            imgCancelRepeatFaded.setVisibility(View.INVISIBLE);
 //            imgCancelRepeat.setVisibility(View.VISIBLE);
-            imgCancelRepeatFaded.setBackgroundColor(getResources().getColor(R.color.lightGreen));
+            imgCancelRepeatFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
         } else if (reminderPresenter.getRepeatInterval().equals(REPEAT_DAY)) {
 //            imgDailyFaded.setVisibility(View.INVISIBLE);
 //            imgDaily.setVisibility(View.VISIBLE);
-            imgDailyFaded.setBackgroundColor(getResources().getColor(R.color.lightGreen));
+            imgDailyFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
         } else if (reminderPresenter.getRepeatInterval().equals(REPEAT_WEEK)) {
 //            imgWeeklyFaded.setVisibility(View.INVISIBLE);
 //            imgWeekly.setVisibility(View.VISIBLE);
-            imgWeeklyFaded.setBackgroundColor(getResources().getColor(R.color.lightGreen));
+            imgWeeklyFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
         } else if (reminderPresenter.getRepeatInterval().equals(REPEAT_MONTH)) {
 //            imgMonthlyFaded.setVisibility(View.INVISIBLE);
 //            imgMonthly.setVisibility(View.VISIBLE);
-            imgMonthlyFaded.setBackgroundColor(getResources().getColor(R.color.lightGreen));
+            imgMonthlyFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
         }
 
         //Actions to occur when user selects to set/change date
@@ -844,7 +844,7 @@ private final String TAG = this.getClass().getSimpleName();
 //            imgMonthlyFaded.setVisibility(View.VISIBLE);
 //            imgMonthly.setVisibility(View.INVISIBLE);
 
-            imgCancelRepeatFaded.setBackgroundColor(getResources().getColor(R.color.lightGreen));
+            imgCancelRepeatFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
             imgDailyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
             imgWeeklyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
             imgMonthlyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
@@ -882,7 +882,7 @@ private final String TAG = this.getClass().getSimpleName();
 //            imgMonthly.setVisibility(View.INVISIBLE);
 
             imgCancelRepeatFaded.setBackgroundColor(getResources().getColor(R.color.gray));
-            imgDailyFaded.setBackgroundColor(getResources().getColor(R.color.lightGreen));
+            imgDailyFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
             imgWeeklyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
             imgMonthlyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
 
@@ -916,7 +916,7 @@ private final String TAG = this.getClass().getSimpleName();
 
             imgCancelRepeatFaded.setBackgroundColor(getResources().getColor(R.color.gray));
             imgDailyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
-            imgWeeklyFaded.setBackgroundColor(getResources().getColor(R.color.lightGreen));
+            imgWeeklyFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
             imgMonthlyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
 
             miKillReminder.setVisible(true);
@@ -950,7 +950,7 @@ private final String TAG = this.getClass().getSimpleName();
             imgCancelRepeatFaded.setBackgroundColor(getResources().getColor(R.color.gray));
             imgDailyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
             imgWeeklyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
-            imgMonthlyFaded.setBackgroundColor(getResources().getColor(R.color.lightGreen));
+            imgMonthlyFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
 
             miKillReminder.setVisible(true);
 

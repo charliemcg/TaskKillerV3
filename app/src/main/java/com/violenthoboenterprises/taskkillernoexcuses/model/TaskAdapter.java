@@ -77,13 +77,17 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 //        holder.subtasksIcon.setVisibility(View.GONE);
 //        holder.repeatIcon.setVisibility(View.GONE);
 //        holder.dueIcon.setVisibility(View.GONE);
+        holder.noteIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
+        holder.subtasksIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
+        holder.repeatIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
+        holder.dueIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
         holder.tvDue.setVisibility(View.GONE);
         holder.taskProperties.setVisibility(View.GONE);
         holder.tvDue.setTextColor(Color.BLACK);
 
         //checking if needed to display due icon
         if (currentTask.getTimestamp() != 0) {
-            holder.dueIcon.setBackgroundColor(context.getResources().getColor(R.color.lightGreen));
+            holder.dueIcon.setBackgroundColor(Color.parseColor(preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00")));
 //            holder.dueIcon.setVisibility(View.VISIBLE);
             long repeatsAdjustedTimestamp;
             if(currentTask.getRepeatInterval() != null) {
@@ -106,17 +110,19 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 //            holder.alarmClock.setImageDrawable(context.getResources()
 //                    .getDrawable(R.drawable.due_icon_solid_dot));
         }else{
+            holder.subtasksIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
 //            holder.alarmClock.setImageDrawable(context.getResources()
 //                    .getDrawable(R.drawable.due_icon_light_solid));
         }
 
         //checking if needed to display note icon
         if (currentTask.getNote() != null) {
-            holder.noteIcon.setBackgroundColor(context.getResources().getColor(R.color.lightGreen));
+            holder.noteIcon.setBackgroundColor(Color.parseColor(preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00")));
 //            holder.noteIcon.setVisibility(View.VISIBLE);
 //            holder.postItNote.setImageDrawable(context.getResources()
 //                    .getDrawable(R.drawable.note_icon_solid_dot));
         }else{
+            holder.subtasksIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
 //            holder.postItNote.setImageDrawable(context.getResources()
 //                    .getDrawable(R.drawable.note_icon_light_solid));
         }
@@ -125,18 +131,19 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         List<Subtask> subtasks = subtasksPresenter.getSubtasksByParent(currentTask.getId());
         int subtasksSize = subtasks.size();
         if (subtasksSize > 0) {
-            holder.subtasksIcon.setBackgroundColor(context.getResources().getColor(R.color.lightGreen));
+            holder.subtasksIcon.setBackgroundColor(Color.parseColor(preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00")));
 //            holder.subtasksIcon.setVisibility(View.VISIBLE);
 //            holder.clipBoard.setImageDrawable(context.getResources()
 //                    .getDrawable(R.drawable.subtasks_icon_solid_dot));
         }else{
+            holder.subtasksIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
 //            holder.clipBoard.setImageDrawable(context.getResources()
 //                    .getDrawable(R.drawable.subtasks_icon_light_solid));
         }
 
         //checking if needed to display repeat icon
         if (currentTask.getRepeatInterval() != null) {
-            holder.repeatIcon.setBackgroundColor(context.getResources().getColor(R.color.lightGreen));
+            holder.repeatIcon.setBackgroundColor(Color.parseColor(preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00")));
 //            holder.repeatIcon.setVisibility(View.VISIBLE);
         }
 
