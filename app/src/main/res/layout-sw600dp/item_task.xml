@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     tools:context="com.violenthoboenterprises.taskkillernoexcuses.activities.MainActivity"
     android:descendantFocusability="beforeDescendants"
@@ -45,14 +44,15 @@
             android:background="?attr/selectableItemBackground">
 
             <TextView
+                android:id="@+id/tvTask"
                 android:layout_height="80dp"
                 android:layout_width="0dp"
                 android:layout_weight="8"
-                android:id="@+id/tvTask"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:paddingTop="5dp"
                 android:textSize="25sp"
+                android:textColor="@color/black"
                 ads:layout_constraintEnd_toEndOf="@+id/viewTaskParent"
                 ads:layout_constraintStart_toStartOf="@+id/viewTaskParent"
                 ads:layout_constraintTop_toTopOf="@+id/viewTaskParent"/>

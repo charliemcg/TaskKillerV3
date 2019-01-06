@@ -52,18 +52,12 @@ public class NoteActivity extends MainActivity {
     private NotePresenter notePresenter;
     //The parent task to which the note belongs
     private Task task;
-
-    ActivityNoteBinding binding;
-
+    private View noteRoot;
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_note);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_note);
+        setContentView(R.layout.activity_note);
         tbNote = findViewById(R.id.tbNote);
         setSupportActionBar(tbNote);
-
-        //binding the highlight color to attributes in layout file
-        binding.setHighlightColor(Color.parseColor(preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00")));
 
 //        binding = DataBindingUtil.setContentView(this, R.layout.activity_note);
 
@@ -182,9 +176,12 @@ public class NoteActivity extends MainActivity {
         btnSubmitNoteFour = findViewById(R.id.btnSubmitNoteTwo);
         btnSubmitNoteTwo = findViewById(R.id.btnSubmitNoteThree);
         btnSubmitNoteThree = findViewById(R.id.btnSubmitNoteFour);
+        noteRoot = findViewById(R.id.noteRoot);
 
         getSupportActionBar().setTitle(R.string.note);
         tbNote.setSubtitle(notePresenter.getTaskName());
+
+        etNote.setBackgroundColor(Color.parseColor(preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00")));
 
         tvNote.setMovementMethod(new ScrollingMovementMethod());
 
@@ -258,6 +255,20 @@ public class NoteActivity extends MainActivity {
             return true;
         });
 
+        checkDarkLight();
+
+    }
+
+    private void checkDarkLight(){
+        if(MainActivity.boolDarkModeEnabled){
+            noteRoot.setBackgroundColor(getResources().getColor(R.color.dark_gray));
+            tbNote.setTitleTextColor(getResources().getColor(R.color.gray));
+            tbNote.setSubtitleTextColor(getResources().getColor(R.color.gray));
+        }else{
+            noteRoot.setBackgroundColor(getResources().getColor(R.color.white));
+            tbNote.setTitleTextColor(getResources().getColor(R.color.black));
+            tbNote.setSubtitleTextColor(getResources().getColor(R.color.black));
+        }
     }
 
     //Submit button collapses on itself on click

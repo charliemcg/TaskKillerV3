@@ -267,12 +267,21 @@ public class SubtasksAdapter extends RecyclerView.Adapter<SubtasksAdapter.Subtas
     public void onBindViewHolder(SubtasksAdapter.SubtaskHolder holder, int position) {
         //setting the subtask name in the item
         final Subtask currentSubtask = subtasks.get(position);
+        checkDarkLight(holder);
         holder.tvSubtask.setText(currentSubtask.getSubtask());
         //rename subtask on long click
         holder.subtaskLayout.setOnLongClickListener(view -> {
             subtaskView.editSubtask(currentSubtask);
             return true;
         });
+    }
+
+    private void checkDarkLight(SubtaskHolder holder) {
+        if(MainActivity.boolDarkModeEnabled) {
+            holder.tvSubtask.setTextColor(Color.parseColor("#AAAAAA"));
+        }else{
+            holder.tvSubtask.setTextColor(Color.parseColor("#000000"));
+        }
     }
 
     @Override

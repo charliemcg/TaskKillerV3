@@ -66,6 +66,7 @@ public class SubtasksActivity extends MainActivity implements SubtasksView {
     private SubtasksPresenter subtasksPresenter;
     public static boolean boolSubtasksKeyboardShowing;
     private View subtasksRootView;
+    private Toolbar tbSubtasks;
 
     ActivitySubtasksBinding binding;
 
@@ -349,6 +350,7 @@ public class SubtasksActivity extends MainActivity implements SubtasksView {
 //
 //        });
 
+        tbSubtasks = findViewById(R.id.tbSubtasks);
 
         //Getting the parent task to which the subtasks are related
         //The parent task to which the subtasks belong
@@ -479,6 +481,20 @@ public class SubtasksActivity extends MainActivity implements SubtasksView {
             boolSubtasksKeyboardShowing = true;
         }
 
+        checkLightDark();
+
+    }
+
+    private void checkLightDark(){
+        if(MainActivity.boolDarkModeEnabled){
+            tbSubtasks.setTitleTextColor(getResources().getColor(R.color.gray));
+            tbSubtasks.setSubtitleTextColor(getResources().getColor(R.color.gray));
+            subtasksRootView.setBackgroundColor(getResources().getColor(R.color.dark_gray));
+        }else{
+            tbSubtasks.setTitleTextColor(getResources().getColor(R.color.black));
+            tbSubtasks.setSubtitleTextColor(getResources().getColor(R.color.black));
+            subtasksRootView.setBackgroundColor(getResources().getColor(R.color.white));
+        }
     }
 
     private void showSnackbar(String stringSnack, final Subtask subtaskToReinstate) {

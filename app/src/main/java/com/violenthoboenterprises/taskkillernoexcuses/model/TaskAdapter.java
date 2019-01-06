@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +73,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     public void onBindViewHolder(final TaskHolder holder, final int position) {
         final Task currentTask = tasks.get(position);
         holder.tvTask.setText(currentTask.getTask());
+        checkLightDark(holder);
         //checking if any status icons need to be displayed
 //        holder.noteIcon.setVisibility(View.GONE);
 //        holder.subtasksIcon.setVisibility(View.GONE);
@@ -83,7 +85,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         holder.dueIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
         holder.tvDue.setVisibility(View.GONE);
         holder.taskProperties.setVisibility(View.GONE);
-        holder.tvDue.setTextColor(Color.BLACK);
+//        holder.tvDue.setTextColor(Color.BLACK);
 
         //checking if needed to display due icon
         if (currentTask.getTimestamp() != 0) {
@@ -218,6 +220,22 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             intent.putExtra("task", currentTask);
             context.startActivity(intent);
         });
+    }
+
+    private void checkLightDark(TaskHolder holder) {
+        if(MainActivity.boolDarkModeEnabled){
+            holder.tvTask.setTextColor(context.getResources().getColor(R.color.gray));
+            holder.tvDue.setTextColor(context.getResources().getColor(R.color.gray));
+            holder.tvAlarm.setTextColor(context.getResources().getColor(R.color.gray));
+            holder.tvSubtasks.setTextColor(context.getResources().getColor(R.color.gray));
+            holder.tvNote.setTextColor(context.getResources().getColor(R.color.gray));
+        }else{
+            holder.tvTask.setTextColor(context.getResources().getColor(R.color.black));
+            holder.tvDue.setTextColor(context.getResources().getColor(R.color.black));
+            holder.tvAlarm.setTextColor(context.getResources().getColor(R.color.black));
+            holder.tvSubtasks.setTextColor(context.getResources().getColor(R.color.black));
+            holder.tvNote.setTextColor(context.getResources().getColor(R.color.black));
+        }
     }
 
     private long getRepeatsAdjustedTimestamp(Task task) {
@@ -474,6 +492,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     class TaskHolder extends RecyclerView.ViewHolder {
         private TextView tvTask;
         private TextView tvDue;
+        private TextView tvAlarm;
+        private TextView tvSubtasks;
+        private TextView tvNote;
         private ConstraintLayout taskLayout;
         private ConstraintLayout taskProperties;
         private ConstraintLayout btnAlarm;
@@ -491,6 +512,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             super(itemView);
             tvTask = itemView.findViewById(R.id.tvTask);
             tvDue = itemView.findViewById(R.id.tvDue);
+            tvAlarm = itemView.findViewById(R.id.tvAlarm);
+            tvSubtasks = itemView.findViewById(R.id.tvSubtasks);
+            tvNote = itemView.findViewById(R.id.tvNote);
             taskLayout = itemView.findViewById(R.id.taskLayout);
             taskProperties = itemView.findViewById(R.id.viewProperties);
             btnAlarm = itemView.findViewById(R.id.btnAlarm);

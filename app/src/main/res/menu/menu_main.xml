@@ -12,7 +12,7 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/lightDark"
+        android:id="@+id/itemDarkMode"
         android:orderInCategory="2"
         android:title="@string/darkMode"
         app:showAsAction="collapseActionView"

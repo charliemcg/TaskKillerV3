@@ -40,7 +40,7 @@ import java.util.Locale;
 
 public class ReminderActivity extends MainActivity {
 
-//    static String TAG;
+    //    static String TAG;
 //    private Toolbar dueToolbar;
 //    LinearLayout dateButton;
 //    LinearLayout timeButton;
@@ -64,7 +64,7 @@ public class ReminderActivity extends MainActivity {
 //    static boolean datePicked, timePicked;
 //    static int screenSize;
 //    String dbRepeatInterval;
-private final String TAG = this.getClass().getSimpleName();
+    private final String TAG = this.getClass().getSimpleName();
     private Toolbar tbReminder;
     private ImageView imgTime, imgTimeFaded, imgCalendar, imgCalendarFaded;
     private ImageView imgDailyFaded, imgWeeklyFaded, imgMonthlyFaded, imgCancelRepeatFaded,
@@ -86,10 +86,11 @@ private final String TAG = this.getClass().getSimpleName();
     private static boolean boolRepeatSet;
     private static boolean boolDateSet;
     private static boolean boolTimeSet;
+    private View reminderRoot;
 
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_reminder);
+        setContentView(R.layout.activity_reminder);
 
         tbReminder = findViewById(R.id.tbReminder);
         setSupportActionBar(tbReminder);
@@ -343,6 +344,7 @@ private final String TAG = this.getClass().getSimpleName();
         boolRepeatSet = false;
         boolDateSet = false;
         boolTimeSet = false;
+        reminderRoot = findViewById(R.id.reminderRoot);
 
         intScreenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -384,7 +386,7 @@ private final String TAG = this.getClass().getSimpleName();
                 tvTime.setTextSize(25);
             }
 
-        }else{
+        } else {
             if (intScreenSize == 3) {
                 tvDate.setTextSize(25);
                 tvTime.setTextSize(25);
@@ -959,6 +961,26 @@ private final String TAG = this.getClass().getSimpleName();
 
         });
 
+        checkLightDark();
+
+    }
+
+    private void checkLightDark(){
+        if(MainActivity.boolDarkModeEnabled){
+            tbReminder.setTitleTextColor(getResources().getColor(R.color.gray));
+            tbReminder.setSubtitleTextColor(getResources().getColor(R.color.gray));
+            tbReminder.setBackgroundColor(getResources().getColor(R.color.dark_gray));
+            reminderRoot.setBackgroundColor(getResources().getColor(R.color.dark_gray));
+            tvDate.setTextColor(getResources().getColor(R.color.gray));
+            tvTime.setTextColor(getResources().getColor(R.color.gray));
+        }else{
+            tbReminder.setTitleTextColor(getResources().getColor(R.color.black));
+            tbReminder.setSubtitleTextColor(getResources().getColor(R.color.mid_gray));
+            tbReminder.setBackgroundColor(getResources().getColor(R.color.white));
+            reminderRoot.setBackgroundColor(getResources().getColor(R.color.white));
+            tvDate.setTextColor(getResources().getColor(R.color.black));
+            tvTime.setTextColor(getResources().getColor(R.color.black));
+        }
     }
 
     @Override
@@ -1186,7 +1208,9 @@ private final String TAG = this.getClass().getSimpleName();
         try {
             PendingIntent.getBroadcast(getApplicationContext(), task.getId(),
                     MainActivity.alertIntent, PendingIntent.FLAG_UPDATE_CURRENT).cancel();
-        }catch(NullPointerException e){e.printStackTrace();}
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
 
         tempYear = -1;
         tempMonth = -1;
@@ -1236,10 +1260,10 @@ private final String TAG = this.getClass().getSimpleName();
     }
 
     public static class DatePickerDialogFrag extends DialogFragment
-            implements DatePickerDialog.OnDateSetListener{
+            implements DatePickerDialog.OnDateSetListener {
 
         @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState){
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
 
 //            //Set default values of date picker to current date
 //            final Calendar calendar = Calendar.getInstance();
@@ -1314,17 +1338,17 @@ private final String TAG = this.getClass().getSimpleName();
 
             DatePickerDialog datePickerDialog;
 
-            if(task.getTimestamp() != 0){
+            if (task.getTimestamp() != 0) {
                 Calendar cal = Calendar.getInstance();
                 cal.setTimeInMillis(task.getTimestamp());
                 year = cal.get(Calendar.YEAR);
                 month = cal.get(Calendar.MONTH);
                 day = cal.get(Calendar.DAY_OF_MONTH);
-            }else if(tempDay != -1) {
+            } else if (tempDay != -1) {
                 year = tempYear;
                 month = tempMonth;
                 day = tempDay;
-            }else{
+            } else {
                 year = calendar.get(Calendar.YEAR);
                 month = calendar.get(Calendar.MONTH);
                 day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -1342,7 +1366,7 @@ private final String TAG = this.getClass().getSimpleName();
 
         }
 
-        public void onDateSet(DatePicker view, int year, int month, int day){
+        public void onDateSet(DatePicker view, int year, int month, int day) {
 
 //            if(!mute){
 //                blip.start();
@@ -1520,10 +1544,10 @@ private final String TAG = this.getClass().getSimpleName();
     }
 
     public static class TimePickerDialogFrag extends DialogFragment
-            implements TimePickerDialog.OnTimeSetListener{
+            implements TimePickerDialog.OnTimeSetListener {
 
         @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState){
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
 
 //            //Set default values of date picker to current date
 //            final Calendar calendar = Calendar.getInstance();
@@ -1621,15 +1645,15 @@ private final String TAG = this.getClass().getSimpleName();
 
             int defaultTimePickerHour;
 
-            if(task.getTimestamp() != 0){
+            if (task.getTimestamp() != 0) {
                 Calendar cal = Calendar.getInstance();
                 cal.setTimeInMillis(task.getTimestamp());
                 minute = cal.get(Calendar.MINUTE);
                 defaultTimePickerHour = cal.get(Calendar.HOUR_OF_DAY);
-            }else if(tempMinute != -1) {
+            } else if (tempMinute != -1) {
                 minute = tempMinute;
                 defaultTimePickerHour = tempHour;
-            }else{
+            } else {
                 minute = calendar.get(Calendar.MINUTE);
                 hour = calendar.get(Calendar.HOUR_OF_DAY);
                 defaultTimePickerHour = hour;
@@ -1646,7 +1670,7 @@ private final String TAG = this.getClass().getSimpleName();
 
         }
 
-        public void onTimeSet(TimePicker view, int hour, int minute){
+        public void onTimeSet(TimePicker view, int hour, int minute) {
 
 //            TextView timeTextView = getActivity().findViewById(R.id.timeTextView);
 //
@@ -2027,19 +2051,19 @@ private final String TAG = this.getClass().getSimpleName();
             //set current time if time wasn't picked
             if (!boolTimeSet) {
                 //set unspecified time to be set one hour into the future
-                if(reminderPresenter.getYear() == currentYear
+                if (reminderPresenter.getYear() == currentYear
                         && reminderPresenter.getMonth() == currentMonth
                         && reminderPresenter.getDay() == currentDay
-                        && currentHour < 9){
+                        && currentHour < 9) {
                     reminderPresenter.setHour(10);
                     reminderPresenter.setMinute(0);
-                }else if(reminderPresenter.getYear() == currentYear
+                } else if (reminderPresenter.getYear() == currentYear
                         && reminderPresenter.getMonth() == currentMonth
                         && reminderPresenter.getDay() == currentDay
-                        && currentHour != 23){
+                        && currentHour != 23) {
                     reminderPresenter.setHour(calendar.get(Calendar.HOUR_OF_DAY) + 1);
                     reminderPresenter.setMinute(calendar.get(Calendar.MINUTE));
-                }else {
+                } else {
                     reminderPresenter.setHour(calendar.get(Calendar.HOUR_OF_DAY));
                     reminderPresenter.setMinute(calendar.get(Calendar.MINUTE));
                 }
@@ -2052,7 +2076,7 @@ private final String TAG = this.getClass().getSimpleName();
             reminderCal.set(Calendar.HOUR_OF_DAY, reminderPresenter.getHour());
             reminderCal.set(Calendar.MINUTE, reminderPresenter.getMinute());
 
-            if(reminderCal.getTimeInMillis() >= calendar.getTimeInMillis()){
+            if (reminderCal.getTimeInMillis() >= calendar.getTimeInMillis()) {
                 //Setting timestamp of the reminder
                 calendar.set(Calendar.YEAR, reminderPresenter.getYear());
                 calendar.set(Calendar.MONTH, reminderPresenter.getMonth());
@@ -2070,7 +2094,7 @@ private final String TAG = this.getClass().getSimpleName();
                 reminderPresenter.setOriginalDay(reminderPresenter.getDay());
 
                 //don't save. Due time set to in the past
-            }else{
+            } else {
                 deleteData();
                 MainActivity.boolDueInPast = true;
             }

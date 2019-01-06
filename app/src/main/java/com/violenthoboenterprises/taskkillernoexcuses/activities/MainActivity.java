@@ -110,6 +110,8 @@ public class MainActivity extends AppCompatActivity implements
     private boolean boolColorCyclingAllowed;
     //used to determine if color cycling is enabled
     private boolean boolColorCyclingEnabled;
+    //used to indicate if app should display dark or light theme
+    public static boolean boolDarkModeEnabled;
     //Indicates if a task's options are showing
 //    static boolean taskOptionsShowing;
     //Indicates if tasks can be clicked on
@@ -456,6 +458,7 @@ public class MainActivity extends AppCompatActivity implements
         strHighlightColor = preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00");
 //        strHighlightColorDec = preferences.getString(StringConstants.DEC_HIGHLIGHT_COLOR_KEY, "");
         lngTimeColorLastChanged = preferences.getLong(StringConstants.TIME_COLOR_LAST_CHANGED, lngTimeColorLastChanged);
+        boolDarkModeEnabled = preferences.getBoolean(StringConstants.DARK_MODE_ENABLED, true);
 
         //binding the highlight color to attributes in layout file
         binding.setHighlightColor(Color.parseColor(strHighlightColor));
@@ -812,6 +815,8 @@ public class MainActivity extends AppCompatActivity implements
             return false;
 
         });
+
+        checkLightDark();
 
 //        db.insertUniversalData(mute);
 
@@ -1646,8 +1651,11 @@ public class MainActivity extends AppCompatActivity implements
 //        setDividers(lightDark);
     }
 
-//    private void checkLightDark(boolean lightDark) {
-//        if(!lightDark){
+    private void checkLightDark() {
+        if(boolDarkModeEnabled){
+            activityRootView.setBackgroundColor(getResources().getColor(R.color.dark_gray));
+            tb.setSubtitleTextColor(getResources().getColor(R.color.gray));
+            adapter.notifyDataSetChanged();
 //            theListView.setBackgroundColor(Color.parseColor("#333333"));
 //            toolbarLight.setVisibility(View.INVISIBLE);
 //            toolbarDark.setVisibility(View.VISIBLE);
@@ -1671,7 +1679,10 @@ public class MainActivity extends AppCompatActivity implements
 //            unlockAllLayout.setBackgroundDrawable(ContextCompat.getDrawable
 //                    (this, R.drawable.color_picker_border));
 //            setDividers(lightDark);
-//        }else{
+        }else{
+            activityRootView.setBackgroundColor(getResources().getColor(R.color.white));
+            tb.setSubtitleTextColor(getResources().getColor(R.color.dark_gray));
+            adapter.notifyDataSetChanged();
 //            theListView.setBackgroundColor(Color.parseColor("#FFFFFF"));
 //            toolbarDark.setVisibility(View.INVISIBLE);
 //            toolbarLight.setVisibility(View.VISIBLE);
@@ -1695,8 +1706,8 @@ public class MainActivity extends AppCompatActivity implements
 //            unlockAllLayout.setBackgroundDrawable(ContextCompat.getDrawable
 //                    (this, R.drawable.purchases_dropshadow));
 //            setDividers(lightDark);
-//        }
-//    }
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -1746,6 +1757,7 @@ public class MainActivity extends AppCompatActivity implements
             MenuItem miMotivation = this.tb.getMenu().findItem(R.id.itemMotivation);
             MenuItem miMute = this.tb.getMenu().findItem(R.id.itemMute);
             MenuItem miAutoColor = this.tb.getMenu().findItem(R.id.itemAutoColor);
+            MenuItem miDarkMode = this.tb.getMenu().findItem(R.id.itemDarkMode);
             if (boolShowMotivation) {
                 miMotivation.setChecked(true);
             }
@@ -1754,6 +1766,9 @@ public class MainActivity extends AppCompatActivity implements
             }
             if (boolAdsRemoved && boolRemindersAvailable) {
                 miPro.setVisible(false);
+            }
+            if(boolDarkModeEnabled){
+                miDarkMode.setChecked(true);
             }
             if (boolColorCyclingEnabled){
                 miAutoColor.setChecked(true);
@@ -1984,10 +1999,24 @@ public class MainActivity extends AppCompatActivity implements
             return true;
 
             //Actions to occur if user selects to change light/dark mode
-        } else if (id == R.id.lightDark) {
+        } else if (id == R.id.itemDarkMode) {
 
-            Log.d(TAG, "Change theme");
-
+            if (boolDarkModeEnabled) {
+                Log.d(TAG, "Dark mode is enabled. Disabling now...");
+                boolDarkModeEnabled = false;
+                preferences.edit().putBoolean(StringConstants.DARK_MODE_ENABLED, false).apply();
+                checkLightDark();
+//                db.updateDarkLight(false);
+                item.setChecked(false);
+            } else {
+                Log.d(TAG, "Dark mode is disabled. Enabling now...");
+                boolDarkModeEnabled = true;
+                preferences.edit().putBoolean(StringConstants.DARK_MODE_ENABLED, true).apply();
+                checkLightDark();
+//                db.updateDarkLight(true);
+                item.setChecked(true);
+            }
+//            noTasksLeft();
             return true;
 
             //Actions to occur if user selects 'color'
@@ -3028,6 +3057,8 @@ public class MainActivity extends AppCompatActivity implements
                 switchColor();
             }
         }
+
+//        checkLightDark();
 
         showPrompt();
 

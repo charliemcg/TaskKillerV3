@@ -12,7 +12,6 @@
         android:id="@+id/activityRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
         android:orientation="vertical"
         tools:context="com.violenthoboenterprises.taskkillernoexcuses.activities.MainActivity">
         <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
@@ -43,7 +42,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:popupTheme="@style/ThemeOverlay.LightTheme"
             app:subtitle="@string/noExcuses"
-            app:subtitleTextColor="@color/dark_gray"
             app:title="@string/app_name" />
         <!--style="@style/HeaderBar"-->
 

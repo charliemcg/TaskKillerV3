@@ -23,6 +23,7 @@ public class StringConstants {
     public static String REINSTATE_REMINDERS_AFTER_REBOOT = "reinstate_reminders_after_reboot";
     public static String HIGHLIGHT_COLOR_KEY = "highlight_color_key";
     public static String TIME_COLOR_LAST_CHANGED = "time_color_last_changed";
+    public static String DARK_MODE_ENABLED = "dark_mode_enabled";
 //    public static String DEC_HIGHLIGHT_COLOR_KEY = "dec_highlight_color_key";
 
 }
