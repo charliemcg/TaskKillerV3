@@ -189,15 +189,17 @@ public class AlertReceiver extends BroadcastReceiver {
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         //Setting values to custom notification view
-//        remoteViews = new RemoteViews(context.getPackageName(), R.layout.notification);//TODO consider reinstating remote views
-//        remoteViews.setTextViewText(R.id.tvTaskText, task.getTask());
+//        remoteViews = new RemoteViews(context.getPackageName(), R.layout.notification);
+////        remoteViews.setTextViewText(R.id.tvTaskText, task.getTask());
+        remoteViews = new RemoteViews(context.getPackageName(), R.layout.notification);
+        remoteViews.setTextViewText(R.id.notif_title, task.getTask());
         //randomly generating motivational toast
-        Random random = new Random();
-        String[] strMotivation = new String[]{context.getResources().getString(R.string.getItDone),
-                context.getResources().getString(R.string.smashThatTask), context.getResources().getString(R.string.beAWinner),
-                context.getResources().getString(R.string.onlyWimpsGiveUp), context.getResources().getString(R.string.dontBeAFailure),
-                context.getResources().getString(R.string.beVictorious), context.getResources().getString(R.string.killThisTask)};
-        int j = random.nextInt(7);
+//        Random random = new Random();
+//        String[] strMotivation = new String[]{context.getResources().getString(R.string.getItDone),
+//                context.getResources().getString(R.string.smashThatTask), context.getResources().getString(R.string.beAWinner),
+//                context.getResources().getString(R.string.onlyWimpsGiveUp), context.getResources().getString(R.string.dontBeAFailure),
+//                context.getResources().getString(R.string.beVictorious), context.getResources().getString(R.string.killThisTask)};
+//        int j = random.nextInt(7);
 
         //Setting up notification channel for Oreo
         final String notificChannelId = "notification_channel";
@@ -206,7 +208,7 @@ public class AlertReceiver extends BroadcastReceiver {
                     notificChannelId, "notifications",
                     NotificationManager.IMPORTANCE_DEFAULT);
 
-            notificationChannel.setDescription("Notifications about due being due");
+            notificationChannel.setDescription("Notifications about task being due");
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.parseColor(MainActivity.preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00")));
             notificationChannel.enableVibration(true);
@@ -217,14 +219,14 @@ public class AlertReceiver extends BroadcastReceiver {
         builder = new NotificationCompat.Builder(context, notificChannelId)
                 .setSmallIcon(R.drawable.small_notific_icon)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher_og))
-                .setContentTitle(strMotivation[j])
+//                .setContentTitle(strMotivation[j])
                 .setTicker(msgAlert)
                 .setWhen(0)
                 .setContentText(task.getTask())
                 .setStyle(new NotificationCompat.BigTextStyle())
                 .setColorized(true)
                 .setColor(context.getResources().getColor(R.color.lightGreen))
-//                .setCustomContentView(remoteViews)//TODO reinstate remote views
+                .setCustomContentView(remoteViews)
                 .setLights(66666666, 500, 2000)
                 .setDefaults(NotificationCompat.DEFAULT_SOUND)
                 .setContentIntent(notificIntent)
