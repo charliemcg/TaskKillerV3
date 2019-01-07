@@ -1,21 +1,17 @@
 package com.violenthoboenterprises.taskkillernoexcuses.activities;
 
 import android.app.AlarmManager;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.PendingIntent;
 import android.app.job.JobScheduler;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
-import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.drawable.GradientDrawable;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -38,24 +34,18 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,14 +53,11 @@ import android.widget.Toast;
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
 import com.flask.colorpicker.ColorPickerView;
-import com.flask.colorpicker.OnColorSelectedListener;
-import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.violenthoboenterprises.taskkillernoexcuses.Database;
 import com.violenthoboenterprises.taskkillernoexcuses.R;
 import com.violenthoboenterprises.taskkillernoexcuses.databinding.ActivityMainBinding;
 import com.violenthoboenterprises.taskkillernoexcuses.model.MainActivityPresenterImpl;
@@ -86,10 +73,7 @@ import com.violenthoboenterprises.taskkillernoexcuses.utils.BootReceiver;
 import com.violenthoboenterprises.taskkillernoexcuses.utils.StringConstants;
 import com.violenthoboenterprises.taskkillernoexcuses.view.MainActivityView;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.GregorianCalendar;
 import java.util.Random;
 
 
@@ -374,6 +358,9 @@ public class MainActivity extends AppCompatActivity implements
     //preferences used for persisting app-wide data
     public static SharedPreferences preferences;
 
+    //the purchases dialog
+    private Dialog dialog;
+
     //In-app purchases view and it's elements
 //    static LinearLayout purchases;
 //    LinearLayout removeAdsLayout;
@@ -440,10 +427,10 @@ public class MainActivity extends AppCompatActivity implements
             mainActivityPresenter.migrateDatabase();
         }
 
-        if (preferences.getBoolean(StringConstants.REINSTATE_REMINDERS_AFTER_REBOOT, false)) {
+        if (preferences.getBoolean(StringConstants.REINSTATE_REMINDERS_AFTER_REBOOT_KEY, false)) {
             BootReceiver bootReceiver = new BootReceiver();
             bootReceiver.reinstateReminders(this);
-            preferences.edit().putBoolean(StringConstants.REINSTATE_REMINDERS_AFTER_REBOOT, false).apply();
+            preferences.edit().putBoolean(StringConstants.REINSTATE_REMINDERS_AFTER_REBOOT_KEY, false).apply();
         }
 
         boolMute = preferences.getBoolean(StringConstants.MUTE_KEY, false);
@@ -457,8 +444,8 @@ public class MainActivity extends AppCompatActivity implements
         boolColorCyclingEnabled = preferences.getBoolean(StringConstants.COLOR_CYCLING_ENABLED_KEY, false);
         strHighlightColor = preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00");
 //        strHighlightColorDec = preferences.getString(StringConstants.DEC_HIGHLIGHT_COLOR_KEY, "");
-        lngTimeColorLastChanged = preferences.getLong(StringConstants.TIME_COLOR_LAST_CHANGED, lngTimeColorLastChanged);
-        boolDarkModeEnabled = preferences.getBoolean(StringConstants.DARK_MODE_ENABLED, true);
+        lngTimeColorLastChanged = preferences.getLong(StringConstants.TIME_COLOR_LAST_CHANGED_KEY, lngTimeColorLastChanged);
+        boolDarkModeEnabled = preferences.getBoolean(StringConstants.DARK_MODE_ENABLED_KEY, true);
 
         //binding the highlight color to attributes in layout file
         binding.setHighlightColor(Color.parseColor(strHighlightColor));
@@ -1459,6 +1446,33 @@ public class MainActivity extends AppCompatActivity implements
         handler.postDelayed(runnable, 500);
     }
 
+
+    private void showColorCyclingToast() {
+            toast.setText(R.string.turnColorCyclingOnOff);
+            final Handler handler = new Handler();
+
+            final Runnable runnable = () -> {
+
+                if(!boolMute) {
+                    mpSweep.start();
+                }
+
+                toastView.startAnimation(AnimationUtils.loadAnimation
+                        (MainActivity.this, R.anim.enter_from_right_fast));
+                toastView.setVisibility(View.VISIBLE);
+                final Handler handler2 = new Handler();
+                final Runnable runnable2 = () -> {
+                    toastView.startAnimation(AnimationUtils.loadAnimation
+                            (MainActivity.this, android.R.anim.fade_out));
+                    toastView.setVisibility(View.GONE);
+                };
+                handler2.postDelayed(runnable2, 3500);
+            };
+
+            handler.postDelayed(runnable, 500);
+    }
+
+
 //    public void showDueInPastToast() {
 //        toast.setText(R.string.cannotSetTask);
 //        final Handler handler = new Handler();
@@ -1517,7 +1531,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void showPurchases() {
-        final Dialog dialog = new Dialog(MainActivity.this);
+        dialog = new Dialog(MainActivity.this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
 
@@ -1525,6 +1539,10 @@ public class MainActivity extends AppCompatActivity implements
 
 //        Button positive = dialog.findViewById(R.id.btnPositive);
         TextView negative = dialog.findViewById(R.id.btnClosePurchases);
+        FrameLayout viewRemoveAds = dialog.findViewById(R.id.viewRemoveAds);
+        FrameLayout viewGetReminders = dialog.findViewById(R.id.viewGetReminders);
+        FrameLayout viewGetColorCycling = dialog.findViewById(R.id.viewGetColorCycling);
+        FrameLayout viewUnlockAll = dialog.findViewById(R.id.viewUnlockAll);
 
         //Buy button actions
 //        positive.setOnClickListener(v -> {
@@ -1545,7 +1563,40 @@ public class MainActivity extends AppCompatActivity implements
 //
 //        });
 
-        //Cancel button options
+        //Purchases should be grayed out and unclickable if already purchased
+        if(boolAdsRemoved){
+            viewRemoveAds.setClickable(false);
+            ImageView image = dialog.findViewById(R.id.removeAdsImage);
+            image.setImageDrawable(getResources().getDrawable(R.drawable.remove_ads_purchased));
+        }else{
+            viewRemoveAds.setOnClickListener(v -> removeAds());
+        }
+
+        if(boolRemindersAvailable){
+            viewGetReminders.setClickable(false);
+            ImageView image = dialog.findViewById(R.id.getRemindersImage);
+            image.setImageDrawable(getResources().getDrawable(R.drawable.bell_purchased));
+        }else{
+            viewGetReminders.setOnClickListener(v -> getReminders());
+        }
+
+        if(boolColorCyclingAllowed){
+            viewGetColorCycling.setClickable(false);
+            ImageView image = dialog.findViewById(R.id.cycleColorsImage);
+            image.setImageDrawable(getResources().getDrawable(R.drawable.auto_color_purchased));
+        }else{
+            viewGetColorCycling.setOnClickListener(v -> getColorCycling());
+        }
+
+        if(boolAdsRemoved || boolRemindersAvailable || boolColorCyclingAllowed){
+            viewUnlockAll.setClickable(false);
+            ImageView image = dialog.findViewById(R.id.unlockAllImage);
+            image.setImageDrawable(getResources().getDrawable(R.drawable.unlock_all_purchased));
+        }else {
+            viewUnlockAll.setOnClickListener(v -> unlockAll());
+        }
+
+        //close the dialog
         negative.setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
@@ -1625,7 +1676,7 @@ public class MainActivity extends AppCompatActivity implements
         strHighlightColor = lightHighlights[i];
         preferences.edit().putString(StringConstants.HIGHLIGHT_COLOR_KEY, lightHighlights[i]).apply();
         Calendar calendar = Calendar.getInstance();
-        preferences.edit().putLong(StringConstants.TIME_COLOR_LAST_CHANGED, calendar.getTimeInMillis() / 1000 / 60 / 60).apply();
+        preferences.edit().putLong(StringConstants.TIME_COLOR_LAST_CHANGED_KEY, calendar.getTimeInMillis() / 1000 / 60 / 60).apply();
         tb.setTitleTextColor(Color.parseColor(strHighlightColor));
         etTask.setBackgroundColor(Color.parseColor(strHighlightColor));
         toast.setBackgroundColor(Color.parseColor(strHighlightColor));
@@ -1770,7 +1821,7 @@ public class MainActivity extends AppCompatActivity implements
             if (!boolMute) {
                 miMute.setChecked(true);
             }
-            if (boolAdsRemoved && boolRemindersAvailable) {
+            if (boolAdsRemoved && boolRemindersAvailable && boolColorCyclingAllowed) {
                 miPro.setVisible(false);
             }
             if(boolDarkModeEnabled){
@@ -2010,14 +2061,14 @@ public class MainActivity extends AppCompatActivity implements
             if (boolDarkModeEnabled) {
                 Log.d(TAG, "Dark mode is enabled. Disabling now...");
                 boolDarkModeEnabled = false;
-                preferences.edit().putBoolean(StringConstants.DARK_MODE_ENABLED, false).apply();
+                preferences.edit().putBoolean(StringConstants.DARK_MODE_ENABLED_KEY, false).apply();
                 checkLightDark();
 //                db.updateDarkLight(false);
                 item.setChecked(false);
             } else {
                 Log.d(TAG, "Dark mode is disabled. Enabling now...");
                 boolDarkModeEnabled = true;
-                preferences.edit().putBoolean(StringConstants.DARK_MODE_ENABLED, true).apply();
+                preferences.edit().putBoolean(StringConstants.DARK_MODE_ENABLED_KEY, true).apply();
                 checkLightDark();
 //                db.updateDarkLight(true);
                 item.setChecked(true);
@@ -2791,71 +2842,82 @@ public class MainActivity extends AppCompatActivity implements
     public void onProductPurchased(@NonNull String productId,
                                    @Nullable TransactionDetails details) {
 
-//        if(productId.equals("remove_ads")){
-//
+        if(productId.equals(StringConstants.PURCHASE_ADS_KEY)){
+
 //            db.updateAdsRemoved(true);
-//            adsRemoved = true;
+            preferences.edit().putBoolean(StringConstants.ADS_REMOVED_KEY, true).apply();
+            boolAdsRemoved = true;
 //            purchasesShowing = false;
 //            colorPickerShowing();
-//            if(colorCyclingAllowed && remindersAvailable && adsRemoved){
+            if(boolColorCyclingAllowed && boolRemindersAvailable){
 //                proBtn.setVisible(false);
-//            }
+                miPro.setVisible(false);
+            }
+
+            imgBanner.setVisibility(View.GONE);
+            adView.setVisibility(View.GONE);
 //            removeAdsImg.setVisibility(View.GONE);
 //            removeAdsPurchasedImg.setVisibility(View.VISIBLE);
-//
-//        }else if(productId.equals("get_reminders")){
-//
+
+            dialog.dismiss();
+
+        }else if(productId.equals(StringConstants.PURCHASE_REMINDERS_KEY)){
+
 //            db.updateRemindersAvailable(true);
-//            remindersAvailable = true;
+            preferences.edit().putBoolean(StringConstants.REMINDERS_AVAILABLE_KEY, true).apply();
+            boolRemindersAvailable = true;
 //            purchasesShowing = false;
 //            colorPickerShowing();
-//            if(colorCyclingAllowed && remindersAvailable && adsRemoved){
-//                proBtn.setVisible(false);
-//            }
+            if(boolColorCyclingAllowed && boolAdsRemoved){
+                miPro.setVisible(false);
+            }
 //            remindersImg.setVisibility(View.GONE);
 //            remindersPurchasedImg.setVisibility(View.VISIBLE);
-//
-//        }else if(productId.equals("cycle_colors")){
-//
+
+            dialog.dismiss();
+
+        }else if(productId.equals(StringConstants.PURCHASE_COLORS_KEY)){
+
 //            toast.setText(R.string.turnColorCyclingOnOff);
 //            final Handler handler = new Handler();
 //
-//            final Runnable runnable = new Runnable() {
-//                public void run() {
+//            final Runnable runnable = () -> {
 //
-//                    if(!mute) {
-//                        sweep.start();
-//                    }
-//
-//                    toastView.startAnimation(AnimationUtils.loadAnimation
-//                            (MainActivity.this, R.anim.enter_from_right_fast));
-//                    toastView.setVisibility(View.VISIBLE);
-//                    final Handler handler2 = new Handler();
-//                    final Runnable runnable2 = new Runnable() {
-//                        public void run() {
-//                            toastView.startAnimation(AnimationUtils.loadAnimation
-//                                    (MainActivity.this, android.R.anim.fade_out));
-//                            toastView.setVisibility(View.GONE);
-//                        }
-//                    };
-//                    handler2.postDelayed(runnable2, 3500);
+//                if(!boolMute) {
+//                    mpSweep.start();
 //                }
+//
+//                toastView.startAnimation(AnimationUtils.loadAnimation
+//                        (MainActivity.this, R.anim.enter_from_right_fast));
+//                toastView.setVisibility(View.VISIBLE);
+//                final Handler handler2 = new Handler();
+//                final Runnable runnable2 = () -> {
+//                    toastView.startAnimation(AnimationUtils.loadAnimation
+//                            (MainActivity.this, android.R.anim.fade_out));
+//                    toastView.setVisibility(View.GONE);
+//                };
+//                handler2.postDelayed(runnable2, 3500);
 //            };
 //
 //            handler.postDelayed(runnable, 500);
-//
+
+            showColorCyclingToast();
+
 //            db.updateCycleColors(true);
-//            colorCyclingAllowed = true;
+            preferences.edit().putBoolean(StringConstants.COLOR_CYCLING_AVAILABLE_KEY, true).apply();
+            boolColorCyclingAllowed = true;
 //            purchasesShowing = false;
 //            colorPickerShowing();
-//            if(colorCyclingAllowed && remindersAvailable && adsRemoved){
-//                proBtn.setVisible(false);
-//            }
+            if(boolRemindersAvailable && boolAdsRemoved){
+                miPro.setVisible(false);
+            }
 //            autoColorImg.setVisibility(View.GONE);
 //            autoColorPurchasedImg.setVisibility(View.VISIBLE);
-//
-//        }else if(productId.equals("unlock_all")){
-//
+
+            dialog.dismiss();
+
+        }else if(productId.equals(StringConstants.PURCHASE_UNLOCK_ALL_KEY)){
+
 //            toast.setText(R.string.turnColorCyclingOnOff);
 //            final Handler handler = new Handler();
 //
@@ -2882,16 +2944,21 @@ public class MainActivity extends AppCompatActivity implements
 //            };
 //
 //            handler.postDelayed(runnable, 500);
-//
+
+            showColorCyclingToast();
+
 //            db.updateAdsRemoved(true);
+            preferences.edit().putBoolean(StringConstants.ADS_REMOVED_KEY, true).apply();
 //            db.updateRemindersAvailable(true);
+            preferences.edit().putBoolean(StringConstants.REMINDERS_AVAILABLE_KEY, true).apply();
 //            db.updateCycleColors(true);
-//            adsRemoved = true;
-//            remindersAvailable = true;
-//            colorCyclingAllowed = true;
+            preferences.edit().putBoolean(StringConstants.COLOR_CYCLING_AVAILABLE_KEY, true).apply();
+            boolAdsRemoved = true;
+            boolRemindersAvailable = true;
+            boolColorCyclingAllowed = true;
 //            purchasesShowing = false;
 //            colorPickerShowing();
-//            proBtn.setVisible(false);
+            miPro.setVisible(false);
 //            unlockAllImg.setVisibility(View.GONE);
 //            unlockAllPurchasedImg.setVisibility(View.VISIBLE);
 //            autoColorImg.setVisibility(View.GONE);
@@ -2900,42 +2967,8 @@ public class MainActivity extends AppCompatActivity implements
 //            remindersPurchasedImg.setVisibility(View.VISIBLE);
 //            removeAdsImg.setVisibility(View.GONE);
 //            removeAdsPurchasedImg.setVisibility(View.VISIBLE);
-//
-//        }
-        //Inform user of successful purchase
-        if (productId.equals(StringConstants.UNLOCK_ALL)) {
 
-            toast.setText(R.string.turnColorCyclingOnOff);
-            final Handler handler = new Handler();
-
-            final Runnable runnable = () -> {
-
-                if (!boolMute) {
-                    mpSweep.start();
-                }
-
-                toastView.startAnimation(AnimationUtils.loadAnimation
-                        (MainActivity.this, R.anim.enter_from_right_fast));
-                toastView.setVisibility(View.VISIBLE);
-                final Handler handler2 = new Handler();
-                final Runnable runnable2 = () -> {
-                    toastView.startAnimation(AnimationUtils.loadAnimation
-                            (MainActivity.this, android.R.anim.fade_out));
-                    toastView.setVisibility(View.GONE);
-                };
-                handler2.postDelayed(runnable2, 2000);
-            };
-
-            handler.postDelayed(runnable, 500);
-
-            //Update values so that app appears to be in 'pro mode'
-
-            boolAdsRemoved = true;
-            preferences.edit().putBoolean(StringConstants.ADS_REMOVED_KEY, true).apply();
-            boolRemindersAvailable = true;
-            preferences.edit().putBoolean(StringConstants.REMINDERS_AVAILABLE_KEY, true).apply();
-            miPro.setVisible(false);
-            imgBanner.setVisibility(View.GONE);
+            dialog.dismiss();
 
         }
 
@@ -2950,6 +2983,9 @@ public class MainActivity extends AppCompatActivity implements
     public void onBillingError(int errorCode, @Nullable Throwable error) {
 
         Toast.makeText(MainActivity.this, R.string.somethingWentWrong, Toast.LENGTH_LONG).show();
+        Log.d(TAG, "code: " + errorCode);
+        Log.d(TAG, "error: " + error);
+        dialog.dismiss();
 
     }
 
@@ -2974,76 +3010,45 @@ public class MainActivity extends AppCompatActivity implements
         super.onDestroy();
     }
 
-//    public void removeAds(View view) {
-//
-//        if(!adsRemoved) {
-//            vibrate.vibrate(50);
-//
-//            if (!mute) {
-//                chime.start();
-//            }
-//
-//            billingProcessor.purchase(this, "remove_ads");
-//
-//        }
-//
-//    }
+    public void removeAds() {
+        if(!boolAdsRemoved) {
+            vibrate.vibrate(50);
+            if (!boolMute) {
+                mpChime.start();
+            }
+            billingProcessor.purchase(this, StringConstants.PURCHASE_ADS_KEY);
+        }
+    }
 
-//    public void getReminders(View view) {
-//
-//        if(!remindersAvailable) {
-//            vibrate.vibrate(50);
-//
-//            if (!mute) {
-//                chime.start();
-//            }
-//
-//            bp.purchase(this, "get_reminders");
-//
-//        }
-//
-//    }
+    public void getReminders() {
+        if(!boolRemindersAvailable) {
+            vibrate.vibrate(50);
+            if (!boolMute) {
+                mpChime.start();
+            }
+            billingProcessor.purchase(this, StringConstants.PURCHASE_REMINDERS_KEY);
+        }
+    }
 
-//    public void cycleColors(View view) {
-//
-//        if(!colorCyclingAllowed) {
-//            vibrate.vibrate(50);
-//
-//            if (!mute) {
-//                chime.start();
-//            }
-//
-//            bp.purchase(this, "cycle_colors");
-//
-//        }
-//
-//    }
+    public void getColorCycling() {
+        if(!boolColorCyclingAllowed) {
+            vibrate.vibrate(50);
+            if (!boolMute) {
+                mpChime.start();
+            }
+            billingProcessor.purchase(this, StringConstants.PURCHASE_COLORS_KEY);
+        }
+    }
 
-//    public void unlockAll(View view) {
-//
-//        if(!colorCyclingAllowed && !remindersAvailable && !adsRemoved) {
-//
-//            vibrate.vibrate(50);
-//
-//            if (!mute) {
-//                chime.start();
-//            }
-//
-//            bp.purchase(this, "unlock_all");
-//
-//        }
-//
-//    }
-
-//    @Override
-//    protected void onPause(){
-//
-//        super.onPause();
-//
-//        //TODO check if this line is needed
-//        sortedIdsForNote = sortedIDs;
-//
-//    }
+    public void unlockAll() {
+        if(!boolColorCyclingAllowed && !boolRemindersAvailable && !boolAdsRemoved) {
+            vibrate.vibrate(50);
+            if (!boolMute) {
+                mpChime.start();
+            }
+            billingProcessor.purchase(this, StringConstants.PURCHASE_UNLOCK_ALL_KEY);
+        }
+    }
 
     @Override
     protected void onResume() {
@@ -3055,11 +3060,14 @@ public class MainActivity extends AppCompatActivity implements
 //
 //            getSavedData();
 
-        lngTimeColorLastChanged = preferences.getLong(StringConstants.TIME_COLOR_LAST_CHANGED, lngTimeInstalled);
+        lngTimeColorLastChanged = preferences.getLong(StringConstants.TIME_COLOR_LAST_CHANGED_KEY, lngTimeInstalled);
 
         if(boolColorCyclingAllowed && boolColorCyclingEnabled) {
             Calendar cal = Calendar.getInstance();
-            if((cal.getTimeInMillis() / 1000 / 60 / 60) >= (lngTimeColorLastChanged + 4)) {
+            long now = cal.getTimeInMillis() / 1000 / 60 / 60;
+            lngTimeColorLastChanged = lngTimeColorLastChanged / 1000 / 60 / 60;
+            lngTimeColorLastChanged += 4;
+            if(now >= (lngTimeColorLastChanged + 4)) {
                 switchColor();
             }
         }
@@ -3068,7 +3076,8 @@ public class MainActivity extends AppCompatActivity implements
 
         showPrompt();
 
-        adapter.notifyItemChanged(preferences.getInt(StringConstants.REFRESH_THIS_ITEM, 0));
+//        adapter.notifyItemChanged(preferences.getInt(StringConstants.REFRESH_THIS_ITEM_KEY, 0));
+        adapter.notifyDataSetChanged();
         toggleFab(true);
 
 //        if (boolDueInPast) {
@@ -3206,7 +3215,7 @@ public class MainActivity extends AppCompatActivity implements
 
         //If task properties are showing then the back button should close them
         if (boolPropertiesShowing) {
-            adapter.notifyItemChanged(preferences.getInt(StringConstants.REFRESH_THIS_ITEM, 0));
+            adapter.notifyItemChanged(preferences.getInt(StringConstants.REFRESH_THIS_ITEM_KEY, 0));
             boolPropertiesShowing = false;
         } else {
             super.onBackPressed();

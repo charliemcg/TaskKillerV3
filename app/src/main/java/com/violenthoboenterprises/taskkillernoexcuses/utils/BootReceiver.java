@@ -30,7 +30,7 @@ public class BootReceiver extends BroadcastReceiver {
             SharedPreferences preferences = context.getSharedPreferences("com.violenthoboenterprises.blistful",
                     Context.MODE_PRIVATE);
 
-            preferences.edit().putBoolean(StringConstants.REINSTATE_REMINDERS_AFTER_REBOOT, true).apply();
+            preferences.edit().putBoolean(StringConstants.REINSTATE_REMINDERS_AFTER_REBOOT_KEY, true).apply();
 
         }
     }

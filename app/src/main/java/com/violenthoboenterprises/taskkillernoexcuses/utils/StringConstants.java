@@ -13,17 +13,20 @@ public class StringConstants {
     public static String SHOW_REVIEW_KEY = "show_review_key";
     public static String TIME_INSTALLED_KEY = "time_installed_key";
     public static int DELETE_TASK_ID = 0;
-    public static String UNLOCK_ALL = "unlock_all";
-    public static String TEST_PURCHASE = "android.test.purchased";
+    public static String PURCHASE_COLORS_KEY = "cycle_colors_key";
+    public static String PURCHASE_ADS_KEY = "remove_ads_key";
+    public static String PURCHASE_REMINDERS_KEY = "get_reminders_key";
+    public static String PURCHASE_UNLOCK_ALL_KEY = "unlock_all_key";
+    public static String TEST_PURCHASE_KEY = "android.test.purchased";
     public static String DATABASE_MERGED_KEY = "database_merged_key";
-    public static String REFRESH_THIS_ITEM = "refresh_this_item";
+    public static String REFRESH_THIS_ITEM_KEY = "refresh_this_item_key";
     public static String DAY = "day";
     public static String WEEK = "week";
     public static String MONTH = "month";
-    public static String REINSTATE_REMINDERS_AFTER_REBOOT = "reinstate_reminders_after_reboot";
+    public static String REINSTATE_REMINDERS_AFTER_REBOOT_KEY = "reinstate_reminders_after_reboot_key";
     public static String HIGHLIGHT_COLOR_KEY = "highlight_color_key";
-    public static String TIME_COLOR_LAST_CHANGED = "time_color_last_changed";
-    public static String DARK_MODE_ENABLED = "dark_mode_enabled";
+    public static String TIME_COLOR_LAST_CHANGED_KEY = "time_color_last_changed_key";
+    public static String DARK_MODE_ENABLED_KEY = "dark_mode_enabled_key";
 //    public static String DEC_HIGHLIGHT_COLOR_KEY = "dec_highlight_color_key";
 
 }

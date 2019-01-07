@@ -163,11 +163,11 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         //show properties on click
         holder.taskLayout.setOnClickListener(view -> {
             //removing any other visible properties
-            if (preferences.getInt(StringConstants.REFRESH_THIS_ITEM, 0) != position) {
-                notifyItemChanged(preferences.getInt(StringConstants.REFRESH_THIS_ITEM, 0));
+            if (preferences.getInt(StringConstants.REFRESH_THIS_ITEM_KEY, 0) != position) {
+                notifyItemChanged(preferences.getInt(StringConstants.REFRESH_THIS_ITEM_KEY, 0));
             }
             //tracking this item as requiring updating upon return from a child activity
-            preferences.edit().putInt(StringConstants.REFRESH_THIS_ITEM, position).apply();
+            preferences.edit().putInt(StringConstants.REFRESH_THIS_ITEM_KEY, position).apply();
             if (holder.taskProperties.getVisibility() == View.VISIBLE) {
                 MainActivity.boolPropertiesShowing = false;
                 holder.taskProperties.startAnimation(AnimationUtils.loadAnimation(context, R.anim.exit_out_left));
