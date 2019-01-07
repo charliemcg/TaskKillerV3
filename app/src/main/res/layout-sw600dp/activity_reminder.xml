@@ -106,17 +106,21 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="?attr/selectableItemBackground"
-        app:layout_constraintBottom_toTopOf="@+id/btnTime"
+        app:layout_constraintBottom_toTopOf="@+id/divTwo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/reminderDivider" />
 
-    <TextView
+    <View
         android:id="@+id/divTwo"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" />
+        android:layout_marginRight="30dp"
+        app:layout_constraintBottom_toTopOf="@id/btnTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnDate" />
 
     <!--<LinearLayout-->
     <!--android:id="@+id/btnTime"-->
@@ -189,17 +193,21 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:background="?attr/selectableItemBackground"
-        app:layout_constraintBottom_toTopOf="@id/viewRepeatLayout"
+        app:layout_constraintBottom_toTopOf="@id/divThree"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDate" />
+        app:layout_constraintTop_toBottomOf="@+id/divTwo" />
 
-    <TextView
+    <View
         android:id="@+id/divThree"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp" />
+        android:layout_marginRight="30dp"
+        app:layout_constraintBottom_toTopOf="@id/viewRepeatLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnTime" />
 
     <!--<LinearLayout-->
     <!--android:id="@+id/viewRepeatLayout"-->
@@ -448,7 +456,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDate"
+        app:layout_constraintTop_toBottomOf="@+id/divThree"
         app:layout_constraintVertical_bias="0.929" />
 
 </android.support.constraint.ConstraintLayout>

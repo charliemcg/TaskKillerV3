@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
+import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.violenthoboenterprises.taskkillernoexcuses.R;
+import com.violenthoboenterprises.taskkillernoexcuses.databinding.ActivityReminderBinding;
 import com.violenthoboenterprises.taskkillernoexcuses.model.Reminder;
 import com.violenthoboenterprises.taskkillernoexcuses.model.ReminderPresenterImpl;
 import com.violenthoboenterprises.taskkillernoexcuses.model.ReminderViewModel;
@@ -346,6 +348,11 @@ public class ReminderActivity extends MainActivity {
         boolDateSet = false;
         boolTimeSet = false;
         reminderRoot = findViewById(R.id.reminderRoot);
+
+        View divTwo = findViewById(R.id.divTwo);
+        divTwo.setBackgroundColor(Color.parseColor(strHighlightColor));
+        View divThree = findViewById(R.id.divThree);
+        divThree.setBackgroundColor(Color.parseColor(strHighlightColor));
 
         intScreenSize = getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK;

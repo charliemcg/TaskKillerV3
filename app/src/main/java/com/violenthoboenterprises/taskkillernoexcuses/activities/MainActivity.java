@@ -9,9 +9,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.content.res.TypedArray;
 import android.databinding.DataBindingUtil;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -75,7 +78,6 @@ import com.violenthoboenterprises.taskkillernoexcuses.view.MainActivityView;
 
 import java.util.Calendar;
 import java.util.Random;
-
 
 public class MainActivity extends AppCompatActivity implements
         BillingProcessor.IBillingHandler, MainActivityView {
@@ -361,6 +363,12 @@ public class MainActivity extends AppCompatActivity implements
     //the purchases dialog
     private Dialog dialog;
 
+    //The recycler view
+    RecyclerView recyclerView;
+
+    //The diver that shows up between recycler view items
+    DividerItemDecoration dividerItemDecoration;
+
     //In-app purchases view and it's elements
 //    static LinearLayout purchases;
 //    LinearLayout removeAdsLayout;
@@ -586,13 +594,18 @@ public class MainActivity extends AppCompatActivity implements
         intFabWidth = params.width;
 
         //Setting up the recycler view
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+        dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 getResources().getConfiguration().orientation);
-        recyclerView.addItemDecoration(dividerItemDecoration);
+//        if(boolDarkModeEnabled) {
+//            dividerItemDecoration.setDrawable(ContextCompat.getDrawable(recyclerView.getContext(), R.drawable.item_decoration));
+//        }else{
+//            dividerItemDecoration.setDrawable(ContextCompat.getDrawable(recyclerView.getContext(), R.drawable.item_decoration_light));
+//        }
+//        recyclerView.addItemDecoration(dividerItemDecoration);
 
         //setting up the adapter
         adapter = new TaskAdapter(this, mainActivityPresenter,
@@ -1712,6 +1725,7 @@ public class MainActivity extends AppCompatActivity implements
             tb.setSubtitleTextColor(getResources().getColor(R.color.gray));
             adapter.notifyDataSetChanged();
             imgNoTasks.setImageDrawable(getResources().getDrawable(R.drawable.no_tasks_dark));
+            dividerItemDecoration.setDrawable(ContextCompat.getDrawable(recyclerView.getContext(), R.drawable.item_decoration));
 //            theListView.setBackgroundColor(Color.parseColor("#333333"));
 //            toolbarLight.setVisibility(View.INVISIBLE);
 //            toolbarDark.setVisibility(View.VISIBLE);
@@ -1740,6 +1754,7 @@ public class MainActivity extends AppCompatActivity implements
             tb.setSubtitleTextColor(getResources().getColor(R.color.dark_gray));
             adapter.notifyDataSetChanged();
             imgNoTasks.setImageDrawable(getResources().getDrawable(R.drawable.no_tasks_light));
+            dividerItemDecoration.setDrawable(ContextCompat.getDrawable(recyclerView.getContext(), R.drawable.item_decoration_light));
 //            theListView.setBackgroundColor(Color.parseColor("#FFFFFF"));
 //            toolbarDark.setVisibility(View.INVISIBLE);
 //            toolbarLight.setVisibility(View.VISIBLE);
@@ -1764,6 +1779,7 @@ public class MainActivity extends AppCompatActivity implements
 //                    (this, R.drawable.purchases_dropshadow));
 //            setDividers(lightDark);
         }
+        recyclerView.addItemDecoration(dividerItemDecoration);
     }
 
     @Override
