@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,13 +8,6 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <!--<android.support.v7.widget.Toolbar-->
-    <!--android:id="@+id/tbNote"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="?attr/actionBarSize"-->
-    <!--style="@style/HeaderBar"-->
-    <!--android:elevation="4dp"/>-->
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/tbNote"
         android:layout_width="match_parent"
@@ -24,7 +16,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <!--style="@style/HeaderBar"-->
 
     <View
         android:id="@+id/divider"
@@ -35,18 +26,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tbNote" />
-
-    <!--<TextView-->
-    <!--android:id="@+id/tvNote"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_below="@+id/divider"-->
-    <!--android:textColor="@color/gray"-->
-    <!--android:textSize="20sp"-->
-    <!--android:scrollbars="vertical"-->
-    <!--android:layout_marginLeft="20dp"-->
-    <!--android:layout_marginBottom="20dp"-->
-    <!--android:layout_marginTop="20dp"/>-->
 
     <TextView
         android:id="@+id/tvNote"
@@ -63,12 +42,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tbNote" />
 
-    <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:layout_alignParentBottom="true">-->
-
     <LinearLayout
         android:id="@+id/noteEtLayout"
         android:layout_width="match_parent"
@@ -78,19 +51,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNote">
-
-        <!--<EditText-->
-        <!--android:id="@+id/etNote"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_weight="6"-->
-        <!--android:paddingLeft="5dp"-->
-        <!--android:maxLines="3"-->
-        <!--android:maxLength="2000"-->
-        <!--android:imeOptions="actionDone"-->
-        <!--android:inputType="textCapSentences|textMultiLine"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:hint="@string/addYourNote"/>-->
 
         <EditText
             android:id="@+id/etNote"
@@ -106,17 +66,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tbNote"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <!--<ImageView-->
-        <!--android:id="@+id/btnSubmitNote"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:padding="5dp"-->
-        <!--android:layout_gravity="center_vertical"-->
-        <!--android:contentDescription="@string/accessSubmitButton"-->
-        <!--android:src="@drawable/submit_dark"/>-->
+            app:layout_constraintVertical_bias="1.0"
+            android:importantForAutofill="no"
+            tools:ignore="UnusedAttribute" />
 
         <ImageView
             android:id="@+id/btnSubmitNote"
@@ -130,16 +82,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/etNote"
             app:layout_constraintTop_toTopOf="@+id/etNote" />
-
-        <!--<ImageView-->
-        <!--android:id="@+id/btnSubmitNoteOne"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:padding="5dp"-->
-        <!--android:layout_gravity="center_vertical"-->
-        <!--android:src="@drawable/submit_one"-->
-        <!--android:visibility="gone"/>-->
 
         <ImageView
             android:id="@+id/btnSubmitNoteOne"
@@ -155,16 +97,6 @@
             app:layout_constraintTop_toTopOf="@+id/etNote"
             tools:ignore="ContentDescription" />
 
-        <!--<ImageView-->
-        <!--android:id="@+id/btnSubmitNoteTwo"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:padding="5dp"-->
-        <!--android:layout_gravity="center_vertical"-->
-        <!--android:src="@drawable/submit_one_half"-->
-        <!--android:visibility="gone"/>-->
-
         <ImageView
             android:id="@+id/btnSubmitNoteTwo"
             android:layout_width="50dp"
@@ -179,16 +111,6 @@
             app:layout_constraintTop_toTopOf="@+id/etNote"
             tools:ignore="ContentDescription" />
 
-        <!--<ImageView-->
-        <!--android:id="@+id/btnSubmitNoteThree"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:padding="5dp"-->
-        <!--android:layout_gravity="center_vertical"-->
-        <!--android:src="@drawable/submit_two"-->
-        <!--android:visibility="gone"/>-->
-
         <ImageView
             android:id="@+id/btnSubmitNoteThree"
             android:layout_width="50dp"
@@ -202,16 +124,6 @@
             app:layout_constraintStart_toEndOf="@+id/etNote"
             app:layout_constraintTop_toTopOf="@+id/etNote"
             tools:ignore="ContentDescription" />
-
-        <!--<ImageView-->
-        <!--android:id="@+id/btnSubmitNoteFour"-->
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:padding="5dp"-->
-        <!--android:layout_gravity="center_vertical"-->
-        <!--android:src="@drawable/submit_two_half"-->
-        <!--android:visibility="gone"/>-->
 
         <ImageView
             android:id="@+id/btnSubmitNoteFour"

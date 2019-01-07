@@ -270,7 +270,7 @@ public class MainActivityPresenterImpl implements MainActivityPresenter {
 
     @Override
     public boolean showReviewPrompt(int intShowReviewPrompt, long lngTimeInstalled) {
-        Calendar calendar = new GregorianCalendar().getInstance();
+        Calendar calendar = Calendar.getInstance();
         //show review prompt after three days
         if (intShowReviewPrompt == 0 && (lngTimeInstalled
                 <= (calendar.getTimeInMillis() - 259200000))) {
@@ -285,11 +285,8 @@ public class MainActivityPresenterImpl implements MainActivityPresenter {
                 <= ((calendar.getTimeInMillis() / 1000) - 2635200))) {
             return true;
             //show review prompt after two months
-        } else if (intShowReviewPrompt == 3 && ((lngTimeInstalled / 1000)
-                <= ((calendar.getTimeInMillis() / 1000) - 5270400))) {
-            return true;
-        }
-        return false;
+        } else return intShowReviewPrompt == 3 && ((lngTimeInstalled / 1000)
+                <= ((calendar.getTimeInMillis() / 1000) - 5270400));
     }
 
 }

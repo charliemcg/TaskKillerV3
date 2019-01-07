@@ -7,74 +7,74 @@
     tools:context="com.violenthoboenterprises.taskkiller.MainActivity"
     android:background="@color/dark_gray">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="horizontal">-->
 
-        <LinearLayout
-            android:id="@+id/snoozeTask"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:background="@drawable/layout_border">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/snoozeTask"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="60dp"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:background="@drawable/layout_border">-->
 
-            <TextView
-                android:id="@+id/snoozeTaskBtnText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:lines="1"
-                android:gravity="center"
-                android:text="@string/snooze"
-                android:textColor="@color/gray"
-                android:textSize="17sp"/>
+            <!--<TextView-->
+                <!--android:id="@+id/snoozeTaskBtnText"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:lines="1"-->
+                <!--android:gravity="center"-->
+                <!--android:text="@string/snooze"-->
+                <!--android:textColor="@color/gray"-->
+                <!--android:textSize="17sp"/>-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
-        <LinearLayout
-            android:id="@+id/taskDone"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:background="@drawable/layout_border">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/taskDone"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="60dp"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:background="@drawable/layout_border">-->
 
-            <TextView
-                android:id="@+id/taskDoneBtnText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:lines="1"
-                android:gravity="center"
-                android:text="@string/done"
-                android:textColor="@color/gray"
-                android:textSize="17sp"/>
+            <!--<TextView-->
+                <!--android:id="@+id/taskDoneBtnText"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:lines="1"-->
+                <!--android:gravity="center"-->
+                <!--android:text="@string/done"-->
+                <!--android:textColor="@color/gray"-->
+                <!--android:textSize="17sp"/>-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
-        <LinearLayout
-            android:id="@+id/taskIgnore"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:orientation="horizontal"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:background="@drawable/layout_border">
+        <!--<LinearLayout-->
+            <!--android:id="@+id/taskIgnore"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="60dp"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_weight="1"-->
+            <!--android:gravity="center"-->
+            <!--android:background="@drawable/layout_border">-->
 
-            <TextView
-                android:id="@+id/taskIgnoreBtnText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:lines="1"
-                android:gravity="center"
-                android:text="@string/ignore"
-                android:textColor="@color/gray"
-                android:textSize="17sp"/>
+            <!--<TextView-->
+                <!--android:id="@+id/taskIgnoreBtnText"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:lines="1"-->
+                <!--android:gravity="center"-->
+                <!--android:text="@string/ignore"-->
+                <!--android:textColor="@color/gray"-->
+                <!--android:textSize="17sp"/>-->
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
 </TableRow>

@@ -7,13 +7,6 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <!--<android.support.v7.widget.Toolbar-->
-    <!--android:id="@+id/tbDue"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="?attr/actionBarSize"-->
-    <!--style="@style/HeaderBar"-->
-    <!--android:elevation="4dp"/>-->
-
     <android.support.v7.widget.Toolbar
         android:id="@+id/tbReminder"
         android:layout_width="match_parent"
@@ -22,7 +15,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <!--style="@style/HeaderBar"-->
 
     <TextView
         android:id="@+id/reminderDivider"
@@ -33,19 +25,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tbReminder" />
-
-    <!--<LinearLayout-->
-    <!--android:id="@+id/btnDate"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_margin="20dp"-->
-    <!--android:layout_weight="3"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:padding="20dp"-->
-    <!--app:layout_constraintBottom_toTopOf="@+id/btnTime"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/tbReminder">-->
 
     <ImageView
         android:id="@+id/imgCalendarFaded"
@@ -58,16 +37,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnDate"
         app:layout_constraintVertical_bias="0.516" />
-
-    <!--<ImageView-->
-    <!--android:id="@+id/calendarFadedLight"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_weight="2"-->
-    <!--android:src="@drawable/calendar_faded_light"-->
-    <!--android:contentDescription="@string/accessGrayedOutCalendar"-->
-    <!--android:padding="15dp"-->
-    <!--android:visibility="gone"/>-->
 
     <ImageView
         android:id="@+id/imgCalendar"
@@ -95,8 +64,6 @@
         app:layout_constraintStart_toEndOf="@+id/imgCalendarFaded"
         app:layout_constraintTop_toTopOf="@+id/btnDate" />
 
-    <!--</LinearLayout>-->
-
     <View
         android:id="@+id/btnDate"
         android:layout_width="match_parent"
@@ -122,19 +89,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnDate" />
 
-    <!--<LinearLayout-->
-    <!--android:id="@+id/btnTime"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_margin="20dp"-->
-    <!--android:layout_weight="3"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:padding="20dp"-->
-    <!--app:layout_constraintBottom_toTopOf="@id/viewRepeatLayout"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/btnDate">-->
-
     <ImageView
         android:id="@+id/imgTimeFaded"
         android:layout_width="wrap_content"
@@ -146,16 +100,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/btnTime"
         app:layout_constraintVertical_bias="0.516" />
-
-    <!--<ImageView-->
-    <!--android:id="@+id/timeFadedLight"-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_weight="2"-->
-    <!--android:src="@drawable/time_faded_light"-->
-    <!--android:contentDescription="@string/accessGrayedOutClock"-->
-    <!--android:padding="10dp"-->
-    <!--android:visibility="gone"/>-->
 
     <ImageView
         android:id="@+id/imgTime"
@@ -184,8 +128,6 @@
         app:layout_constraintStart_toEndOf="@+id/imgTimeFaded"
         app:layout_constraintTop_toTopOf="@+id/btnTime" />
 
-    <!--</LinearLayout>-->
-
     <View
         android:id="@+id/btnTime"
         android:layout_width="match_parent"
@@ -209,36 +151,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnTime" />
 
-    <!--<LinearLayout-->
-    <!--android:id="@+id/viewRepeatLayout"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_marginLeft="15dp"-->
-    <!--android:layout_marginRight="15dp"-->
-    <!--android:layout_weight="2"-->
-    <!--android:gravity="center_vertical"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:visibility="gone"-->
-    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--app:layout_constraintEnd_toEndOf="parent"-->
-    <!--app:layout_constraintHorizontal_bias="1.0"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toBottomOf="@+id/btnDate"-->
-    <!--app:layout_constraintVertical_bias="0.929">-->
-
-    <!--<RelativeLayout-->
-    <!--android:layout_width="150dp"-->
-    <!--android:layout_height="150dp"-->
-    <!--android:layout_weight="1"-->
-    <!--android:gravity="center">-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/imgCancelRepeatFaded"-->
-    <!--android:layout_width="100dp"-->
-    <!--android:layout_height="100dp"-->
-    <!--android:contentDescription="@string/accessNoRepeat"-->
-    <!--android:src="@drawable/no_repeat_dark" />-->
-
     <RelativeLayout
         android:id="@+id/imgCancelRepeatFadedLayout"
         android:layout_width="wrap_content"
@@ -257,27 +169,8 @@
             android:background="@color/gray"
             android:contentDescription="@string/accessNoRepeat"
             android:src="@drawable/no_repeat_light" />
-        <!--app:layout_constraintBottom_toBottomOf="@+id/viewRepeatLayout"-->
-        <!--app:layout_constraintLeft_toLeftOf="@+id/viewRepeatLayout"-->
-        <!--app:layout_constraintRight_toLeftOf="@+id/imgDailyRepeatFadedLayout"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/viewRepeatLayout" />-->
 
     </RelativeLayout>
-
-    <!--</RelativeLayout>-->
-
-    <!--<RelativeLayout-->
-    <!--android:layout_width="150dp"-->
-    <!--android:layout_height="150dp"-->
-    <!--android:layout_weight="1"-->
-    <!--android:gravity="center">-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/imgDailyRepeatFaded"-->
-    <!--android:layout_width="100dp"-->
-    <!--android:layout_height="100dp"-->
-    <!--android:contentDescription="@string/accessDailyRepeat"-->
-    <!--android:src="@drawable/repeat_daily_dark" />-->
 
     <RelativeLayout
         android:id="@+id/imgDailyRepeatFadedLayout"
@@ -296,20 +189,8 @@
             android:background="@color/gray"
             android:contentDescription="@string/accessDailyRepeat"
             android:src="@drawable/repeat_daily_light" />
-        <!--app:layout_constraintBottom_toBottomOf="@+id/viewRepeatLayout"-->
-        <!--app:layout_constraintLeft_toRightOf="@+id/imgCancelRepeatFaded"-->
-        <!--app:layout_constraintRight_toLeftOf="@+id/imgWeeklyRepeatFadedLayout"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/viewRepeatLayout" />-->
 
     </RelativeLayout>
-
-    <!--</RelativeLayout>-->
-
-    <!--<RelativeLayout-->
-    <!--android:layout_width="150dp"-->
-    <!--android:layout_height="150dp"-->
-    <!--android:layout_weight="1"-->
-    <!--android:gravity="center">-->
 
     <RelativeLayout
         android:id="@+id/imgWeeklyRepeatFadedLayout"
@@ -326,22 +207,10 @@
             android:layout_width="85dp"
             android:layout_height="85dp"
             android:background="@color/gray"
-            android:contentDescription="Circular arrow that says weekly repeat."
+            android:contentDescription="@string/accessWeeklyRepeat"
             android:src="@drawable/repeat_weekly_light" />
-        <!--app:layout_constraintBottom_toBottomOf="@+id/viewRepeatLayout"-->
-        <!--app:layout_constraintLeft_toRightOf="@+id/imgDailyRepeatFaded"-->
-        <!--app:layout_constraintRight_toLeftOf="@+id/imgMonthlyRepeatFadedLayout"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/viewRepeatLayout" />-->
 
     </RelativeLayout>
-
-    <!--</RelativeLayout>-->
-
-    <!--<RelativeLayout-->
-    <!--android:layout_width="150dp"-->
-    <!--android:layout_height="150dp"-->
-    <!--android:layout_weight="1"-->
-    <!--android:gravity="center">-->
 
     <RelativeLayout
         android:id="@+id/imgMonthlyRepeatFadedLayout"
@@ -360,89 +229,8 @@
             android:background="@color/gray"
             android:contentDescription="@string/accessMonthlyRepeat"
             android:src="@drawable/repeat_monthly_light" />
-        <!--android:layout_width="0dp"-->
-        <!--android:layout_height="85dp"-->
-        <!--app:layout_constraintBottom_toBottomOf="@+id/viewRepeatLayout"-->
-        <!--app:layout_constraintLeft_toRightOf="@+id/imgWeeklyRepeatFaded"-->
-        <!--app:layout_constraintRight_toRightOf="@id/viewRepeatLayout"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/viewRepeatLayout" />-->
 
     </RelativeLayout>
-
-    <!--</LinearLayout>-->
-
-    <!--<LinearLayout-->
-    <!--android:id="@+id/lightRepeatLayout"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="0dp"-->
-    <!--android:layout_marginLeft="15dp"-->
-    <!--android:layout_marginRight="15dp"-->
-    <!--android:layout_weight="2"-->
-    <!--android:gravity="center_vertical"-->
-    <!--android:orientation="horizontal"-->
-    <!--android:visibility="gone">-->
-
-    <!--<RelativeLayout-->
-    <!--android:layout_width="150dp"-->
-    <!--android:layout_height="150dp"-->
-    <!--android:layout_weight="1"-->
-    <!--android:gravity="center">-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/cancelRepeatLight"-->
-    <!--android:layout_width="100dp"-->
-    <!--android:layout_height="100dp"-->
-    <!--android:contentDescription="@string/accessNoRepeat"-->
-    <!--android:src="@drawable/no_repeat_light" />-->
-
-    <!--</RelativeLayout>-->
-
-    <!--<RelativeLayout-->
-    <!--android:layout_width="150dp"-->
-    <!--android:layout_height="150dp"-->
-    <!--android:layout_weight="1"-->
-    <!--android:gravity="center">-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/dailyLight"-->
-    <!--android:layout_width="100dp"-->
-    <!--android:layout_height="100dp"-->
-    <!--android:contentDescription="@string/accessDailyRepeat"-->
-    <!--android:src="@drawable/repeat_daily_light" />-->
-
-    <!--</RelativeLayout>-->
-
-    <!--<RelativeLayout-->
-    <!--android:layout_width="150dp"-->
-    <!--android:layout_height="150dp"-->
-    <!--android:layout_weight="1"-->
-    <!--android:gravity="center">-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/weeklyLight"-->
-    <!--android:layout_width="100dp"-->
-    <!--android:layout_height="100dp"-->
-    <!--android:contentDescription="Circular arrow that says weekly repeat."-->
-    <!--android:src="@drawable/repeat_weekly_light" />-->
-
-    <!--</RelativeLayout>-->
-
-    <!--<RelativeLayout-->
-    <!--android:layout_width="150dp"-->
-    <!--android:layout_height="150dp"-->
-    <!--android:layout_weight="1"-->
-    <!--android:gravity="center">-->
-
-    <!--<ImageView-->
-    <!--android:id="@+id/monthlyLight"-->
-    <!--android:layout_width="100dp"-->
-    <!--android:layout_height="100dp"-->
-    <!--android:contentDescription="@string/accessMonthlyRepeat"-->
-    <!--android:src="@drawable/repeat_monthly_light" />-->
-
-    <!--</RelativeLayout>-->
-
-    <!--</LinearLayout>-->
 
     <View
         android:id="@+id/viewRepeatLayout"

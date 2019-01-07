@@ -22,9 +22,6 @@
             android:clickable="true"
             android:focusable="true"
             android:gravity="center">
-            <!--android:layout_marginTop="5dp"-->
-            <!--android:layout_marginEnd="5dp"-->
-            <!--android:padding="5dp"-->
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -40,15 +37,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/tvAlarm"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <!--<ImageView-->
-                <!--android:id="@+id/alarmBtnIconWhite"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/due_icon_light_solid"/>-->
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/tvAlarm"
@@ -93,17 +83,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/tvSubtasks"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <!--<ImageView-->
-                <!--android:id="@+id/subTasksBtnIconWhite"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="5dp"-->
-                <!--android:layout_marginBottom="5dp"-->
-                <!--android:layout_gravity="left|center_vertical"-->
-                <!--android:src="@drawable/subtasks_icon_light_solid"/>-->
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/tvSubtasks"
@@ -148,15 +129,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/tvNote"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <!--<ImageView-->
-                <!--android:id="@+id/noteBtnIconWhite"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:src="@drawable/note_icon_light_solid"/>-->
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
 
                 <TextView
                     android:id="@+id/tvNote"

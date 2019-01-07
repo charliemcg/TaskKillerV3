@@ -66,14 +66,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!--<ImageView-->
-                <!--android:id="@+id/removeAdsImagePurchased"-->
-                <!--android:layout_width="170dp"-->
-                <!--android:layout_height="170dp"-->
-                <!--android:contentDescription="@string/accessAdCrossedOutPurchased"-->
-                <!--android:src="@drawable/remove_ads_purchased"-->
-                <!--android:visibility="gone" />-->
-
         </android.support.constraint.ConstraintLayout>
 
     </FrameLayout>
@@ -109,14 +101,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <!--<ImageView-->
-                <!--android:id="@+id/getRemindersImagePurchased"-->
-                <!--android:layout_width="170dp"-->
-                <!--android:layout_height="170dp"-->
-                <!--android:contentDescription="@string/accessBellPurchased"-->
-                <!--android:src="@drawable/bell_purchased"-->
-                <!--android:visibility="gone" />-->
 
             <TextView
                 android:id="@+id/getRemindersTitle"
@@ -210,14 +194,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <!--<ImageView-->
-                <!--android:id="@+id/cycleColorsImagePurchased"-->
-                <!--android:layout_width="170dp"-->
-                <!--android:layout_height="170dp"-->
-                <!--android:contentDescription="@string/accessArrowCircularPurchased"-->
-                <!--android:src="@drawable/auto_color_purchased"-->
-                <!--android:visibility="gone" />-->
-
         </android.support.constraint.ConstraintLayout>
 
     </FrameLayout>
@@ -253,14 +229,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <!--<ImageView-->
-                <!--android:id="@+id/unlockAllImagePurchased"-->
-                <!--android:layout_width="170dp"-->
-                <!--android:layout_height="170dp"-->
-                <!--android:contentDescription="@string/accessAllInAppImagesGray"-->
-                <!--android:src="@drawable/unlock_all_purchased"-->
-                <!--android:visibility="gone" />-->
 
             <TextView
                 android:id="@+id/unlockAllTitle"

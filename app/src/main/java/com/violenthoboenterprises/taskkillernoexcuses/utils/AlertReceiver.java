@@ -26,27 +26,8 @@ import java.util.Random;
 
 public class AlertReceiver extends BroadcastReceiver {
 
-//    String TAG = "AlertReceiver";
-//    Database theDB;
-//    String highlight;
-//    String highlightDec;
-//    boolean remindersAvailable;
-//    int theTaskListSize;
-//    Intent theAlertIntent;
-//    AlarmManager theAlarmManager;
-
     String TAG = this.getClass().getSimpleName();
     private Task task;
-
-//    @Override
-//    public void onReceive(Context context, Intent intent) {
-//
-//        //retrieving task name to set as notification name
-//        createNotification(context, String.valueOf(intent.getStringExtra("ToDo")),
-//                "", "", intent.getIntExtra("broadId", 0),
-//                intent.getBooleanExtra("snoozeStatus", false));
-//
-//    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -62,121 +43,6 @@ public class AlertReceiver extends BroadcastReceiver {
     public void createNotification(Context context,
                                    String msgAlert, boolean snoozeStatus) {
 
-//        //defining intent and action to perform
-//        PendingIntent notificIntent = PendingIntent.getActivity(context, 1,
-//                new Intent(context, MainActivity.class), 0);
-//
-//        NotificationCompat.Builder builder;
-//        RemoteViews remoteViews;
-//
-////        if(MainActivity.db == null){
-////            theDB = new Database(context);
-////            highlight = "#00FF00";
-////            highlightDec = "-298516736";
-////            //getting universal data
-////            Cursor uniResult = theDB.getUniversalData();
-////            while(uniResult.moveToNext()){
-////                remindersAvailable = uniResult.getInt(6) > 0;
-////            }
-////            uniResult.close();
-////            theTaskListSize = theDB.getTotalRows();
-////            theAlertIntent = new Intent(context, AlertReceiver.class);
-////            theAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-////        }else {
-////            theDB = MainActivity.db;
-////            highlight = MainActivity.highlight;
-////            highlightDec = MainActivity.highlightDec;
-////            remindersAvailable = MainActivity.remindersAvailable;
-////            theTaskListSize = MainActivity.taskList.size();
-////            theAlertIntent = MainActivity.alertIntent;
-////            theAlarmManager = MainActivity.alarmManager;
-////        }
-//
-//        //getting task data
-//        String dbTimestamp = "";
-//        String dbTask = "";
-//        Boolean dbRepeat = false;
-//        boolean dbOverdue = false;
-//        Boolean dbSnoozed = false;
-//        String dbRepeatInterval = "";
-//        Boolean dbManualKill = false;
-//        Boolean dbKilledEarly = false;
-//        Cursor dbResult;
-//        dbResult = theDB.getData(broadId);
-//        while (dbResult.moveToNext()) {
-//            dbTimestamp = dbResult.getString(3);
-//            dbTask = dbResult.getString(4);
-//            dbRepeat = dbResult.getInt(8) > 0;
-//            dbOverdue = dbResult.getInt(9) > 0;
-//            dbSnoozed = dbResult.getInt(10) > 0;
-//            dbRepeatInterval = dbResult.getString(13);
-//            dbManualKill = dbResult.getInt(18) > 0;
-//            dbKilledEarly = dbResult.getInt(19) > 0;
-//        }
-//        dbResult.close();
-//
-//        //getting alarm data
-//        Cursor alarmResult = theDB.getAlarmData(broadId);
-//        String alarmHour = "";
-//        String alarmMinute = "";
-//        String alarmAmpm = "";
-//        String alarmDay = "";
-//        String alarmMonth = "";
-//        String alarmYear = "";
-//        while(alarmResult.moveToNext()){
-//            alarmHour = alarmResult.getString(1);
-//            alarmMinute = alarmResult.getString(2);
-//            alarmAmpm = alarmResult.getString(3);
-//            alarmDay = alarmResult.getString(4);
-//            alarmMonth = alarmResult.getString(5);
-//            alarmYear = alarmResult.getString(6);
-//        }
-//        alarmResult.close();
-//
-//        //allows for notifications
-//        NotificationManager notificationManager = (NotificationManager)
-//                context.getSystemService(Context.NOTIFICATION_SERVICE);
-//
-////        if(MainActivity.lightDark) {
-////            remoteViews = new RemoteViews(context.getPackageName(), R.layout.notification_light);
-////            remoteViews.setTextViewText(R.id.notif_title, dbTask);
-////        }else{
-////            remoteViews = new RemoteViews(context.getPackageName(), R.layout.notification);
-////            remoteViews.setTextViewText(R.id.notif_title, dbTask);
-////        }
-//
-//        //Setting up notification channel for Oreo
-//        final String notificChannelId = "notification_channel";
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            NotificationChannel notificationChannel = new NotificationChannel(
-//                    notificChannelId, "notifications",
-//                    NotificationManager.IMPORTANCE_DEFAULT);
-//
-//            notificationChannel.setDescription("Notifications about due being due");
-//            notificationChannel.enableLights(true);
-////            notificationChannel.setLightColor(Integer.parseInt(MainActivity.highlightDec));
-//            notificationChannel.enableVibration(true);
-//            notificationManager.createNotificationChannel(notificationChannel);
-//        }
-//
-//        //Building the notification
-//        builder = new NotificationCompat.Builder(context, notificChannelId)
-//                .setSmallIcon(R.drawable.small_notific_icon)
-//                .setLargeIcon(BitmapFactory
-//                        .decodeResource(context.getResources(), R.drawable.ic_launcher_og))
-//                .setContentTitle(context.getString(R.string.killThisTask))
-//                .setTicker(msgAlert)
-//                .setWhen(0)
-//                .setContentText(dbTask)
-//                .setStyle(new NotificationCompat.BigTextStyle())
-//                .setColorized(true)
-//                .setColor(Color.parseColor(highlight))
-////                .setCustomContentView(remoteViews)
-//                .setLights(Integer.parseInt(highlightDec), 500, 500)
-//                .setDefaults(NotificationCompat.DEFAULT_SOUND)
-//                .setContentIntent(notificIntent)
-//                .setAutoCancel(true);
-
         //defining intent and action to perform
         PendingIntent notificIntent = PendingIntent.getActivity(context, 1,
                 new Intent(context, MainActivity.class), 0);
@@ -189,17 +55,8 @@ public class AlertReceiver extends BroadcastReceiver {
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         //Setting values to custom notification view
-//        remoteViews = new RemoteViews(context.getPackageName(), R.layout.notification);
-////        remoteViews.setTextViewText(R.id.tvTaskText, task.getTask());
         remoteViews = new RemoteViews(context.getPackageName(), R.layout.notification);
         remoteViews.setTextViewText(R.id.notif_title, task.getTask());
-        //randomly generating motivational toast
-//        Random random = new Random();
-//        String[] strMotivation = new String[]{context.getResources().getString(R.string.getItDone),
-//                context.getResources().getString(R.string.smashThatTask), context.getResources().getString(R.string.beAWinner),
-//                context.getResources().getString(R.string.onlyWimpsGiveUp), context.getResources().getString(R.string.dontBeAFailure),
-//                context.getResources().getString(R.string.beVictorious), context.getResources().getString(R.string.killThisTask)};
-//        int j = random.nextInt(7);
 
         //Setting up notification channel for Oreo
         final String notificChannelId = "notification_channel";
@@ -219,7 +76,6 @@ public class AlertReceiver extends BroadcastReceiver {
         builder = new NotificationCompat.Builder(context, notificChannelId)
                 .setSmallIcon(R.drawable.small_notific_icon)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher_og))
-//                .setContentTitle(strMotivation[j])
                 .setTicker(msgAlert)
                 .setWhen(0)
                 .setContentText(task.getTask())

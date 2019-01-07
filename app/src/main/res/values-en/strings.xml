@@ -105,5 +105,6 @@
     <string name="accessPlusSign">Plus sign for adding tasks.</string>
     <string name="taskDeleted">Task deleted</string>
     <string name="upgradeLater"><u>Not now. I\'ll upgrade later.</u></string>
+    <string name="accessWeeklyRepeat">Circular arrow that says weekly repeat.</string>
 
 </resources>
