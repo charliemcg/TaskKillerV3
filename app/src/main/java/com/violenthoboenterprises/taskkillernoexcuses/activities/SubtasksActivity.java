@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -67,6 +68,12 @@ public class SubtasksActivity extends MainActivity implements SubtasksView {
     public static boolean boolSubtasksKeyboardShowing;
     private View subtasksRootView;
     private Toolbar tbSubtasks;
+
+    //The recycler view
+    RecyclerView recyclerView;
+
+    //The diver that shows up between recycler view items
+    DividerItemDecoration dividerItemDecoration;
 
     ActivitySubtasksBinding binding;
 
@@ -367,11 +374,11 @@ public class SubtasksActivity extends MainActivity implements SubtasksView {
         checkKeyboardShowing();
 
         //Setting up the recycler view
-        RecyclerView recyclerView = findViewById(R.id.subTasksRecyclerView);
+        recyclerView = findViewById(R.id.subTasksRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+        dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 getResources().getConfiguration().orientation);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
@@ -490,10 +497,12 @@ public class SubtasksActivity extends MainActivity implements SubtasksView {
             tbSubtasks.setTitleTextColor(getResources().getColor(R.color.gray));
             tbSubtasks.setSubtitleTextColor(getResources().getColor(R.color.gray));
             subtasksRootView.setBackgroundColor(getResources().getColor(R.color.dark_gray));
+            dividerItemDecoration.setDrawable(ContextCompat.getDrawable(recyclerView.getContext(), R.drawable.item_decoration_subtasks));
         }else{
             tbSubtasks.setTitleTextColor(getResources().getColor(R.color.black));
             tbSubtasks.setSubtitleTextColor(getResources().getColor(R.color.black));
             subtasksRootView.setBackgroundColor(getResources().getColor(R.color.white));
+            dividerItemDecoration.setDrawable(ContextCompat.getDrawable(recyclerView.getContext(), R.drawable.item_decoration_subtasks));
         }
     }
 
