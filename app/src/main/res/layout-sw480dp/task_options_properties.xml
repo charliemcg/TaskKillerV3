@@ -1,134 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    tools:context="com.violenthoboenterprises.taskkiller.MainActivity"
-    android:background="@color/dark_gray">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.violenthoboenterprises.taskkillernoexcuses.activities.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:baselineAligned="false">
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/alarm"
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/btnAlarm"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:padding="5dp"
-            android:background="@drawable/layout_border">
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center">
 
-            <ImageView
-                android:id="@+id/alarmBtnIcon"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_margin="5dp"
-                android:src="@drawable/due_icon_dark_solid"/>
-
-            <ImageView
-                android:id="@+id/alarmBtnIconWhite"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:src="@drawable/due_icon_light_solid"/>
-
-            <TextView
-                android:id="@+id/alarmBtnText"
-                android:layout_width="0dp"
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:lines="2"
-                android:gravity="center_vertical"
-                android:text="@string/alarm"
-                android:textSize="17sp"/>
+                android:background="@drawable/layout_border">
 
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/imgAlarmSolid"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/due_icon_light_solid"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvAlarm"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
 
-        <LinearLayout
-            android:id="@+id/subTasks"
+                <TextView
+                    android:id="@+id/tvAlarm"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center"
+                    android:lines="2"
+                    android:text="@string/alarm"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imgAlarmSolid"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/btnSubtasks"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:padding="5dp"
-            android:background="@drawable/layout_border">
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center">
 
-            <ImageView
-                android:id="@+id/subTasksBtnIcon"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_gravity="left|center_vertical"
-                android:src="@drawable/subtasks_icon_dark_solid"/>
-
-            <ImageView
-                android:id="@+id/subTasksBtnIconWhite"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_gravity="left|center_vertical"
-                android:src="@drawable/subtasks_icon_light_solid"/>
-
-            <TextView
-                android:id="@+id/subtasksBtnText"
-                android:layout_width="0dp"
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:lines="2"
-                android:gravity="center_vertical"
-                android:paddingRight="5dp"
-                android:text="@string/subTasks"
-                android:textSize="17sp"/>
+                android:background="@drawable/layout_border">
 
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/imgSubtasksSolid"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/subtasks_icon_light_solid"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvSubtasks"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
 
-        <LinearLayout
-            android:id="@+id/note"
+                <TextView
+                    android:id="@+id/tvSubtasks"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center"
+                    android:lines="2"
+                    android:text="@string/subTasks"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imgSubtasksSolid"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/btnNote"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:gravity="center"
-            android:padding="5dp"
-            android:background="@drawable/layout_border">
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center">
 
-            <ImageView
-                android:id="@+id/noteBtnIcon"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:src="@drawable/note_icon_dark_solid"/>
-
-            <ImageView
-                android:id="@+id/noteBtnIconWhite"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:src="@drawable/note_icon_light_solid"/>
-
-            <TextView
-                android:id="@+id/noteBtnText"
-                android:layout_width="0dp"
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:lines="2"
-                android:text="@string/note"
-                android:gravity="center_vertical"
-                android:textSize="17sp"/>
+                android:background="@drawable/layout_border">
 
-        </LinearLayout>
+                <ImageView
+                    android:id="@+id/imgNoteSolid"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/note_icon_light_solid"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/tvNote"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/tvNote"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center"
+                    android:lines="2"
+                    android:text="@string/note"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/imgNoteSolid"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.constraint.ConstraintLayout>
 
     </LinearLayout>
 
-</TableRow>
+</android.support.constraint.ConstraintLayout>

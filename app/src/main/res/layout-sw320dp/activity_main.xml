@@ -1,411 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.violenthoboenterprises.taskkillernoexcuses.activities.MainActivity"
-    android:orientation="vertical"
-    android:id="@+id/activityRoot">
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="highlightColor"
+            type="int" />
+    </data>
 
-    <!--<android.support.v7.widget.Toolbar-->
-        <!--android:id="@+id/toolbar_dark"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="?attr/actionBarSize"-->
-        <!--style="@style/HeaderBar"-->
-        <!--app:title="@string/app_name"-->
-        <!--app:subtitle="@string/noExcuses"-->
-        <!--app:subtitleTextColor="@color/gray"-->
-        <!--android:elevation="4dp"-->
-        <!--android:theme="@style/ThemeOverlay.DarkTheme"-->
-        <!--app:popupTheme="@style/ThemeOverlay.DarkTheme"-->
-        <!--android:background="@color/dark_gray"-->
-        <!--android:visibility="gone"/>-->
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/tb"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        style="@style/HeaderBar"
-        app:title="@string/app_name"
-        app:subtitle="@string/noExcuses"
-        app:subtitleTextColor="@color/dark_gray"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.LightTheme"
-        app:popupTheme="@style/ThemeOverlay.LightTheme"
-        android:background="@color/white"
-        android:visibility="gone"/>
-
-    <ImageView
-        android:id="@+id/imgBanner"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:elevation="100dp"
-        android:onClick="showPro"
-        android:src="@drawable/banner"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tb" />
-
-    <TextView
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/toolbar_dark"
-        android:background="@color/mid_gray"/>
-
-    <LinearLayout
-        android:id="@+id/purchases"
+    <android.support.constraint.ConstraintLayout xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/activityRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@drawable/color_picker_border_white"
-        android:elevation="4dp"
-        android:layout_margin="30dp"
-        android:visibility="gone">
+        tools:context="com.violenthoboenterprises.taskkillernoexcuses.activities.MainActivity">
 
-        <LinearLayout
-            android:id="@+id/removeAds"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tb"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.LightTheme"
+            ads:titleTextColor="@{highlightColor}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/ThemeOverlay.LightTheme"
+            app:subtitle="@string/noExcuses"
+            app:title="@string/app_name" />
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="100dp"
+            android:visibility="gone"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="ca-app-pub-2378583121223638/7561576546"
+            app:layout_constraintBottom_toTopOf="@id/recyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tb" />
+
+        <ImageView
+            android:id="@+id/imgBanner"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:contentDescription="@string/bannerPromptingUser"
+            android:elevation="100dp"
+            android:onClick="showPro"
+            android:src="@drawable/banner"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mainActivityDivider" />
+
+        <View
+            android:id="@+id/mainActivityDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/mid_gray"
+            app:layout_constraintBottom_toTopOf="@+id/imgBanner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tb" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:background="@drawable/purchases_dropshadow">
-            <!--android:onClick="removeAds"-->
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgBanner"
+            tools:listitem="@layout/item_task" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:layout_margin="5dp"
-                android:paddingLeft="5dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/removeAdsTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:textSize="17sp"
-                    android:text="@string/removeAds"/>
-
-                <TextView
-                    android:id="@+id/removeAdsDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:gravity="center_vertical"
-                    android:text="@string/permanentlyRemoveAds"/>
-
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/removeAdsImage"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:src="@drawable/remove_ads"
-                android:contentDescription="@string/accessGenericLookingAd"/>
-
-            <ImageView
-                android:id="@+id/removeAdsImagePurchased"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:src="@drawable/remove_ads_purchased"
-                android:contentDescription="@string/accessAdCrossedOutPurchased"
-                android:visibility="gone"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/getReminders"
+        <ImageView
+            android:id="@+id/imgNoTasks"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:background="@drawable/purchases_dropshadow">
-            <!--android:onClick="getReminders"-->
+            android:layout_height="match_parent"
+            android:contentDescription="@string/accessNoTasks"
+            android:src="@drawable/no_tasks_light"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/mainActivityDivider" />
 
-            <ImageView
-                android:id="@+id/getRemindersImage"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:src="@drawable/bell"
-                android:contentDescription="@string/accessBell"/>
-
-            <ImageView
-                android:id="@+id/getRemindersImagePurchased"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:src="@drawable/bell_purchased"
-                android:contentDescription="@string/accessBellPurchased"
-                android:visibility="gone"/>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:layout_margin="5dp"
-                android:paddingRight="5dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/getRemindersTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:textSize="17sp"
-                    android:gravity="right"
-                    android:text="@string/getReminders"/>
-
-                <TextView
-                    android:id="@+id/getremindersDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center_vertical|right"
-                    android:text="@string/setUnlimitedDueDates"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/cycleColors"
+        <EditText
+            android:id="@+id/etTaskName"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:background="@drawable/purchases_dropshadow">
-            <!--android:onClick="cycleColors"-->
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:background="@{highlightColor}"
+            android:hint="@string/taskTitle"
+            android:imeOptions="actionDone"
+            android:importantForAutofill="no"
+            android:inputType="textCapSentences"
+            android:maxLength="50"
+            android:maxLines="1"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:paddingBottom="5dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="UnusedAttribute" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:layout_margin="5dp"
-                android:paddingLeft="5dp"
-                android:orientation="vertical">
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="67dp"
+            android:layout_height="75dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="32dp"
+            android:backgroundTint="@{highlightColor}"
+            android:src="@drawable/ic_add"
+            ads:layout_constraintHorizontal_bias="1.0"
+            ads:layout_constraintVertical_bias="0.968"
+            ads:rippleColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/cycleColorsTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1.5"
-                    android:textSize="17sp"
-                    android:text="@string/cycleColors"/>
-
-                <TextView
-                    android:id="@+id/cycleColorsDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/featureColorSlowly"/>
-
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/cycleColorsImage"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:src="@drawable/auto_color"
-                android:contentDescription="@string/accessArrowCircular"/>
-
-            <ImageView
-                android:id="@+id/cycleColorsImagePurchased"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:src="@drawable/auto_color_purchased"
-                android:contentDescription="@string/accessArrowCircularPurchased"
-                android:visibility="gone"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/unlockAll"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_margin="10dp"
-            android:orientation="horizontal"
-            android:background="@drawable/purchases_dropshadow">
-            <!--android:onClick="unlockAll"-->
-
-            <ImageView
-                android:id="@+id/unlockAllImage"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:src="@drawable/unlock_all"
-                android:contentDescription="@string/accessAllInAppImages"/>
-
-            <ImageView
-                android:id="@+id/unlockAllImagePurchased"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                android:src="@drawable/unlock_all_purchased"
-                android:contentDescription="@string/accessAllInAppImagesGray"
-                android:visibility="gone"/>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:layout_margin="5dp"
-                android:paddingRight="5dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/unlockAllTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:textSize="17sp"
-                    android:gravity="right"
-                    android:text="@string/unlockAll"/>
-
-                <TextView
-                    android:id="@+id/unlockAllDescription"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center_vertical|right"
-                    android:text="@string/ultimateValuePack"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <!--<Button-->
-        <!--android:id="@+id/showDb"-->
-        <!--android:layout_marginTop="500dp"-->
-        <!--android:layout_marginLeft="200dp"-->
-        <!--android:layout_width="100dp"-->
-        <!--android:layout_height="100dp"-->
-        <!--android:text="DB"/>-->
-    <!--<Button-->
-        <!--android:id="@+id/showAlarmDb"-->
-        <!--android:layout_marginTop="500dp"-->
-        <!--android:layout_marginLeft="100dp"-->
-        <!--android:layout_width="100dp"-->
-        <!--android:layout_height="100dp"-->
-        <!--android:text="Time"/>-->
-    <!--<Button-->
-        <!--android:id="@+id/showUniversalDb"-->
-        <!--android:layout_marginTop="500dp"-->
-        <!--android:layout_width="100dp"-->
-        <!--android:layout_height="100dp"-->
-        <!--android:text="Universal DB"/>-->
-    <!--<Button-->
-        <!--android:id="@+id/showSubtasksDb"-->
-        <!--android:layout_marginTop="500dp"-->
-        <!--android:layout_marginLeft="100dp"-->
-        <!--android:layout_width="100dp"-->
-        <!--android:layout_height="100dp"-->
-        <!--android:text="Subtasks DB"/>-->
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/theListView"
-        android:layout_below="@+id/divider"
-        android:background="@color/dark_gray"
-        android:descendantFocusability="blocksDescendants"/>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/noTasks"
-        android:src="@drawable/no_tasks_dark"/>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/noTasksWhite"
-        android:src="@drawable/no_tasks_light"/>
-
-    <EditText
-        android:id="@+id/taskNameEditText"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:paddingLeft="5dp"
-        android:maxLines="1"
-        android:maxLength="50"
-        android:inputType="textCapSentences"
-        android:layout_alignParentBottom="true"
-        android:visibility="gone"
-        android:hint="@string/taskTitle"
-        android:imeOptions="actionDone"/>
-
-    <RelativeLayout
-        android:layout_width="130dp"
-        android:layout_height="180dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp">
-
-        <Button
-            android:id="@+id/add"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:background="#00FFFFFF"
-            android:contentDescription="@string/accessPlusSign"/>
-
-        <TextView
-            android:layout_width="180dp"
-            android:layout_height="180dp"
-            android:id="@+id/addIcon"
-            android:text="+"
-            android:gravity="center"
-            android:textSize="140sp"/>
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/toastView"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:background="@color/black"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/toast"
+        <RelativeLayout
+            android:id="@+id/toastView"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:textColor="@color/dark_gray"
-            android:gravity="center_vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_margin="1dp"/>
+            android:layout_marginStart="12dp"
+            android:background="@color/black"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/recyclerView"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.845">
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tvToast"
+                android:layout_width="wrap_content"
+                android:layout_height="65dp"
+                android:layout_margin="1dp"
+                android:background="@{highlightColor}"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="17sp" />
 
-</android.support.constraint.ConstraintLayout>
+        </RelativeLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

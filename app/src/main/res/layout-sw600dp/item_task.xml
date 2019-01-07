@@ -6,7 +6,6 @@
     android:id="@+id/taskLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:descendantFocusability="beforeDescendants"
     tools:context="com.violenthoboenterprises.taskkillernoexcuses.activities.MainActivity">
 
     <android.support.constraint.ConstraintLayout

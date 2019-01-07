@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="highlightColor"
             type="int" />
     </data>
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/subtasksRoot"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/tbSubtasks"
@@ -41,7 +42,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tbSubtasks"
-            tools:listitem="@layout/item_task" />
+            tools:listitem="@layout/item_subtask" />
 
         <EditText
             android:id="@+id/etSubtask"
@@ -50,6 +51,7 @@
             android:background="@{highlightColor}"
             android:hint="@string/checklistItem"
             android:imeOptions="actionDone"
+            android:importantForAutofill="no"
             android:inputType="textCapSentences"
             android:maxLength="80"
             android:maxLines="1"
@@ -58,7 +60,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:importantForAutofill="no"
             tools:ignore="UnusedAttribute" />
 
     </android.support.constraint.ConstraintLayout>

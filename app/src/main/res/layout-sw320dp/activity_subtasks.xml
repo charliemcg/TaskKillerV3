@@ -1,43 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/checklistRoot">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/subTasksToolbar"
+    <data>
+
+        <variable
+            name="highlightColor"
+            type="int" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/subtasksRoot"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        style="@style/HeaderBar"
-        android:elevation="4dp"/>
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/subTasksToolbar"
-        android:background="@color/mid_gray"/>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/tbSubtasks"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ListView
-        android:id="@+id/theChecklist"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/divider"
-        android:background="@color/dark_gray"
-        android:descendantFocusability="blocksDescendants"/>
+        <TextView
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/mid_gray"
+            app:layout_constraintBottom_toTopOf="@+id/subTasksRecyclerView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tbSubtasks" />
 
-    <EditText
-        android:id="@+id/checklistEditText"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:maxLines="1"
-        android:maxLength="50"
-        android:paddingLeft="5dp"
-        android:inputType="textCapSentences"
-        android:layout_alignParentBottom="true"
-        android:hint="@string/checklistItem"
-        android:imeOptions="actionDone"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/subTasksRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/etSubtask"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tbSubtasks"
+            tools:listitem="@layout/item_subtask" />
 
-</RelativeLayout>
+        <EditText
+            android:id="@+id/etSubtask"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@{highlightColor}"
+            android:hint="@string/checklistItem"
+            android:imeOptions="actionDone"
+            android:inputType="textCapSentences"
+            android:maxLength="80"
+            android:maxLines="1"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:importantForAutofill="no"
+            tools:ignore="UnusedAttribute" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
