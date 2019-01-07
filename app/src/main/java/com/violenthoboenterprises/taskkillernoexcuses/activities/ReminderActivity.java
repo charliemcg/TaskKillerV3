@@ -400,24 +400,7 @@ public class ReminderActivity extends MainActivity {
             }
         }
 
-        //Highlight the repeat type or highlight "No Repeat" if none exists
-        if (reminderPresenter.getRepeatInterval() == null) {
-//            imgCancelRepeatFaded.setVisibility(View.INVISIBLE);
-//            imgCancelRepeat.setVisibility(View.VISIBLE);
-            imgCancelRepeatFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
-        } else if (reminderPresenter.getRepeatInterval().equals(REPEAT_DAY)) {
-//            imgDailyFaded.setVisibility(View.INVISIBLE);
-//            imgDaily.setVisibility(View.VISIBLE);
-            imgDailyFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
-        } else if (reminderPresenter.getRepeatInterval().equals(REPEAT_WEEK)) {
-//            imgWeeklyFaded.setVisibility(View.INVISIBLE);
-//            imgWeekly.setVisibility(View.VISIBLE);
-            imgWeeklyFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
-        } else if (reminderPresenter.getRepeatInterval().equals(REPEAT_MONTH)) {
-//            imgMonthlyFaded.setVisibility(View.INVISIBLE);
-//            imgMonthly.setVisibility(View.VISIBLE);
-            imgMonthlyFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
-        }
+        checkRepeatIcons();
 
         //Actions to occur when user selects to set/change date
         btnDate.setOnClickListener(v -> {
@@ -847,10 +830,10 @@ public class ReminderActivity extends MainActivity {
 //            imgMonthlyFaded.setVisibility(View.VISIBLE);
 //            imgMonthly.setVisibility(View.INVISIBLE);
 
-            imgCancelRepeatFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
-            imgDailyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
-            imgWeeklyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
-            imgMonthlyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+//            imgCancelRepeatFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
+//            imgDailyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+//            imgWeeklyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+//            imgMonthlyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
 
             if (reminderPresenter.getYear() == 0 && reminderPresenter.getHour() == 0) {
 
@@ -860,6 +843,8 @@ public class ReminderActivity extends MainActivity {
 
             reminderPresenter.setRepeatInterval(null);
             boolRepeatSet = false;
+
+            checkRepeatIcons();
 
         });
 
@@ -884,15 +869,16 @@ public class ReminderActivity extends MainActivity {
 //            imgMonthlyFaded.setVisibility(View.VISIBLE);
 //            imgMonthly.setVisibility(View.INVISIBLE);
 
-            imgCancelRepeatFaded.setBackgroundColor(getResources().getColor(R.color.gray));
-            imgDailyFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
-            imgWeeklyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
-            imgMonthlyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+//            imgCancelRepeatFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+//            imgDailyFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
+//            imgWeeklyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+//            imgMonthlyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
 
             miKillReminder.setVisible(true);
 
             reminderPresenter.setRepeatInterval(REPEAT_DAY);
             boolRepeatSet = true;
+            checkRepeatIcons();
 
         });
 
@@ -917,15 +903,16 @@ public class ReminderActivity extends MainActivity {
 //            imgMonthlyFaded.setVisibility(View.VISIBLE);
 //            imgMonthly.setVisibility(View.INVISIBLE);
 
-            imgCancelRepeatFaded.setBackgroundColor(getResources().getColor(R.color.gray));
-            imgDailyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
-            imgWeeklyFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
-            imgMonthlyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+//            imgCancelRepeatFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+//            imgDailyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+//            imgWeeklyFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
+//            imgMonthlyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
 
             miKillReminder.setVisible(true);
 
             reminderPresenter.setRepeatInterval(REPEAT_WEEK);
             boolRepeatSet = true;
+            checkRepeatIcons();
 
         });
 
@@ -950,20 +937,52 @@ public class ReminderActivity extends MainActivity {
 //            imgMonthlyFaded.setVisibility(View.INVISIBLE);
 //            imgMonthly.setVisibility(View.VISIBLE);
 
-            imgCancelRepeatFaded.setBackgroundColor(getResources().getColor(R.color.gray));
-            imgDailyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
-            imgWeeklyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
-            imgMonthlyFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
+//            imgCancelRepeatFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+//            imgDailyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+//            imgWeeklyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+//            imgMonthlyFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
 
             miKillReminder.setVisible(true);
 
             reminderPresenter.setRepeatInterval(REPEAT_MONTH);
             boolRepeatSet = true;
+            checkRepeatIcons();
 
         });
 
         checkLightDark();
 
+    }
+
+    private void checkRepeatIcons() {
+        int fadedColor;
+        if(MainActivity.boolDarkModeEnabled){
+            fadedColor = getResources().getColor(R.color.gray);
+        }else{
+            fadedColor = getResources().getColor(R.color.status_icons_light);
+        }
+                    imgCancelRepeatFaded.setBackgroundColor(fadedColor);
+            imgDailyFaded.setBackgroundColor(fadedColor);
+            imgWeeklyFaded.setBackgroundColor(fadedColor);
+            imgMonthlyFaded.setBackgroundColor(fadedColor);
+//        Highlight the repeat type or highlight "No Repeat" if none exists
+        if (reminderPresenter.getRepeatInterval() == null) {
+//            imgCancelRepeatFaded.setVisibility(View.INVISIBLE);
+//            imgCancelRepeat.setVisibility(View.VISIBLE);
+            imgCancelRepeatFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
+        } else if (reminderPresenter.getRepeatInterval().equals(REPEAT_DAY)) {
+//            imgDailyFaded.setVisibility(View.INVISIBLE);
+//            imgDaily.setVisibility(View.VISIBLE);
+            imgDailyFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
+        } else if (reminderPresenter.getRepeatInterval().equals(REPEAT_WEEK)) {
+//            imgWeeklyFaded.setVisibility(View.INVISIBLE);
+//            imgWeekly.setVisibility(View.VISIBLE);
+            imgWeeklyFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
+        } else if (reminderPresenter.getRepeatInterval().equals(REPEAT_MONTH)) {
+//            imgMonthlyFaded.setVisibility(View.INVISIBLE);
+//            imgMonthly.setVisibility(View.VISIBLE);
+            imgMonthlyFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
+        }
     }
 
     private void checkLightDark(){
@@ -1267,10 +1286,12 @@ public class ReminderActivity extends MainActivity {
 //        imgWeekly.setVisibility(View.INVISIBLE);
 //        imgMonthlyFaded.setVisibility(View.VISIBLE);
 //        imgMonthly.setVisibility(View.INVISIBLE);
-        imgCancelRepeatFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
-        imgDailyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
-        imgWeeklyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
-        imgMonthlyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+//        imgCancelRepeatFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
+//        imgDailyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+//        imgWeeklyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+//        imgMonthlyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+
+        checkRepeatIcons();
 
         tvDate.setText(R.string.addDate);
         tvTime.setText(R.string.addTime);

@@ -709,14 +709,18 @@ public class MainActivity extends AppCompatActivity implements
                     adapter.getTaskAt(viewHolder.getAdapterPosition()).setDisplayedTimestamp(newTimestamp);
                     mainActivityPresenter.update(adapter.getTaskAt(viewHolder.getAdapterPosition()));
                     //display toast
-                    if (preferences.getInt(StringConstants.REPEAT_HINT_KEY, 0) <= 10) {
-                        if ((preferences.getInt(StringConstants.REPEAT_HINT_KEY, 0) == 1)
-                                || (preferences.getInt(StringConstants.REPEAT_HINT_KEY, 0) == 10)) {
+                    int timesShown = preferences.getInt(StringConstants.REPEAT_HINT_KEY, 0);
+                    if (timesShown <= 10) {
+                        if (timesShown == 1 || timesShown == 10) {
                             showRepeatHintToast();
                         } else if (boolShowMotivation) {
                             //showing motivational toast
                             showKilledAffirmationToast();
                         }
+                        preferences.edit().putInt(StringConstants.REPEAT_HINT_KEY, ++timesShown).apply();
+                    }else{
+                        //showing motivational toast
+                        showKilledAffirmationToast();
                     }
                     adapter.notifyDataSetChanged();
                 }
