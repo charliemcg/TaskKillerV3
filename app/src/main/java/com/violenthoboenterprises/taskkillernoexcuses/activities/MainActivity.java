@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity implements
     //used to determine whether or not to show motivational toasts
     private boolean boolShowMotivation;
     //used to determine if user needs to be notified that they set a task to be due in the past
-    public static boolean boolDueInPast;
+//    public static boolean boolDueInPast;
     //used to determine if the keyboard is showing
     public static boolean boolKeyboardShowing;
     //used to determine if user has access to color cycling
@@ -1455,30 +1455,30 @@ public class MainActivity extends AppCompatActivity implements
         handler.postDelayed(runnable, 500);
     }
 
-    public void showDueInPastToast() {
-        toast.setText(R.string.cannotSetTask);
-        final Handler handler = new Handler();
-
-        final Runnable runnable = () -> {
-            if (!boolMute) {
-                mpSweep.start();
-            }
-            toastView.startAnimation(AnimationUtils.loadAnimation
-                    (getApplicationContext(), R.anim.enter_from_right_fast));
-            toastView.setVisibility(View.VISIBLE);
-            final Handler handler2 = new Handler();
-            final Runnable runnable2 = () -> {
-                toastView.startAnimation(
-                        AnimationUtils.loadAnimation
-                                (MainActivity.this,
-                                        android.R.anim.fade_out));
-                toastView.setVisibility(View.GONE);
-            };
-            handler2.postDelayed(runnable2, 1500);
-        };
-
-        handler.postDelayed(runnable, 500);
-    }
+//    public void showDueInPastToast() {
+//        toast.setText(R.string.cannotSetTask);
+//        final Handler handler = new Handler();
+//
+//        final Runnable runnable = () -> {
+//            if (!boolMute) {
+//                mpSweep.start();
+//            }
+//            toastView.startAnimation(AnimationUtils.loadAnimation
+//                    (getApplicationContext(), R.anim.enter_from_right_fast));
+//            toastView.setVisibility(View.VISIBLE);
+//            final Handler handler2 = new Handler();
+//            final Runnable runnable2 = () -> {
+//                toastView.startAnimation(
+//                        AnimationUtils.loadAnimation
+//                                (MainActivity.this,
+//                                        android.R.anim.fade_out));
+//                toastView.setVisibility(View.GONE);
+//            };
+//            handler2.postDelayed(runnable2, 1500);
+//        };
+//
+//        handler.postDelayed(runnable, 500);
+//    }
 
     //Actions to occur when fab clicked
     public void addTask(Task task) {
@@ -3067,10 +3067,10 @@ public class MainActivity extends AppCompatActivity implements
         adapter.notifyItemChanged(preferences.getInt(StringConstants.REFRESH_THIS_ITEM, 0));
         toggleFab(true);
 
-        if (boolDueInPast) {
-            showDueInPastToast();
-            boolDueInPast = false;
-        }
+//        if (boolDueInPast) {
+//            showDueInPastToast();
+//            boolDueInPast = false;
+//        }
 
     }
 

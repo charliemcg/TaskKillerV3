@@ -1267,6 +1267,10 @@ public class ReminderActivity extends MainActivity {
 //        imgWeekly.setVisibility(View.INVISIBLE);
 //        imgMonthlyFaded.setVisibility(View.VISIBLE);
 //        imgMonthly.setVisibility(View.INVISIBLE);
+        imgCancelRepeatFaded.setBackgroundColor(Color.parseColor(strHighlightColor));
+        imgDailyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+        imgWeeklyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
+        imgMonthlyFaded.setBackgroundColor(getResources().getColor(R.color.gray));
 
         tvDate.setText(R.string.addDate);
         tvTime.setText(R.string.addTime);

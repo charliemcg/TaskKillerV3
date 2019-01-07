@@ -79,10 +79,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 //        holder.subtasksIcon.setVisibility(View.GONE);
 //        holder.repeatIcon.setVisibility(View.GONE);
 //        holder.dueIcon.setVisibility(View.GONE);
-        holder.noteIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
-        holder.subtasksIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
-        holder.repeatIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
-        holder.dueIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
+//        holder.noteIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
+//        holder.subtasksIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
+//        holder.repeatIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
+//        holder.dueIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
         holder.tvDue.setVisibility(View.GONE);
         holder.taskProperties.setVisibility(View.GONE);
 //        holder.tvDue.setTextColor(Color.BLACK);
@@ -123,7 +123,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 //            holder.alarmClock.setImageDrawable(context.getResources()
 //                    .getDrawable(R.drawable.due_icon_solid_dot));
         }else{
-            holder.subtasksIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
+//            holder.dueIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
 //            holder.alarmClock.setImageDrawable(context.getResources()
 //                    .getDrawable(R.drawable.due_icon_light_solid));
         }
@@ -135,7 +135,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 //            holder.postItNote.setImageDrawable(context.getResources()
 //                    .getDrawable(R.drawable.note_icon_solid_dot));
         }else{
-            holder.subtasksIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
+//            holder.noteIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
 //            holder.postItNote.setImageDrawable(context.getResources()
 //                    .getDrawable(R.drawable.note_icon_light_solid));
         }
@@ -149,7 +149,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 //            holder.clipBoard.setImageDrawable(context.getResources()
 //                    .getDrawable(R.drawable.subtasks_icon_solid_dot));
         }else{
-            holder.subtasksIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
+//            holder.subtasksIcon.setBackgroundColor(context.getResources().getColor(R.color.gray));
 //            holder.clipBoard.setImageDrawable(context.getResources()
 //                    .getDrawable(R.drawable.subtasks_icon_light_solid));
         }
@@ -254,6 +254,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                     .getDrawable(R.drawable.subtasks_icon_dark_solid));
             holder.postItNote.setImageDrawable(context.getResources()
                     .getDrawable(R.drawable.note_icon_dark_solid));
+            holder.subtasksIcon.setBackgroundColor(context.getResources().getColor(R.color.mid_gray));
+            holder.noteIcon.setBackgroundColor(context.getResources().getColor(R.color.mid_gray));
+            holder.repeatIcon.setBackgroundColor(context.getResources().getColor(R.color.mid_gray));
+            holder.dueIcon.setBackgroundColor(context.getResources().getColor(R.color.mid_gray));
         }else{
             holder.tvTask.setTextColor(context.getResources().getColor(R.color.black));
             holder.tvDue.setTextColor(context.getResources().getColor(R.color.black));
@@ -274,6 +278,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                     .getDrawable(R.drawable.subtasks_icon_light_solid));
             holder.postItNote.setImageDrawable(context.getResources()
                     .getDrawable(R.drawable.note_icon_light_solid));
+            holder.subtasksIcon.setBackgroundColor(context.getResources().getColor(R.color.status_icons_light));
+            holder.noteIcon.setBackgroundColor(context.getResources().getColor(R.color.status_icons_light));
+            holder.repeatIcon.setBackgroundColor(context.getResources().getColor(R.color.status_icons_light));
+            holder.dueIcon.setBackgroundColor(context.getResources().getColor(R.color.status_icons_light));
         }
     }
 
