@@ -346,10 +346,8 @@ public class MainActivity extends AppCompatActivity implements
                     Task taskToReinstate = adapter.getTaskAt(viewHolder.getAdapterPosition());
                     taskViewModel.delete(adapter.getTaskAt(viewHolder.getAdapterPosition()));
                     showSnackbar(taskToReinstate);
-                    if (boolShowMotivation) {
                         //showing motivational toast
                         showKilledAffirmationToast();
-                    }
                     //Actions to occur when deleting repeating task
                 } else {
 
@@ -412,7 +410,7 @@ public class MainActivity extends AppCompatActivity implements
                     if (timesShown <= 10) {
                         if (timesShown == 1 || timesShown == 10) {
                             showRepeatHintToast();
-                        } else if (boolShowMotivation) {
+                        } else {
                             //showing motivational toast
                             showKilledAffirmationToast();
                         }
@@ -420,6 +418,52 @@ public class MainActivity extends AppCompatActivity implements
                     } else {
                         //showing motivational toast
                         showKilledAffirmationToast();
+                    }
+                    //If alert receiver is not functioning then need to update everything here
+                    Calendar incorrectCal = Calendar.getInstance();
+                    incorrectCal.setTimeInMillis(adapter.getTaskAt(viewHolder.getAdapterPosition()).getTimestamp());
+                    long incorrectCalMillis = incorrectCal.getTimeInMillis() / 1000 / 60 / 60 / 24;
+                    Calendar now = Calendar.getInstance();
+                    long nowMillis = now.getTimeInMillis() / 1000 / 60 / 60 / 24;
+                    if(incorrectCalMillis <= nowMillis){
+                        long errorCorrectedStamp = adapter.getTaskAt(viewHolder.getAdapterPosition()).getTimestamp();
+                        switch (adapter.getTaskAt(viewHolder.getAdapterPosition()).getRepeatInterval()) {
+                            case "day":
+                                //Add another day to the timestamp
+                                errorCorrectedStamp += AlarmManager.INTERVAL_DAY;
+                                adapter.getTaskAt(viewHolder.getAdapterPosition()).setDisplayedTimestamp(errorCorrectedStamp);
+                                adapter.getTaskAt(viewHolder.getAdapterPosition()).setTimestamp(errorCorrectedStamp);
+                                mainActivityPresenter.update(adapter.getTaskAt(viewHolder.getAdapterPosition()));
+                                break;
+                            case "week":
+                                //Add another week to the timestamp
+                                errorCorrectedStamp += (AlarmManager.INTERVAL_DAY * 7);
+                                adapter.getTaskAt(viewHolder.getAdapterPosition()).setDisplayedTimestamp(errorCorrectedStamp);
+                                adapter.getTaskAt(viewHolder.getAdapterPosition()).setTimestamp(errorCorrectedStamp);
+                                mainActivityPresenter.update(adapter.getTaskAt(viewHolder.getAdapterPosition()));
+                                break;
+                            case "month":
+                                //Add another month to the timestamp
+                                errorCorrectedStamp += interval;
+                                adapter.getTaskAt(viewHolder.getAdapterPosition()).setDisplayedTimestamp(errorCorrectedStamp);
+                                adapter.getTaskAt(viewHolder.getAdapterPosition()).setTimestamp(errorCorrectedStamp);
+                                mainActivityPresenter.update(adapter.getTaskAt(viewHolder.getAdapterPosition()));
+                                break;
+                        }
+                        MainActivity.alertIntent = new Intent(getApplicationContext(), AlertReceiver.class);
+                        MainActivity.alertIntent.putExtra("snoozeStatus", false);
+                        MainActivity.alertIntent.putExtra("task", adapter.getTaskAt(viewHolder.getAdapterPosition()));
+
+                        //Setting alarm
+                        MainActivity.pendingIntent = PendingIntent.getBroadcast(
+                                getApplicationContext(), adapter.getTaskAt(viewHolder.getAdapterPosition()).getId(), MainActivity.alertIntent,
+                                PendingIntent.FLAG_UPDATE_CURRENT);
+
+                        MainActivity.alarmManager.cancel(MainActivity.pendingIntent);
+
+                        MainActivity.alarmManager.set(AlarmManager.RTC,
+                                adapter.getTaskAt(viewHolder.getAdapterPosition()).getTimestamp(),
+                                MainActivity.pendingIntent);
                     }
                     adapter.notifyDataSetChanged();
                 }
@@ -472,12 +516,12 @@ public class MainActivity extends AppCompatActivity implements
                     if (intRenameHint <= 2) {
                         if (intRenameHint == 2) {
                             showRenameHintToast();
-                        } else if (boolShowMotivation) {
+                        } else {
                             showMotivationalToast();
                         }
                         intRenameHint++;
                         preferences.edit().putInt(StringConstants.RENAME_HINT_KEY, intRenameHint).apply();
-                    } else if (boolShowMotivation) {
+                    } else {
                         showMotivationalToast();
                     }
                 }
@@ -551,35 +595,37 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void showMotivationalToast() {
-        //showing motivational toast
-        int i = random.nextInt(7);
-        while (strMotivation[i].equals(strLastToast)) {
-            i = random.nextInt(7);
-        }
-        strLastToast = strMotivation[i];
-        toast.setText(strMotivation[i]);
-        final Handler handler = new Handler();
-
-        final Runnable runnable = () -> {
-            if (!boolMute) {
-                mpSweep.start();
+        if(boolShowMotivation) {
+            //showing motivational toast
+            int i = random.nextInt(7);
+            while (strMotivation[i].equals(strLastToast)) {
+                i = random.nextInt(7);
             }
-            toastView.startAnimation(AnimationUtils.loadAnimation
-                    (MainActivity.this,
-                            R.anim.enter_from_right_fast));
-            toastView.setVisibility(View.VISIBLE);
-            final Handler handler2 = new Handler();
-            final Runnable runnable2 = () -> {
-                toastView.startAnimation(
-                        AnimationUtils.loadAnimation
-                                (MainActivity.this,
-                                        android.R.anim.fade_out));
-                toastView.setVisibility(View.GONE);
-            };
-            handler2.postDelayed(runnable2, 1500);
-        };
+            strLastToast = strMotivation[i];
+            toast.setText(strMotivation[i]);
+            final Handler handler = new Handler();
 
-        handler.postDelayed(runnable, 500);
+            final Runnable runnable = () -> {
+                if (!boolMute) {
+                    mpSweep.start();
+                }
+                toastView.startAnimation(AnimationUtils.loadAnimation
+                        (MainActivity.this,
+                                R.anim.enter_from_right_fast));
+                toastView.setVisibility(View.VISIBLE);
+                final Handler handler2 = new Handler();
+                final Runnable runnable2 = () -> {
+                    toastView.startAnimation(
+                            AnimationUtils.loadAnimation
+                                    (MainActivity.this,
+                                            android.R.anim.fade_out));
+                    toastView.setVisibility(View.GONE);
+                };
+                handler2.postDelayed(runnable2, 1500);
+            };
+
+            handler.postDelayed(runnable, 500);
+        }
     }
 
     private void showRenameHintToast() {
@@ -629,29 +675,31 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void showKilledAffirmationToast() {
-        //showing motivational toast
-        toast.setText(getResources().getString(R.string.youKilledThisTask));
-        final Handler handler = new Handler();
+        if(boolShowMotivation) {
+            //showing motivational toast
+            toast.setText(getResources().getString(R.string.youKilledThisTask));
+            final Handler handler = new Handler();
 
-        final Runnable runnable = () -> {
-            if (!boolMute) {
-                mpSweep.start();
-            }
-            toastView.startAnimation(AnimationUtils.loadAnimation
-                    (MainActivity.this, R.anim.enter_from_right_fast));
-            toastView.setVisibility(View.VISIBLE);
-            final Handler handler2 = new Handler();
-            final Runnable runnable2 = () -> {
-                toastView.startAnimation(
-                        AnimationUtils.loadAnimation
-                                (MainActivity.this,
-                                        android.R.anim.fade_out));
-                toastView.setVisibility(View.GONE);
+            final Runnable runnable = () -> {
+                if (!boolMute) {
+                    mpSweep.start();
+                }
+                toastView.startAnimation(AnimationUtils.loadAnimation
+                        (MainActivity.this, R.anim.enter_from_right_fast));
+                toastView.setVisibility(View.VISIBLE);
+                final Handler handler2 = new Handler();
+                final Runnable runnable2 = () -> {
+                    toastView.startAnimation(
+                            AnimationUtils.loadAnimation
+                                    (MainActivity.this,
+                                            android.R.anim.fade_out));
+                    toastView.setVisibility(View.GONE);
+                };
+                handler2.postDelayed(runnable2, 1500);
             };
-            handler2.postDelayed(runnable2, 1500);
-        };
 
-        handler.postDelayed(runnable, 500);
+            handler.postDelayed(runnable, 500);
+        }
     }
 
 
