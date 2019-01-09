@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.violenthoboenterprises.taskkillernoexcuses.Database;
@@ -20,6 +21,9 @@ import com.violenthoboenterprises.taskkillernoexcuses.activities.MainActivity;
 import com.violenthoboenterprises.taskkillernoexcuses.R;
 import com.violenthoboenterprises.taskkillernoexcuses.model.Task;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
@@ -34,7 +38,13 @@ public class AlertReceiver extends BroadcastReceiver {
 
         //Initialising variables for holding values from database
         boolean boolSnoozeStatus = intent.getBooleanExtra("snoozeStatus", false);
-        task = (Task) intent.getSerializableExtra("task");
+        this.task = (Task) intent.getSerializableExtra("task");
+
+//        https://github.com/commonsguy/cw-omnibus/tree/v8.12/Parcelable/Marshall/app/src/main/java/com/commonsware/android/parcelable/marshall
+        Log.d(TAG, " " + intent.getSerializableExtra("task"));
+//        https://stackoverflow.com/questions/3736058/java-object-to-byte-and-byte-to-object-converter-for-tokyo-cabinet/3736247#3736247
+        Log.d(TAG, "task: " + task);
+
         //retrieving task properties necessary for setting notification
         createNotification(context, "", boolSnoozeStatus);
 

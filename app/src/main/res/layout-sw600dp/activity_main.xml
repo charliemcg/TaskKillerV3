@@ -27,39 +27,70 @@
             app:subtitle="@string/noExcuses"
             app:title="@string/app_name" />
 
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
+        <RelativeLayout
+            android:id="@+id/adHolder"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="100dp"
-            android:visibility="gone"
-            ads:adSize="SMART_BANNER"
-            ads:adUnitId="ca-app-pub-2378583121223638/7561576546"
+            android:layout_height="60dp"
             app:layout_constraintBottom_toTopOf="@id/recyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tb" />
+            app:layout_constraintTop_toBottomOf="@id/tb"
+            android:gravity="center">
 
-        <ImageView
-            android:id="@+id/imgBanner"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:elevation="100dp"
-            android:onClick="showPro"
-            android:src="@drawable/banner"
-            android:visibility="gone"
-            android:contentDescription="@string/bannerPromptingUser"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mainActivityDivider" />
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/adView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="100dp"
+                android:visibility="gone"
+                ads:adSize="SMART_BANNER"
+                ads:adUnitId="ca-app-pub-2378583121223638/7561576546" />
+
+            <ImageView
+                android:id="@+id/imgBanner"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:contentDescription="@string/bannerPromptingUser"
+                android:elevation="90dp"
+                android:onClick="showPro"
+                android:src="@drawable/banner"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <!--<com.google.android.gms.ads.AdView-->
+            <!--android:id="@+id/adView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:elevation="100dp"-->
+            <!--android:visibility="gone"-->
+            <!--ads:adSize="SMART_BANNER"-->
+            <!--ads:adUnitId="ca-app-pub-2378583121223638/7561576546"-->
+            <!--app:layout_constraintBottom_toTopOf="@id/recyclerView"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/tb" />-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/imgBanner"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="60dp"-->
+            <!--android:elevation="90dp"-->
+            <!--android:onClick="showPro"-->
+            <!--android:src="@drawable/banner"-->
+            <!--android:visibility="gone"-->
+            <!--android:contentDescription="@string/bannerPromptingUser"-->
+            <!--app:layout_constraintBottom_toTopOf="@+id/recyclerView"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/mainActivityDivider" />-->
 
         <View
             android:id="@+id/mainActivityDivider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/mid_gray"
-            app:layout_constraintBottom_toTopOf="@+id/imgBanner"
+            app:layout_constraintBottom_toTopOf="@+id/adHolder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tb" />
@@ -71,7 +102,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgBanner"
+            app:layout_constraintTop_toBottomOf="@+id/adHolder"
             tools:listitem="@layout/item_task" />
 
         <ImageView

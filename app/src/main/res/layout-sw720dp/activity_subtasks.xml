@@ -1,66 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/subtasksRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <data>
-
-        <variable
-            name="highlightColor"
-            type="int" />
-    </data>
-
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/subtasksRoot"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tbSubtasks"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/tbSubtasks"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:elevation="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/mid_gray"
+        app:layout_constraintBottom_toTopOf="@+id/subTasksRecyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tbSubtasks" />
 
-        <TextView
-            android:id="@+id/divider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/mid_gray"
-            app:layout_constraintBottom_toTopOf="@+id/subTasksRecyclerView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tbSubtasks" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/subTasksRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/etSubtask"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tbSubtasks"
+        tools:listitem="@layout/item_subtask" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/subTasksRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/etSubtask"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tbSubtasks"
-            tools:listitem="@layout/item_subtask" />
+    <EditText
+        android:id="@+id/etSubtask"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="@string/checklistItem"
+        android:imeOptions="actionDone"
+        android:importantForAutofill="no"
+        android:inputType="textCapSentences"
+        android:maxLength="80"
+        android:maxLines="1"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="UnusedAttribute" />
 
-        <EditText
-            android:id="@+id/etSubtask"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@{highlightColor}"
-            android:hint="@string/checklistItem"
-            android:imeOptions="actionDone"
-            android:importantForAutofill="no"
-            android:inputType="textCapSentences"
-            android:maxLength="80"
-            android:maxLines="1"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:ignore="UnusedAttribute" />
-
-    </android.support.constraint.ConstraintLayout>
-</layout>
+</android.support.constraint.ConstraintLayout>

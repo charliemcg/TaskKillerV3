@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.graphics.Rect;
 import android.graphics.Color;
@@ -22,6 +23,8 @@ import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
+import android.support.constraint.ConstraintSet;
+import android.support.constraint.Constraints;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -201,10 +204,13 @@ public class MainActivity extends AppCompatActivity implements
     //The recycler view
     RecyclerView recyclerView;
 
+    //Layout wrapper that holds the ad and ad placeholder
+    RelativeLayout adHolder;
+
     //The diver that shows up between recycler view items
     DividerItemDecoration dividerItemDecoration;
 
-    ActivityMainBinding binding;
+//    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -213,7 +219,8 @@ public class MainActivity extends AppCompatActivity implements
             getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.dark_gray));
         }
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        setContentView(R.layout.activity_main);
+//        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         MobileAds.initialize(this, "ca-app-pub-2378583121223638~1405620900");
 
@@ -263,7 +270,7 @@ public class MainActivity extends AppCompatActivity implements
         boolDarkModeEnabled = preferences.getBoolean(StringConstants.DARK_MODE_ENABLED_KEY, true);
 
         //binding the highlight color to attributes in layout file
-        binding.setHighlightColor(Color.parseColor(strHighlightColor));
+//        binding.setHighlightColor(Color.parseColor(strHighlightColor));
         etTask = findViewById(R.id.etTaskName);
         keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         vibrate = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -290,9 +297,18 @@ public class MainActivity extends AppCompatActivity implements
         imgBanner = findViewById(R.id.imgBanner);
         adView = findViewById(R.id.adView);
         boolKeyboardShowing = false;
+        adHolder = findViewById(R.id.adHolder);
+
+        setImgNoTasks();
 
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(view -> addTask(null));
+
+        //Assigning highlight color
+        etTask.setBackgroundColor(Color.parseColor(strHighlightColor));
+        tb.setTitleTextColor(Color.parseColor(strHighlightColor));
+        toast.setBackgroundColor(Color.parseColor(strHighlightColor));
+        fab.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(strHighlightColor)));
 
         params = (ConstraintLayout.LayoutParams) fab.getLayoutParams();
         intFabHeight = params.height;
@@ -303,8 +319,9 @@ public class MainActivity extends AppCompatActivity implements
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                getResources().getConfiguration().orientation);
+//        dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+//                getResources().getConfiguration().orientation);
+        dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
 
         //setting up the adapter
         adapter = new TaskAdapter(this, mainActivityPresenter,
@@ -320,9 +337,11 @@ public class MainActivity extends AppCompatActivity implements
                 if (adapter.getItemCount() > 4 && !boolAdsRemoved) {
                     showBannerAd();
                 } else {
-                    imgBanner.setVisibility(View.GONE);
+                    adHolder.setVisibility(View.GONE);
+//                    imgBanner.setVisibility(View.GONE);
                 }
             } else {
+                setImgNoTasks();
                 imgNoTasks.setVisibility(View.VISIBLE);
             }
         });
@@ -346,8 +365,8 @@ public class MainActivity extends AppCompatActivity implements
                     Task taskToReinstate = adapter.getTaskAt(viewHolder.getAdapterPosition());
                     taskViewModel.delete(adapter.getTaskAt(viewHolder.getAdapterPosition()));
                     showSnackbar(taskToReinstate);
-                        //showing motivational toast
-                        showKilledAffirmationToast();
+                    //showing motivational toast
+                    showKilledAffirmationToast();
                     //Actions to occur when deleting repeating task
                 } else {
 
@@ -425,7 +444,7 @@ public class MainActivity extends AppCompatActivity implements
                     long incorrectCalMillis = incorrectCal.getTimeInMillis() / 1000 / 60 / 60 / 24;
                     Calendar now = Calendar.getInstance();
                     long nowMillis = now.getTimeInMillis() / 1000 / 60 / 60 / 24;
-                    if(incorrectCalMillis <= nowMillis){
+                    if (incorrectCalMillis <= nowMillis) {
                         long errorCorrectedStamp = adapter.getTaskAt(viewHolder.getAdapterPosition()).getTimestamp();
                         switch (adapter.getTaskAt(viewHolder.getAdapterPosition()).getRepeatInterval()) {
                             case "day":
@@ -567,6 +586,19 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
+    private void setImgNoTasks() {
+        int orientation = getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT && boolDarkModeEnabled) {
+            imgNoTasks.setImageDrawable(getResources().getDrawable(R.drawable.no_tasks_dark));
+        }else if (orientation == Configuration.ORIENTATION_PORTRAIT){
+            imgNoTasks.setImageDrawable(getResources().getDrawable(R.drawable.no_tasks_light));
+        }else if(orientation == Configuration.ORIENTATION_LANDSCAPE && boolDarkModeEnabled){
+            imgNoTasks.setImageDrawable(getResources().getDrawable(R.drawable.no_tasks_dark_landscape));
+        }else if (orientation == Configuration.ORIENTATION_LANDSCAPE){
+            imgNoTasks.setImageDrawable(getResources().getDrawable(R.drawable.no_tasks_light_landscape));
+        }
+    }
+
     private void showBannerAd() {
         boolean networkAvailable = false;
         ConnectivityManager connectivityManager = (ConnectivityManager)
@@ -575,6 +607,8 @@ public class MainActivity extends AppCompatActivity implements
         if (activeNetworkInfo != null && activeNetworkInfo.isConnected()) {
             networkAvailable = true;
         }
+
+        adHolder.setVisibility(View.VISIBLE);
 
         if (networkAvailable) {
             adView.setVisibility(View.VISIBLE);
@@ -595,7 +629,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void showMotivationalToast() {
-        if(boolShowMotivation) {
+        if (boolShowMotivation) {
             //showing motivational toast
             int i = random.nextInt(7);
             while (strMotivation[i].equals(strLastToast)) {
@@ -675,7 +709,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void showKilledAffirmationToast() {
-        if(boolShowMotivation) {
+        if (boolShowMotivation) {
             //showing motivational toast
             toast.setText(getResources().getString(R.string.youKilledThisTask));
             final Handler handler = new Handler();
@@ -898,13 +932,13 @@ public class MainActivity extends AppCompatActivity implements
             activityRootView.setBackgroundColor(getResources().getColor(R.color.dark_gray));
             tb.setSubtitleTextColor(getResources().getColor(R.color.gray));
             adapter.notifyDataSetChanged();
-            imgNoTasks.setImageDrawable(getResources().getDrawable(R.drawable.no_tasks_dark));
+//            imgNoTasks.setImageDrawable(getResources().getDrawable(R.drawable.no_tasks_dark));
             dividerItemDecoration.setDrawable(ContextCompat.getDrawable(recyclerView.getContext(), R.drawable.item_decoration));
         } else {
             activityRootView.setBackgroundColor(getResources().getColor(R.color.white));
             tb.setSubtitleTextColor(getResources().getColor(R.color.dark_gray));
             adapter.notifyDataSetChanged();
-            imgNoTasks.setImageDrawable(getResources().getDrawable(R.drawable.no_tasks_light));
+//            imgNoTasks.setImageDrawable(getResources().getDrawable(R.drawable.no_tasks_light));
             dividerItemDecoration.setDrawable(ContextCompat.getDrawable(recyclerView.getContext(), R.drawable.item_decoration_light));
         }
         recyclerView.addItemDecoration(dividerItemDecoration);
@@ -1000,6 +1034,7 @@ public class MainActivity extends AppCompatActivity implements
                 checkLightDark();
                 item.setChecked(true);
             }
+            setImgNoTasks();
             return true;
 
             //Actions to occur if user selects 'color'
@@ -1155,6 +1190,9 @@ public class MainActivity extends AppCompatActivity implements
             boolRemindersAvailable = true;
             boolColorCyclingAllowed = true;
             miPro.setVisible(false);
+
+            imgBanner.setVisibility(View.GONE);
+            adView.setVisibility(View.GONE);
 
             dialog.dismiss();
 

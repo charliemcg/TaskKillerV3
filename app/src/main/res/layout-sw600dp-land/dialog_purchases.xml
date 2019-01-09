@@ -2,22 +2,23 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="280dp"
-    android:layout_height="430dp">
+    android:layout_width="800dp"
+    android:layout_height="500dp"
+    android:background="@color/white">
 
     <FrameLayout
         android:id="@+id/viewRemoveAds"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/viewGetColorCycling"
+        app:layout_constraintEnd_toStartOf="@id/viewGetColorCycling"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@id/viewGetColorCycling">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -29,11 +30,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="36dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/removeAds"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 app:layout_constraintEnd_toStartOf="@+id/removeAdsImage"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,7 +48,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/permanentlyRemoveAds"
-                android:textSize="13sp"
+                android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/removeAdsImage"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,11 +56,9 @@
 
             <ImageView
                 android:id="@+id/removeAdsImage"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_margin="8dp"
                 android:contentDescription="@string/accessGenericLookingAd"
                 android:src="@drawable/remove_ads"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -71,17 +71,17 @@
 
     <FrameLayout
         android:id="@+id/viewGetReminders"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="4dp"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/viewUnlockAll"
+        app:layout_constraintEnd_toStartOf="@id/viewUnlockAll"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewRemoveAds">
+        app:layout_constraintTop_toTopOf="@+id/viewUnlockAll">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -90,11 +90,9 @@
 
             <ImageView
                 android:id="@+id/getRemindersImage"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_margin="8dp"
                 android:contentDescription="@string/accessBell"
                 android:src="@drawable/bell"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -106,12 +104,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:gravity="end"
                 android:text="@string/getReminders"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/getRemindersImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -125,11 +124,13 @@
                 android:layout_marginBottom="8dp"
                 android:gravity="end"
                 android:text="@string/setUnlimitedDueDates"
-                android:textSize="13sp"
+                android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/getRemindersImage"
-                app:layout_constraintTop_toBottomOf="@+id/getRemindersTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/getRemindersTitle"
+                app:layout_constraintVertical_bias="0.282" />
 
         </android.support.constraint.ConstraintLayout>
 
@@ -137,17 +138,19 @@
 
     <FrameLayout
         android:id="@+id/viewGetColorCycling"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewGetReminders">
+        app:layout_constraintStart_toEndOf="@id/viewRemoveAds"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/viewUnlockAll">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -159,11 +162,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="8dp"
                 android:text="@string/cycleColors"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 app:layout_constraintEnd_toStartOf="@+id/cycleColorsImage"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -176,7 +180,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/featureColorSlowly"
-                android:textSize="13sp"
+                android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/cycleColorsImage"
                 app:layout_constraintStart_toStartOf="parent"
@@ -184,14 +188,15 @@
 
             <ImageView
                 android:id="@+id/cycleColorsImage"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_margin="8dp"
+                android:layout_marginTop="8dp"
                 android:contentDescription="@string/accessArrowCircular"
                 android:src="@drawable/auto_color"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
 
@@ -199,17 +204,19 @@
 
     <FrameLayout
         android:id="@+id/viewUnlockAll"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:background="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewGetColorCycling">
+        app:layout_constraintStart_toEndOf="@id/viewGetReminders"
+        app:layout_constraintTop_toBottomOf="@id/viewGetColorCycling"
+        app:layout_constraintBottom_toTopOf="@id/btnClosePurchases">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -218,11 +225,9 @@
 
             <ImageView
                 android:id="@+id/unlockAllImage"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_margin="8dp"
                 android:contentDescription="@string/accessAllInAppImages"
                 android:src="@drawable/unlock_all"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -234,12 +239,13 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="8dp"
                 android:gravity="end"
                 android:text="@string/unlockAll"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/unlockAllImage"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -253,7 +259,7 @@
                 android:layout_marginBottom="8dp"
                 android:gravity="end"
                 android:text="@string/ultimateValuePack"
-                android:textSize="13sp"
+                android:textSize="22sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/unlockAllImage"

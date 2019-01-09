@@ -53,14 +53,15 @@ public class SubtasksActivity extends MainActivity implements SubtasksView {
     //The diver that shows up between recycler view items
     DividerItemDecoration dividerItemDecoration;
 
-    ActivitySubtasksBinding binding;
+//    ActivitySubtasksBinding binding;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_subtasks);
+        setContentView(R.layout.activity_subtasks);
+//        binding = DataBindingUtil.setContentView(this, R.layout.activity_subtasks);
 
         //binding the highlight color to attributes in layout file
-        binding.setHighlightColor(Color.parseColor(preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00")));
+//        binding.setHighlightColor(Color.parseColor(preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00")));
 
         tbSubtasks = findViewById(R.id.tbSubtasks);
 
@@ -73,6 +74,7 @@ public class SubtasksActivity extends MainActivity implements SubtasksView {
 
         keyboard = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         etSubtask = findViewById(R.id.etSubtask);
+        etSubtask.setBackgroundColor(Color.parseColor(strHighlightColor));
 
         boolSubtasksKeyboardShowing = false;
         subtasksRootView = findViewById(R.id.subtasksRoot);
@@ -84,7 +86,8 @@ public class SubtasksActivity extends MainActivity implements SubtasksView {
         recyclerView.setHasFixedSize(true);
 
         dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                getResources().getConfiguration().orientation);
+                DividerItemDecoration.VERTICAL);
+//                getResources().getConfiguration().orientation);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
         //setting up the adapter

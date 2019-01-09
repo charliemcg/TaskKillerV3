@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/noteRoot">
+    android:id="@+id/noteRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/tbNote"
@@ -58,9 +58,9 @@
             android:hint="@string/addYourNote"
             android:imeOptions="actionDone"
             android:inputType="textCapSentences|textMultiLine"
-            android:maxLength="2000"
+            android:maxLength="3000"
             android:maxLines="3"
-            android:padding="7dp"
+            android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tbNote"
@@ -70,7 +70,7 @@
 
         <ImageView
             android:id="@+id/btnSubmitNote"
-            android:layout_width="40dp"
+            android:layout_width="50dp"
             android:layout_height="39dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
@@ -85,7 +85,7 @@
 
         <ImageView
             android:id="@+id/btnSubmitNoteOne"
-            android:layout_width="40dp"
+            android:layout_width="50dp"
             android:layout_height="39dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
@@ -101,7 +101,7 @@
 
         <ImageView
             android:id="@+id/btnSubmitNoteTwo"
-            android:layout_width="40dp"
+            android:layout_width="50dp"
             android:layout_height="39dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
@@ -117,7 +117,7 @@
 
         <ImageView
             android:id="@+id/btnSubmitNoteThree"
-            android:layout_width="40dp"
+            android:layout_width="50dp"
             android:layout_height="39dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
@@ -133,7 +133,7 @@
 
         <ImageView
             android:id="@+id/btnSubmitNoteFour"
-            android:layout_width="40dp"
+            android:layout_width="50dp"
             android:layout_height="39dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"

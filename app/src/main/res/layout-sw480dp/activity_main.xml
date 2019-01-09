@@ -1,20 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<layout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools">-->
+
+    <!--<data>-->
+
+        <!--<variable-->
+            <!--name="highlightColor"-->
+            <!--type="int" />-->
+    <!--</data>-->
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-        <variable
-            name="highlightColor"
-            type="int" />
-    </data>
-
-    <android.support.constraint.ConstraintLayout xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/activityRoot"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.violenthoboenterprises.taskkillernoexcuses.activities.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activityRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/tb"
@@ -22,7 +24,6 @@
             android:layout_height="?attr/actionBarSize"
             android:elevation="4dp"
             android:theme="@style/ThemeOverlay.LightTheme"
-            ads:titleTextColor="@{highlightColor}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -30,39 +31,70 @@
             app:subtitle="@string/noExcuses"
             app:title="@string/app_name" />
 
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/adView"
+        <RelativeLayout
+            android:id="@+id/adHolder"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="100dp"
-            android:visibility="gone"
-            ads:adSize="SMART_BANNER"
-            ads:adUnitId="ca-app-pub-2378583121223638/7561576546"
+            android:layout_height="60dp"
             app:layout_constraintBottom_toTopOf="@id/recyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tb" />
+            app:layout_constraintTop_toBottomOf="@id/tb"
+            android:gravity="center">
 
-        <ImageView
-            android:id="@+id/imgBanner"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:elevation="100dp"
-            android:onClick="showPro"
-            android:src="@drawable/banner"
-            android:visibility="gone"
-            android:contentDescription="@string/bannerPromptingUser"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/mainActivityDivider" />
+                <com.google.android.gms.ads.AdView
+                    android:id="@+id/adView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="100dp"
+                    android:visibility="gone"
+                    ads:adSize="SMART_BANNER"
+                    ads:adUnitId="ca-app-pub-2378583121223638/7561576546" />
+
+                <ImageView
+                    android:id="@+id/imgBanner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:contentDescription="@string/bannerPromptingUser"
+                    android:elevation="90dp"
+                    android:onClick="showPro"
+                    android:src="@drawable/banner"
+                    android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <!--<com.google.android.gms.ads.AdView-->
+            <!--android:id="@+id/adView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:elevation="100dp"-->
+            <!--android:visibility="gone"-->
+            <!--ads:adSize="SMART_BANNER"-->
+            <!--ads:adUnitId="ca-app-pub-2378583121223638/7561576546"-->
+            <!--app:layout_constraintBottom_toTopOf="@id/recyclerView"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/tb" />-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/imgBanner"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="60dp"-->
+            <!--android:elevation="90dp"-->
+            <!--android:onClick="showPro"-->
+            <!--android:src="@drawable/banner"-->
+            <!--android:visibility="gone"-->
+            <!--android:contentDescription="@string/bannerPromptingUser"-->
+            <!--app:layout_constraintBottom_toTopOf="@+id/recyclerView"-->
+            <!--app:layout_constraintEnd_toEndOf="parent"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@id/mainActivityDivider" />-->
 
         <View
             android:id="@+id/mainActivityDivider"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/mid_gray"
-            app:layout_constraintBottom_toTopOf="@+id/imgBanner"
+            app:layout_constraintBottom_toTopOf="@+id/adHolder"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tb" />
@@ -74,7 +106,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgBanner"
+            app:layout_constraintTop_toBottomOf="@+id/adHolder"
             tools:listitem="@layout/item_task" />
 
         <ImageView
@@ -93,7 +125,6 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
-            android:background="@{highlightColor}"
             android:hint="@string/taskTitle"
             android:imeOptions="actionDone"
             android:inputType="textCapSentences"
@@ -119,7 +150,6 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="32dp"
             android:src="@drawable/ic_add"
-            android:backgroundTint="@{highlightColor}"
             ads:rippleColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -147,7 +177,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="65dp"
                 android:layout_margin="1dp"
-                android:background="@{highlightColor}"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
@@ -156,4 +185,4 @@
         </RelativeLayout>
 
     </android.support.constraint.ConstraintLayout>
-</layout>
+<!--</layout>-->

@@ -16,6 +16,7 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Parcelable;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -27,6 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.google.android.gms.common.internal.safeparcel.SafeParcelableSerializer;
 import com.violenthoboenterprises.taskkillernoexcuses.R;
 import com.violenthoboenterprises.taskkillernoexcuses.model.Reminder;
 import com.violenthoboenterprises.taskkillernoexcuses.model.ReminderPresenterImpl;
@@ -36,6 +38,10 @@ import com.violenthoboenterprises.taskkillernoexcuses.model.TaskViewModel;
 import com.violenthoboenterprises.taskkillernoexcuses.presenter.ReminderPresenter;
 import com.violenthoboenterprises.taskkillernoexcuses.utils.AlertReceiver;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Locale;
@@ -679,7 +685,18 @@ public class ReminderActivity extends MainActivity {
 
         MainActivity.alertIntent = new Intent(getApplicationContext(), AlertReceiver.class);
         MainActivity.alertIntent.putExtra("snoozeStatus", false);
-        MainActivity.alertIntent.putExtra("task", task);
+//        MainActivity.alertIntent.putExtra("task", task);
+
+        ObjectOutputStream os = null;
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try {
+            os = new ObjectOutputStream(out);
+            os.writeObject(task);
+            out.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MainActivity.alertIntent.putExtra("task", (Serializable) out);
 
         //Setting alarm
         MainActivity.pendingIntent = PendingIntent.getBroadcast(
