@@ -130,40 +130,46 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
 
         //show properties on click
         holder.taskLayout.setOnClickListener(view -> {
-            //removing any other visible properties
-            if (preferences.getInt(StringConstants.REFRESH_THIS_ITEM_KEY, 0) != position) {
-                notifyItemChanged(preferences.getInt(StringConstants.REFRESH_THIS_ITEM_KEY, 0));
-            }
-            //tracking this item as requiring updating upon return from a child activity
-            preferences.edit().putInt(StringConstants.REFRESH_THIS_ITEM_KEY, position).apply();
-            if (holder.taskProperties.getVisibility() == View.VISIBLE) {
-                MainActivity.boolPropertiesShowing = false;
-                holder.taskProperties.startAnimation(AnimationUtils.loadAnimation(context, R.anim.exit_out_left));
-                Handler handler = new Handler();
-                Runnable runnable = () -> {
-                    holder.taskProperties.setVisibility(View.GONE);
-                    notifyDataSetChanged();
-                };
-                handler.postDelayed(runnable, 500);
-                mainActivityPresenter.toggleFab(true);
-                //redrawing the UI to remove properties from view
-                activityRootView.postInvalidate();
-            } else {
-                MainActivity.boolPropertiesShowing = true;
-                holder.taskProperties.setVisibility(View.VISIBLE);
-                holder.taskProperties.startAnimation(AnimationUtils.loadAnimation(context, R.anim.enter_from_right));
-                mainActivityPresenter.toggleFab(false);
-                //hide keyboard if it is showing
-                if(MainActivity.boolKeyboardShowing){
-                    MainActivity.keyboard.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+            //for better user experience tasks should not be clickable while keyboard is up
+            if(!MainActivity.boolKeyboardShowing) {
+                //removing any other visible properties
+                if (preferences.getInt(StringConstants.REFRESH_THIS_ITEM_KEY, 0) != position) {
+                    notifyItemChanged(preferences.getInt(StringConstants.REFRESH_THIS_ITEM_KEY, 0));
+                }
+                //tracking this item as requiring updating upon return from a child activity
+                preferences.edit().putInt(StringConstants.REFRESH_THIS_ITEM_KEY, position).apply();
+                if (holder.taskProperties.getVisibility() == View.VISIBLE) {
+                    MainActivity.boolPropertiesShowing = false;
+                    holder.taskProperties.startAnimation(AnimationUtils.loadAnimation(context, R.anim.exit_out_left));
+                    Handler handler = new Handler();
+                    Runnable runnable = () -> {
+                        holder.taskProperties.setVisibility(View.GONE);
+                        notifyDataSetChanged();
+                    };
+                    handler.postDelayed(runnable, 500);
+                    mainActivityPresenter.toggleFab(true);
+                    //redrawing the UI to remove properties from view
+                    activityRootView.postInvalidate();
+                } else {
+                    MainActivity.boolPropertiesShowing = true;
+                    holder.taskProperties.setVisibility(View.VISIBLE);
+                    holder.taskProperties.startAnimation(AnimationUtils.loadAnimation(context, R.anim.enter_from_right));
+                    mainActivityPresenter.toggleFab(false);
+                    //hide keyboard if it is showing
+                    if (MainActivity.boolKeyboardShowing) {
+                        MainActivity.keyboard.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                    }
                 }
             }
         });
 
         //rename task on long click
         holder.taskLayout.setOnLongClickListener(view -> {
-            mainActivityView.addTask(currentTask);
-            mainActivityPresenter.toggleFab(false);
+            //for better user experience tasks should not be clickable while keyboard is up
+            if (!MainActivity.boolKeyboardShowing) {
+                mainActivityView.addTask(currentTask);
+                mainActivityPresenter.toggleFab(false);
+            }
             return true;
         });
 

@@ -229,7 +229,6 @@ public class SubtasksActivity extends MainActivity implements SubtasksView {
     @Override
     public void editSubtask(Subtask currentSubtask) {
 
-        Log.d(TAG, "keyboard showing: " + boolSubtasksKeyboardShowing);
         if(!boolSubtasksKeyboardShowing) {
             keyboard.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT, 0);
             boolSubtasksKeyboardShowing = true;

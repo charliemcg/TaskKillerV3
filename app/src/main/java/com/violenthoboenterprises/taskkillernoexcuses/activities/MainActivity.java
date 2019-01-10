@@ -771,7 +771,7 @@ public class MainActivity extends AppCompatActivity implements
         vibrate.vibrate(50);
 
         //Set return button to 'Done'
-        etTask.setImeOptions(EditorInfo.IME_ACTION_DONE);
+//        etTask.setImeOptions(EditorInfo.IME_ACTION_DONE);
 
         //Check if editing existing task or adding new one
         if (taskBeingEdited != null) {
@@ -790,8 +790,6 @@ public class MainActivity extends AppCompatActivity implements
 
         //Actions to occur when keyboard is showing
         checkKeyboardShowing();
-
-//        keyboard.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
     }
 
