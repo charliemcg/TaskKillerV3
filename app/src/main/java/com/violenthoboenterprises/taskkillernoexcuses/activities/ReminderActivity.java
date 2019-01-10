@@ -685,18 +685,18 @@ public class ReminderActivity extends MainActivity {
 
         MainActivity.alertIntent = new Intent(getApplicationContext(), AlertReceiver.class);
         MainActivity.alertIntent.putExtra("snoozeStatus", false);
-//        MainActivity.alertIntent.putExtra("task", task);
+        MainActivity.alertIntent.putExtra("task", task);
 
-        ObjectOutputStream os = null;
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        try {
-            os = new ObjectOutputStream(out);
-            os.writeObject(task);
-            out.toByteArray();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        MainActivity.alertIntent.putExtra("task", (Serializable) out);
+//        ObjectOutputStream os = null;
+//        ByteArrayOutputStream out = new ByteArrayOutputStream();
+//        try {
+//            os = new ObjectOutputStream(out);
+//            os.writeObject(task);
+//            out.toByteArray();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        MainActivity.alertIntent.putExtra("task", (Serializable) out);
 
         //Setting alarm
         MainActivity.pendingIntent = PendingIntent.getBroadcast(
