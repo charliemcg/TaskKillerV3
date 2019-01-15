@@ -77,31 +77,47 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         holder.tvDue.setVisibility(View.GONE);
         holder.taskProperties.setVisibility(View.GONE);
 
+//        holder.viewTaskParent.setBackgroundColor(Color.DKGRAY);
+
+        //highlight the selected task when in tablet landscape mode
+//        if (MainActivity.boolTabletLandscape) {
+//            if (MainActivity.selectedTask == null) {
+//                preferences.edit().putInt(StringConstants.REFRESH_THIS_ITEM_KEY, position).apply();
+//                MainActivity.selectedTask = currentTask;
+//                MainActivity.viewPager.setAdapter(MainActivity.sectionsPagerAdapter);
+////                holder.viewTaskParent.setBackground(context.getDrawable(R.drawable.item_background_faded));
+//                holder.viewTaskParent.setBackgroundColor(Color.WHITE);
+//            } else if (MainActivity.selectedTask == currentTask) {
+////                holder.viewTaskParent.setBackground(context.getDrawable(R.drawable.item_background_faded));
+//                holder.viewTaskParent.setBackgroundColor(Color.WHITE);
+//            }
+//        }
+
         //checking if needed to display due icon
         if (currentTask.getTimestamp() != 0) {
             holder.dueIcon.setBackgroundColor(Color.parseColor(preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00")));
             long repeatsAdjustedTimestamp;
-            if(currentTask.getRepeatInterval() != null) {
+            if (currentTask.getRepeatInterval() != null) {
                 repeatsAdjustedTimestamp = getRepeatsAdjustedTimestamp(currentTask);
-            }else{
+            } else {
                 repeatsAdjustedTimestamp = currentTask.getDisplayedTimestamp();
             }
             //Switch to overdue icon when appropriate
             if ((repeatsAdjustedTimestamp < Calendar.getInstance().getTimeInMillis())) {
-                if(MainActivity.boolDarkModeEnabled) {
+                if (MainActivity.boolDarkModeEnabled) {
                     holder.dueIcon.setImageDrawable(context.getResources()
                             .getDrawable(R.drawable.overdue_icon_dark));
-                }else{
+                } else {
                     holder.dueIcon.setImageDrawable(context.getResources()
                             .getDrawable(R.drawable.overdue_icon_light));
                 }
                 holder.dueIcon.setBackgroundColor(Color.RED);
                 holder.tvDue.setTextColor(Color.RED);
             } else {
-                if(MainActivity.boolDarkModeEnabled) {
+                if (MainActivity.boolDarkModeEnabled) {
                     holder.dueIcon.setImageDrawable(context.getResources()
                             .getDrawable(R.drawable.due_icon_dark));
-                }else{
+                } else {
                     holder.dueIcon.setImageDrawable(context.getResources()
                             .getDrawable(R.drawable.due_icon_light));
                 }
@@ -131,34 +147,48 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         //show properties on click
         holder.taskLayout.setOnClickListener(view -> {
             //for better user experience tasks should not be clickable while keyboard is up
-            if(!MainActivity.boolKeyboardShowing) {
-                //removing any other visible properties
-                if (preferences.getInt(StringConstants.REFRESH_THIS_ITEM_KEY, 0) != position) {
-                    notifyItemChanged(preferences.getInt(StringConstants.REFRESH_THIS_ITEM_KEY, 0));
-                }
-                //tracking this item as requiring updating upon return from a child activity
-                preferences.edit().putInt(StringConstants.REFRESH_THIS_ITEM_KEY, position).apply();
-                if (holder.taskProperties.getVisibility() == View.VISIBLE) {
-                    MainActivity.boolPropertiesShowing = false;
-                    holder.taskProperties.startAnimation(AnimationUtils.loadAnimation(context, R.anim.exit_out_left));
-                    Handler handler = new Handler();
-                    Runnable runnable = () -> {
-                        holder.taskProperties.setVisibility(View.GONE);
-                        notifyDataSetChanged();
-                    };
-                    handler.postDelayed(runnable, 500);
-                    mainActivityPresenter.toggleFab(true);
-                    //redrawing the UI to remove properties from view
-                    activityRootView.postInvalidate();
-                } else {
-                    MainActivity.boolPropertiesShowing = true;
-                    holder.taskProperties.setVisibility(View.VISIBLE);
-                    holder.taskProperties.startAnimation(AnimationUtils.loadAnimation(context, R.anim.enter_from_right));
-                    mainActivityPresenter.toggleFab(false);
-                    //hide keyboard if it is showing
-                    if (MainActivity.boolKeyboardShowing) {
-                        MainActivity.keyboard.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+            if (!MainActivity.boolKeyboardShowing) {
+                //only show properties if there is no tab layout
+                if (!MainActivity.boolTabletLandscape) {
+                    //removing any other visible properties
+                    if (preferences.getInt(StringConstants.REFRESH_THIS_ITEM_KEY, 0) != position) {
+                        notifyItemChanged(preferences.getInt(StringConstants.REFRESH_THIS_ITEM_KEY, 0));
                     }
+                    //tracking this item as requiring updating upon return from a child activity
+                    preferences.edit().putInt(StringConstants.REFRESH_THIS_ITEM_KEY, position).apply();
+                    if (holder.taskProperties.getVisibility() == View.VISIBLE) {
+                        MainActivity.boolPropertiesShowing = false;
+                        holder.taskProperties.startAnimation(AnimationUtils.loadAnimation(context, R.anim.exit_out_left));
+                        Handler handler = new Handler();
+                        Runnable runnable = () -> {
+                            holder.taskProperties.setVisibility(View.GONE);
+                            notifyDataSetChanged();
+                        };
+                        handler.postDelayed(runnable, 500);
+                        mainActivityPresenter.toggleFab(true);
+                        //redrawing the UI to remove properties from view
+                        activityRootView.postInvalidate();
+                    } else {
+                        MainActivity.boolPropertiesShowing = true;
+                        holder.taskProperties.setVisibility(View.VISIBLE);
+                        holder.taskProperties.startAnimation(AnimationUtils.loadAnimation(context, R.anim.enter_from_right));
+                        mainActivityPresenter.toggleFab(false);
+                        //hide keyboard if it is showing
+                        if (MainActivity.boolKeyboardShowing) {
+                            MainActivity.keyboard.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+                        }
+                    }
+                } else {
+                    //setting all text views to black text
+                    if (preferences.getInt(StringConstants.REFRESH_THIS_ITEM_KEY, 0) != position) {
+                        notifyItemChanged(preferences.getInt(StringConstants.REFRESH_THIS_ITEM_KEY, 0));
+                    }
+                    preferences.edit().putInt(StringConstants.REFRESH_THIS_ITEM_KEY, position).apply();
+                    MainActivity.selectedTask = currentTask;
+//                    holder.viewTaskParent.setBackground(context.getDrawable(R.drawable.item_background_faded));
+                    holder.viewTaskParent.setBackgroundColor(Color.DKGRAY);
+                    MainActivity.viewPager.setCurrentItem(MainActivity.intViewableTab);
+                    MainActivity.sectionsPagerAdapter.notifyDataSetChanged();
                 }
             }
         });
@@ -204,7 +234,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
     }
 
     private void checkLightDark(TaskHolder holder) {
-        if(MainActivity.boolDarkModeEnabled){
+        if (MainActivity.boolDarkModeEnabled) {
             holder.tvTask.setTextColor(context.getResources().getColor(R.color.gray));
             holder.tvDue.setTextColor(context.getResources().getColor(R.color.gray));
             holder.tvAlarm.setTextColor(context.getResources().getColor(R.color.gray));
@@ -228,7 +258,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             holder.noteIcon.setBackgroundColor(context.getResources().getColor(R.color.mid_gray));
             holder.repeatIcon.setBackgroundColor(context.getResources().getColor(R.color.mid_gray));
             holder.dueIcon.setBackgroundColor(context.getResources().getColor(R.color.mid_gray));
-        }else{
+        } else {
             holder.tvTask.setTextColor(context.getResources().getColor(R.color.black));
             holder.tvDue.setTextColor(context.getResources().getColor(R.color.black));
             holder.tvAlarm.setTextColor(context.getResources().getColor(R.color.black));
@@ -261,7 +291,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         Calendar displayedCal = Calendar.getInstance();
         displayedCal.setTimeInMillis(task.getDisplayedTimestamp());
         long diff = (currentCal.getTimeInMillis() / 1000) - (displayedCal.getTimeInMillis() / 1000);
-        if(task.getRepeatInterval().equals("day")) {
+        if (task.getRepeatInterval().equals("day")) {
             Calendar blah = Calendar.getInstance();
             blah.setTimeInMillis(task.getTimestamp());
             //Can't have daily repeating task overdue for more than 24 hours
@@ -269,7 +299,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 task.setDisplayedTimestamp(task.getTimestamp() - (1000 * 60 * 60 * 24));
                 mainActivityPresenter.update(task);
             }
-        }else if(task.getRepeatInterval().equals("week")){
+        } else if (task.getRepeatInterval().equals("week")) {
             //Can't have weekly repeating task overdue for more than 7 days
             long threshold = 86400 * 7;
             if (diff > threshold) {
@@ -277,7 +307,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 task.setDisplayedTimestamp(task.getTimestamp() - amountToSubtract);
                 mainActivityPresenter.update(task);
             }
-        }else if(task.getRepeatInterval().equals("month")){
+        } else if (task.getRepeatInterval().equals("month")) {
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(task.getTimestamp());
             int year = cal.get(Calendar.YEAR);
@@ -299,10 +329,10 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 } else if (originalDay == 31 && month == 1) {
                     multiplier = 28 + leapYear;
                     //if due on 30th and following month is February set to last day of February
-                }else if(originalDay == 30 && month == 1) {
+                } else if (originalDay == 30 && month == 1) {
                     multiplier = 29 + leapYear;
                     //if due on 29th and following month is February set to last day of February
-                }else if(originalDay == 29 && month == 1){
+                } else if (originalDay == 29 && month == 1) {
                     multiplier = 30 + leapYear;
                 } else {
                     multiplier = 31;
@@ -313,12 +343,12 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                 if (originalDay == 31) {
                     multiplier = 31;
                     //if original due day is 30 then set to 30th of following month
-                } else if(originalDay == 30){
+                } else if (originalDay == 30) {
                     multiplier = 30;
                     //if original due day is 39 then set to 39th of following month
-                } else if(originalDay == 29){
+                } else if (originalDay == 29) {
                     multiplier = 29;
-                }else{
+                } else {
                     multiplier = 28 + leapYear;
                 }
                 //months that have 30 days
@@ -333,36 +363,36 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             //getting the amount of time between now and one month ago accounting for
             // end-of-month days and leap years. Needed for updating displayed overdue time
             int daysToMultiply;
-            if(month == 0 || month == 5 || month == 7 || month == 10){
+            if (month == 0 || month == 5 || month == 7 || month == 10) {
                 daysToMultiply = 30;
-            }else if(month == 2 || month == 4 || month == 6 || month == 8 || month == 9 || month == 11){
-                if(originalDay == 31){
-                    if(month != 2) {
+            } else if (month == 2 || month == 4 || month == 6 || month == 8 || month == 9 || month == 11) {
+                if (originalDay == 31) {
+                    if (month != 2) {
                         daysToMultiply = 30;
-                    }else{
+                    } else {
                         daysToMultiply = 28 + leapYear;
                     }
-                }else if(originalDay == 30){
-                    if(month != 2) {
+                } else if (originalDay == 30) {
+                    if (month != 2) {
                         daysToMultiply = 31;
-                    }else{
+                    } else {
                         daysToMultiply = 29 + leapYear;
                     }
-                }else if(originalDay == 29) {
-                    if(month != 2){
+                } else if (originalDay == 29) {
+                    if (month != 2) {
                         daysToMultiply = 32;
-                    }else{
+                    } else {
                         daysToMultiply = 30 + leapYear;
                     }
-                }else {
+                } else {
                     daysToMultiply = 31;
                 }
-            }else{
+            } else {
                 daysToMultiply = 28;
             }
             //Can't have monthly repeating task overdue for more than a month
             long threshold = 86400 * daysToMultiply;
-            if(diff > threshold){
+            if (diff > threshold) {
                 long amountToSubtract = 1000 * 60;
                 amountToSubtract *= 60;
                 amountToSubtract *= 24;
@@ -378,9 +408,9 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         String formattedMonth = "";
         Calendar cal = Calendar.getInstance();
         long timestamp;
-        if(task.getRepeatInterval() != null) {
+        if (task.getRepeatInterval() != null) {
             timestamp = getRepeatsAdjustedTimestamp(task);
-        }else{
+        } else {
             timestamp = task.getDisplayedTimestamp();
         }
         cal.setTimeInMillis(timestamp);
@@ -524,6 +554,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
         private ImageView alarmClock;
         private ImageView clipBoard;
         private ImageView postItNote;
+        private View viewTaskParent;
 
         TaskHolder(final View itemView) {
             super(itemView);
@@ -544,6 +575,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             alarmClock = itemView.findViewById(R.id.imgAlarmSolid);
             clipBoard = itemView.findViewById(R.id.imgSubtasksSolid);
             postItNote = itemView.findViewById(R.id.imgNoteSolid);
+            viewTaskParent = itemView.findViewById(R.id.viewTaskParent);
             itemView.setOnClickListener(view -> {
                 int position = getAdapterPosition();
                 if (listener != null && position != RecyclerView.NO_POSITION) {

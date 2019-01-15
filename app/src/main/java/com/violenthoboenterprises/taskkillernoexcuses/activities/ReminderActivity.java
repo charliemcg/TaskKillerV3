@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import com.google.gson.Gson;
 
 import com.google.android.gms.common.internal.safeparcel.SafeParcelableSerializer;
 import com.violenthoboenterprises.taskkillernoexcuses.R;
@@ -39,6 +40,7 @@ import com.violenthoboenterprises.taskkillernoexcuses.presenter.ReminderPresente
 import com.violenthoboenterprises.taskkillernoexcuses.utils.AlertReceiver;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -685,18 +687,28 @@ public class ReminderActivity extends MainActivity {
 
         MainActivity.alertIntent = new Intent(getApplicationContext(), AlertReceiver.class);
         MainActivity.alertIntent.putExtra("snoozeStatus", false);
-        MainActivity.alertIntent.putExtra("task", task);
+//        MainActivity.alertIntent.putExtra("task", task);
 
-//        ObjectOutputStream os = null;
-//        ByteArrayOutputStream out = new ByteArrayOutputStream();
-//        try {
-//            os = new ObjectOutputStream(out);
-//            os.writeObject(task);
-//            out.toByteArray();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        MainActivity.alertIntent.putExtra("task", (Serializable) out);
+//        String intentData = Gson.toJson(task);
+        Gson gson = new Gson();
+//        String json = gson.toJson(task);
+//        MainActivity.alertIntent.putExtra("task", json);
+        MainActivity.alertIntent.putExtra("task", task.getId());
+//        MainActivity.alertIntent.putExtra("viewModel", (CharSequence) taskViewModel);
+//        String blah = gson.toJson(MainActivity.taskViewModel);
+//        MainActivity.alertIntent.putExtra("viewModel", blah);
+//        String anotherJson = gson.toJson(MainActivity.taskViewModel);
+//        MainActivity.alertIntent.putExtra("viewModel", anotherJson);
+        ObjectOutputStream os = null;
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        try {
+            os = new ObjectOutputStream(out);
+            os.writeObject(taskViewModel);
+            out.toByteArray();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        MainActivity.alertIntent.putExtra("viewModel", String.valueOf(out));
 
         //Setting alarm
         MainActivity.pendingIntent = PendingIntent.getBroadcast(

@@ -5,9 +5,10 @@ import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class TaskViewModel extends AndroidViewModel {
+public class TaskViewModel extends AndroidViewModel{
 
     private TaskRepository repository;
     private LiveData<List<Task>> allTasks;

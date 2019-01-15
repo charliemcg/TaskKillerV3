@@ -27,5 +27,6 @@ public class StringConstants {
     public static String HIGHLIGHT_COLOR_KEY = "highlight_color_key";
     public static String TIME_COLOR_LAST_CHANGED_KEY = "time_color_last_changed_key";
     public static String DARK_MODE_ENABLED_KEY = "dark_mode_enabled_key";
+    public static String VIEWABLE_TAB_KEY = "viewable_tab_key";
 
 }

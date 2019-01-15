@@ -46,6 +46,8 @@ public class SubtasksActivity extends MainActivity implements SubtasksView {
     public static boolean boolSubtasksKeyboardShowing;
     private View subtasksRootView;
     private Toolbar tbSubtasks;
+    //Needed so that the adapter knows whether to show the activity layout or the viewpager layout
+    public static boolean boolInSubtasks;
 
     //The recycler view
     RecyclerView recyclerView;
@@ -62,6 +64,8 @@ public class SubtasksActivity extends MainActivity implements SubtasksView {
 
         //binding the highlight color to attributes in layout file
 //        binding.setHighlightColor(Color.parseColor(preferences.getString(StringConstants.HIGHLIGHT_COLOR_KEY, "#ff34ff00")));
+
+        boolInSubtasks = true;
 
         tbSubtasks = findViewById(R.id.tbSubtasks);
 
@@ -277,6 +281,17 @@ public class SubtasksActivity extends MainActivity implements SubtasksView {
         super.onResume();
 
         etSubtask.setText("");
+
+    }
+
+    @Override
+    //Return to main screen when back pressed
+    public void onBackPressed() {
+
+        boolResetAdapter = true;
+        boolInSubtasks = false;
+
+        super.onBackPressed();
 
     }
 

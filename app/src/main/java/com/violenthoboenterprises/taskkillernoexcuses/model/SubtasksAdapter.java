@@ -38,8 +38,14 @@ public class SubtasksAdapter extends RecyclerView.Adapter<SubtasksAdapter.Subtas
 
     @Override
     public SubtasksAdapter.SubtaskHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_subtask, parent, false);
+        View itemView;
+        if(/*MainActivity.boolTabletLandscape*/!SubtasksActivity.boolInSubtasks) {
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_tab_subtask, parent, false);
+        }else{
+            itemView = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_subtask, parent, false);
+        }
         return new SubtasksAdapter.SubtaskHolder(itemView);
     }
 
