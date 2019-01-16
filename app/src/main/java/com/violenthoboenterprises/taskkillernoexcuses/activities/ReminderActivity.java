@@ -687,28 +687,7 @@ public class ReminderActivity extends MainActivity {
 
         MainActivity.alertIntent = new Intent(getApplicationContext(), AlertReceiver.class);
         MainActivity.alertIntent.putExtra("snoozeStatus", false);
-//        MainActivity.alertIntent.putExtra("task", task);
-
-//        String intentData = Gson.toJson(task);
-        Gson gson = new Gson();
-//        String json = gson.toJson(task);
-//        MainActivity.alertIntent.putExtra("task", json);
         MainActivity.alertIntent.putExtra("task", task.getId());
-//        MainActivity.alertIntent.putExtra("viewModel", (CharSequence) taskViewModel);
-//        String blah = gson.toJson(MainActivity.taskViewModel);
-//        MainActivity.alertIntent.putExtra("viewModel", blah);
-//        String anotherJson = gson.toJson(MainActivity.taskViewModel);
-//        MainActivity.alertIntent.putExtra("viewModel", anotherJson);
-        ObjectOutputStream os = null;
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        try {
-            os = new ObjectOutputStream(out);
-            os.writeObject(taskViewModel);
-            out.toByteArray();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        MainActivity.alertIntent.putExtra("viewModel", String.valueOf(out));
 
         //Setting alarm
         MainActivity.pendingIntent = PendingIntent.getBroadcast(

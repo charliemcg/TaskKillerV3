@@ -55,11 +55,6 @@ public class AlertReceiver extends BroadcastReceiver {
 
     String TAG = this.getClass().getSimpleName();
     private Task task;
-//    private String taskTitle;
-//    private String taskRepeatInterval;
-//    private long taskTimestamp;
-//    private TaskViewModel tvm;
-//    private Application app;
     private Context context;
     private static TaskDatabase instance;
     SharedPreferences preferences;
@@ -73,67 +68,16 @@ public class AlertReceiver extends BroadcastReceiver {
                 Context.MODE_PRIVATE);
         this.context = context;
         int id = intent.getIntExtra("task", 0);
-//        this.task = (Task) intent.getSerializableExtra("task");
 
+        //getting task to which the reminder blongs
         this.task = getTaskById(id);
-        Log.d(TAG, "task: " + task.getTask());
-//        this.task = MainActivity.taskViewModel.getTask(id);
-
-//        Serializable serializedTask = intent.getSerializableExtra("task");
-//        CharSequence sequenceViewModel = intent.getCharSequenceExtra("viewModel");
-//        byte[] bytes = new byte[0];
-//        try {
-//            bytes = sequenceViewModel.toString().getBytes("UTF-8");
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-//        ByteArrayInputStream in = new ByteArrayInputStream(bytes);
-//        ObjectInputStream is = null;
-//        try {
-//            is = new ObjectInputStream(in);
-//            task = (Task) is.readObject();
-//        } catch (IOException | ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        tvm = (TaskViewModel) sequenceViewModel;
-//        this.task = (Task) blah;
-//        Serializable blah = intent.getSerializableExtra("viewModel");
-//        Log.d(TAG, "blah: " + blah);
-//        Serializable serializedViewModel = intent.getSerializableExtra("viewModel");
-//        Parcelable serializedViewModel = intent.getParcelableExtra("viewModel");
-
-//        Log.d(TAG, "blah: " + blah);
-//        https://github.com/commonsguy/cw-omnibus/tree/v8.12/Parcelable/Marshall/app/src/main/java/com/commonsware/android/parcelable/marshall
-
-//        https://stackoverflow.com/questions/3736058/java-object-to-byte-and-byte-to-object-converter-for-tokyo-cabinet/3736247#3736247
-
-//        int parsedId = 0;
-//        JSONObject jsonTask = null;
-//        try {
-//            jsonTask = new JSONObject((String) serializedTask);
-//            parsedId = jsonTask.getInt("id");
-//            taskTitle = jsonTask.getString("task");
-//            taskRepeatInterval = jsonTask.getString("repeatInterval");
-//            taskTimestamp = jsonTask.getLong("timestamp");
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//        //updating the task in case any of the values have changed
-//        if(MainActivity.taskViewModel != null) {
-//            task = MainActivity.taskViewModel.getTask(parsedId);
-//            taskTitle = task.getTask();
-//            taskRepeatInterval = task.getRepeatInterval();
-//            taskTimestamp = task.getTimestamp();
-//        }
-
-//        tvm = ViewModelProviders.of((FragmentActivity) context).get(TaskViewModel.class);
 
         //retrieving task properties necessary for setting notification
         createNotification(context, "", boolSnoozeStatus);
 
     }
 
+    //setting up methods needed for database interaction
     public static synchronized TaskDatabase getInstance(Context context){
         if(instance == null){
             instance = Room.databaseBuilder(context.getApplicationContext(),
@@ -149,7 +93,6 @@ public class AlertReceiver extends BroadcastReceiver {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db){
             super.onCreate(db);
-//            new TaskDatabase.PopulateDbAsyncTask(instance).execute();
         }
     };
 
@@ -238,7 +181,6 @@ public class AlertReceiver extends BroadcastReceiver {
 
         //Setting values to custom notification view
         remoteViews = new RemoteViews(context.getPackageName(), R.layout.notification);
-//        remoteViews.setTextViewText(R.id.notif_title, task.getTask());
         remoteViews.setTextViewText(R.id.notif_title, task.getTask());
 
         //Setting up notification channel for Oreo
@@ -261,7 +203,6 @@ public class AlertReceiver extends BroadcastReceiver {
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher_og))
                 .setTicker(msgAlert)
                 .setWhen(0)
-//                .setContentText(task.getTask())
                 .setContentText(task.getTask())
                 .setStyle(new NotificationCompat.BigTextStyle())
                 .setColorized(true)
@@ -272,40 +213,29 @@ public class AlertReceiver extends BroadcastReceiver {
                 .setContentIntent(notificIntent)
                 .setAutoCancel(true);
 
-        Log.d(TAG, "repeat: " + task.getRepeatInterval());
-
         //Can only show notification if user has feature enabled. Non repeating tasks need
         //no further processing than notify()
         if (task.getRepeatInterval() == null) {
-//        if(taskRepeatInterval == null){
 
             notificationManager.notify(1, builder.build());
 
         //need to set up next notification for repeating task
         } else {
 
-            //updating the task in case any of the values have changed
-//            task = MainActivity.taskViewModel.getTask(task.getId());
-
             notificationManager.notify(1, builder.build());
 
             //snoozed notifications cannot corrupt regular repeating notifications
             if (task.getRepeatInterval().equals("day") && !snoozeStatus) {
-//            if (taskRepeatInterval.equals("day") && !snoozeStatus){
 
                 //App crashes if exact duplicate of timestamp is saved in database. Attempting to
                 // detect duplicates and then adjusting the timestamp on the millisecond level
                 long futureStamp = task.getTimestamp() + AlarmManager.INTERVAL_DAY;
-//                long futureStamp = taskTimestamp + AlarmManager.INTERVAL_DAY;
                 futureStamp = getFutureStamp(futureStamp);
                 task.setTimestamp(futureStamp);
-//                MainActivity.taskViewModel.update(task);
                 update(task);
 
                 Intent alertIntent = new Intent(context, AlertReceiver.class);
-                alertIntent.putExtra
-                        ("snoozeStatus", false);
-//                alertIntent.putExtra("task", task);
+                alertIntent.putExtra("snoozeStatus", false);
                 alertIntent.putExtra("task", task.getId());
 
                 //Setting alarm
@@ -324,10 +254,10 @@ public class AlertReceiver extends BroadcastReceiver {
                 AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 //checking if timestamp has been updated or not
                 if (diff < 86400000) {
-                    /*MainActivity.*/alarmManager.set(AlarmManager.RTC, futureStamp, pendingIntent);
+                    alarmManager.set(AlarmManager.RTC, futureStamp, pendingIntent);
                 } else {
                     long daysOut = diff / 86400000;
-                    /*MainActivity.*/alarmManager.set(AlarmManager.RTC, (futureStamp - (86400000 * daysOut)),
+                    alarmManager.set(AlarmManager.RTC, (futureStamp - (86400000 * daysOut)),
                             pendingIntent);
                 }
 
@@ -348,7 +278,6 @@ public class AlertReceiver extends BroadcastReceiver {
                                 - AlarmManager.INTERVAL_DAY);
                     }
 
-//                    MainActivity.taskViewModel.update(task);
                     update(task);
 
                 } else {
@@ -361,7 +290,6 @@ public class AlertReceiver extends BroadcastReceiver {
                                 - AlarmManager.INTERVAL_DAY);
                     }
 
-//                    MainActivity.taskViewModel.update(task);
                     update(task);
                 }
 
@@ -372,12 +300,11 @@ public class AlertReceiver extends BroadcastReceiver {
                 long futureStamp = task.getTimestamp() + (AlarmManager.INTERVAL_DAY * 7);
                 futureStamp = getFutureStamp(futureStamp);
                 task.setTimestamp(futureStamp);
-                MainActivity.taskViewModel.update(task);
+                update(task);
 
                 Intent alertIntent = new Intent(context, AlertReceiver.class);
-                alertIntent.putExtra
-                        ("snoozeStatus", false);
-                alertIntent.putExtra("task", task);
+                alertIntent.putExtra("snoozeStatus", false);
+                alertIntent.putExtra("task", task.getId());
 
                 //Setting alarm
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(
@@ -391,12 +318,13 @@ public class AlertReceiver extends BroadcastReceiver {
                 Calendar futureCal = Calendar.getInstance();
                 futureCal.setTimeInMillis(futureStamp);
                 diff = futureCal.getTimeInMillis() - currentCal.getTimeInMillis();
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 //checking if timestamp has been updated or not
                 if (diff < (86400000 * 7)) {
-                    MainActivity.alarmManager.set(AlarmManager.RTC, futureStamp, pendingIntent);
+                    alarmManager.set(AlarmManager.RTC, futureStamp, pendingIntent);
                 } else {
                     long daysOut = diff / (86400000 * 7);
-                    MainActivity.alarmManager.set(AlarmManager.RTC, (futureStamp - ((86400000 * 7) * daysOut)),
+                    alarmManager.set(AlarmManager.RTC, (futureStamp - ((86400000 * 7) * daysOut)),
                             pendingIntent);
                 }
 
@@ -417,7 +345,7 @@ public class AlertReceiver extends BroadcastReceiver {
                                 - (AlarmManager.INTERVAL_DAY * 7));
                     }
 
-                    MainActivity.taskViewModel.update(task);
+                    update(task);
 
                 } else {
                     diff = futureStamp - (AlarmManager.INTERVAL_DAY * 7) - currentCal.getTimeInMillis();
@@ -429,7 +357,7 @@ public class AlertReceiver extends BroadcastReceiver {
                                 - (AlarmManager.INTERVAL_DAY * 7));
                     }
 
-                    MainActivity.taskViewModel.update(task);
+                    update(task);
                 }
 
             } else if (task.getRepeatInterval().equals("month") && !snoozeStatus) {
@@ -492,12 +420,11 @@ public class AlertReceiver extends BroadcastReceiver {
                 long futureStamp = task.getTimestamp() + (AlarmManager.INTERVAL_DAY * multiplier);
                 futureStamp = getFutureStamp(futureStamp);
                 task.setTimestamp(futureStamp);
-                MainActivity.taskViewModel.update(task);
+                update(task);
 
                 Intent alertIntent = new Intent(context, AlertReceiver.class);
-                alertIntent.putExtra
-                        ("snoozeStatus", false);
-                alertIntent.putExtra("task", task);
+                alertIntent.putExtra("snoozeStatus", false);
+                alertIntent.putExtra("task", task.getId());
 
                 //Setting alarm
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(
@@ -510,8 +437,9 @@ public class AlertReceiver extends BroadcastReceiver {
                 Calendar currentCal = Calendar.getInstance();
                 Calendar futureCal = Calendar.getInstance();
                 futureCal.setTimeInMillis(futureStamp);
+                AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-                MainActivity.alarmManager.set(AlarmManager.RTC, futureStamp, pendingIntent);
+                alarmManager.set(AlarmManager.RTC, futureStamp, pendingIntent);
 
                 alarmCalendar.setTimeInMillis(futureStamp - (AlarmManager.INTERVAL_DAY * multiplier));
 
@@ -530,7 +458,7 @@ public class AlertReceiver extends BroadcastReceiver {
                                 - (AlarmManager.INTERVAL_DAY * multiplier));
                     }
 
-                    MainActivity.taskViewModel.update(task);
+                    update(task);
 
                 } else {
                     diff = futureStamp - (AlarmManager.INTERVAL_DAY * multiplier) - currentCal.getTimeInMillis();
@@ -542,7 +470,7 @@ public class AlertReceiver extends BroadcastReceiver {
                                 - (AlarmManager.INTERVAL_DAY * multiplier));
                     }
 
-                    MainActivity.taskViewModel.update(task);
+                    update(task);
                 }
 
             }
@@ -551,7 +479,6 @@ public class AlertReceiver extends BroadcastReceiver {
 
     private long getFutureStamp(long futureStamp) {
 
-//        List<Integer> timestamps = MainActivity.taskViewModel.getAllTimestamps();
         List<Integer> timestamps = getAllTimestamps();
 
         //ensuring that saved timestamp is unique

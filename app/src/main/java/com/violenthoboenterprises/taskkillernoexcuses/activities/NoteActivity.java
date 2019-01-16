@@ -20,7 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.violenthoboenterprises.taskkillernoexcuses.R;
-import com.violenthoboenterprises.taskkillernoexcuses.databinding.ActivityNoteBinding;
+//import com.violenthoboenterprises.taskkillernoexcuses.databinding.ActivityNoteBinding;
 import com.violenthoboenterprises.taskkillernoexcuses.model.NotePresenterImpl;
 import com.violenthoboenterprises.taskkillernoexcuses.model.Task;
 import com.violenthoboenterprises.taskkillernoexcuses.model.TaskViewModel;

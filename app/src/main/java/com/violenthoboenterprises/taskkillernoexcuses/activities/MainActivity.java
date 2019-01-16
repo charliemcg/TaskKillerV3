@@ -116,9 +116,9 @@ public class MainActivity extends AppCompatActivity implements
     //used to indicate that user purchased reminders
     public boolean boolRemindersAvailable;
     //used to indicate that a different activity has been visited and therefore the viewpager needs to be reset
-    public static boolean boolResetAdapter;
+//    public static boolean boolResetAdapter;
     //used to indicate that the device is a tablet in landscape orientation
-    public static boolean boolTabletLandscape;
+//    public static boolean boolTabletLandscape;
 
     //Dimensions of the fab
     private int intFabHeight;
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements
     // Used for determining when to prompt for a review
     private long lngTimeInstalled;
     //indicates which tab is viewable when in landscape tablet mode
-    public static int intViewableTab;
+//    public static int intViewableTab;
 
     //Toasts which show up when adding new task
     static String[] strMotivation;
@@ -232,16 +232,16 @@ public class MainActivity extends AppCompatActivity implements
 //    ActivityMainBinding binding;
 
     //Adapter and pager for the tab layout
-    public static ViewPager viewPager;
-    private static TabLayout tabLayout;
-    public static SectionsPagerAdapter sectionsPagerAdapter;
-    private ViewPager.OnPageChangeListener pageListener;
+//    public static ViewPager viewPager;
+//    private static TabLayout tabLayout;
+//    public static SectionsPagerAdapter sectionsPagerAdapter;
+//    private ViewPager.OnPageChangeListener pageListener;
 
     //The selected task as used when in landscape tablet mode
-    public static Task selectedTask;
+//    public static Task selectedTask;
 
-    private int screenSize;
-    private int orientation;
+//    private int screenSize;
+//    private int orientation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -253,29 +253,29 @@ public class MainActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_main);
 //        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        screenSize = getResources().getConfiguration().screenLayout &
-                Configuration.SCREENLAYOUT_SIZE_MASK;
-        orientation = getResources().getConfiguration().orientation;
+//        screenSize = getResources().getConfiguration().screenLayout &
+//                Configuration.SCREENLAYOUT_SIZE_MASK;
+//        orientation = getResources().getConfiguration().orientation;
 
-        boolTabletLandscape = getDeviceAndOrientation();
+//        boolTabletLandscape = getDeviceAndOrientation();
 
         //the adapter which will return the fragments to be displayed
-        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+//        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        viewPager = findViewById(R.id.viewPager);
-        if (boolTabletLandscape) {
-            viewPager.setAdapter(sectionsPagerAdapter);
-        }
+//        viewPager = findViewById(R.id.viewPager);
+//        if (boolTabletLandscape) {
+//            viewPager.setAdapter(sectionsPagerAdapter);
+//        }
 
-        tabLayout = findViewById(R.id.tabs);
+//        tabLayout = findViewById(R.id.tabs);
 
-        if (boolTabletLandscape) {
-            //listening for tab swipes and clicks
-            viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-            pageListener = new PageListener();
-            viewPager.setOnPageChangeListener(pageListener);
-            tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
-        }
+//        if (boolTabletLandscape) {
+//            listening for tab swipes and clicks
+//            viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+//            pageListener = new PageListener();
+//            viewPager.setOnPageChangeListener(pageListener);
+//            tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+//        }
 
         MobileAds.initialize(this, "ca-app-pub-2378583121223638~1405620900");
 
@@ -443,10 +443,10 @@ public class MainActivity extends AppCompatActivity implements
                     if (diff < 0) {
                         //cancel reminder
                         if (preferences.getBoolean(StringConstants.REMINDERS_AVAILABLE_KEY, false)) {
-                            PendingIntent.getBroadcast(getApplicationContext(),
-                                    adapter.getTaskAt(viewHolder.getAdapterPosition()).getId(),
-                                    MainActivity.alertIntent,
-                                    PendingIntent.FLAG_UPDATE_CURRENT).cancel();
+//                            PendingIntent.getBroadcast(getApplicationContext(),
+//                                    adapter.getTaskAt(viewHolder.getAdapterPosition()).getId(),
+//                                    MainActivity.alertIntent,
+//                                    PendingIntent.FLAG_UPDATE_CURRENT).cancel();
                         }
                         if (adapter.getTaskAt(viewHolder.getAdapterPosition()).getRepeatInterval().equals("day")) {
                             //Add another day to the timestamp
@@ -464,7 +464,8 @@ public class MainActivity extends AppCompatActivity implements
                         //creating new reminder
                         MainActivity.alertIntent = new Intent(getApplicationContext(), AlertReceiver.class);
                         MainActivity.alertIntent.putExtra("snoozeStatus", false);
-                        MainActivity.alertIntent.putExtra("task", adapter.getTaskAt(viewHolder.getAdapterPosition()));
+//                        MainActivity.alertIntent.putExtra("task", adapter.getTaskAt(viewHolder.getAdapterPosition()));
+                        MainActivity.alertIntent.putExtra("task", adapter.getTaskAt(viewHolder.getAdapterPosition()).getId());
 
                         //Setting alarm
                         MainActivity.pendingIntent = PendingIntent.getBroadcast(
@@ -545,9 +546,9 @@ public class MainActivity extends AppCompatActivity implements
                 final Handler handler = new Handler();
                 final Runnable runnable = () -> {
                     adapter.notifyDataSetChanged();
-                    if(adapter.getItemCount() != 0) {
-                        selectedTask = adapter.getTaskAt(viewHolder.getAdapterPosition() + 1);
-                    }
+//                    if(adapter.getItemCount() != 0) {
+//                        selectedTask = adapter.getTaskAt(viewHolder.getAdapterPosition() + 1);
+//                    }
                 };
                 handler.postDelayed(runnable, 500);
                 toggleFab(true);
@@ -592,9 +593,9 @@ public class MainActivity extends AppCompatActivity implements
                     mainActivityPresenter.addTask(null, 0, taskName, null,
                             calendar.getTimeInMillis(), false, false, 0);
 
-                    if(boolTabletLandscape){
-                        selectedTask = null;
-                    }
+//                    if(boolTabletLandscape){
+//                        selectedTask = null;
+//                    }
 
                     if (intRenameHint <= 2) {
                         if (intRenameHint == 2) {
@@ -650,166 +651,165 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
-    private static class PageListener extends ViewPager.SimpleOnPageChangeListener {
-        public void onPageSelected(int position) {
-            intViewableTab = position;
-            preferences.edit().putInt(StringConstants.VIEWABLE_TAB_KEY, position).apply();
-        }
-    }
+//    private static class PageListener extends ViewPager.SimpleOnPageChangeListener {
+//        public void onPageSelected(int position) {
+//            intViewableTab = position;
+//            preferences.edit().putInt(StringConstants.VIEWABLE_TAB_KEY, position).apply();
+//        }
+//    }
 
-    public static class PlaceholderFragment extends android.support.v4.app.Fragment implements SubtasksView {
+//    public static class PlaceholderFragment extends android.support.v4.app.Fragment implements SubtasksView {
+//
+//        private static final String ARG_SECTION_NUMBER = "section_number";
+//
+//        public PlaceholderFragment() {
+//        }
+//
+//        public static PlaceholderFragment newInstance(int sectionNumber) {
+//            PlaceholderFragment fragment = new PlaceholderFragment();
+//            Bundle args = new Bundle();
+//            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+//            fragment.setArguments(args);
+//            return fragment;
+//        }
+//
+//        @Override
+//        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                                 Bundle savedInstanceState) {
+//            View rootView = null;
+//            ImageButton btnOpenRelevantActivity;
+//            if (selectedTask != null) {
+//                //Setting up the reminder tab view
+//                if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
+//                    rootView = inflater.inflate(R.layout.tab_reminder, container, false);
+//                    btnOpenRelevantActivity = rootView.findViewById(R.id.btnTabReminder);
+//                    TextView tvTabDate = rootView.findViewById(R.id.tvTabDate);
+//                    TextView tvTabTime = rootView.findViewById(R.id.tvTabTime);
+//                    TextView tvTabRepeat = rootView.findViewById(R.id.tvTabRepeat);
+//                    TextView tvTabNoReminder = rootView.findViewById(R.id.tvTabNoReminder);
+//                    ImageView imgTabDate = rootView.findViewById(R.id.imgTabCalendar);
+//                    ImageView imgTabTime = rootView.findViewById(R.id.imgTabTime);
+//                    ImageView imgTabRepeat = rootView.findViewById(R.id.imgTabRepeat);
+//                    if (selectedTask.getTimestamp() == 0) {
+//                        tvTabDate.setVisibility(View.GONE);
+//                        tvTabTime.setVisibility(View.GONE);
+//                        tvTabRepeat.setVisibility(View.GONE);
+//                        imgTabDate.setVisibility(View.GONE);
+//                        imgTabTime.setVisibility(View.GONE);
+//                        imgTabRepeat.setVisibility(View.GONE);
+//                        tvTabNoReminder.setVisibility(View.VISIBLE);
+//                    } else {
+//                        Calendar calendar = Calendar.getInstance();
+//                        calendar.setTimeInMillis(selectedTask.getTimestamp());
+//                        String formattedDate = mainActivityPresenter.getFormattedDate(selectedTask.getTimestamp());
+//                        tvTabDate.setText(formattedDate);
+//                        String formattedTime = mainActivityPresenter.getFormattedTime(selectedTask.getTimestamp());
+//                        tvTabTime.setText(formattedTime);
+//                        if (selectedTask.getRepeatInterval() == null) {
+//                            tvTabRepeat.setText("No repeat");
+//                        } else {
+//                            String interval = selectedTask.getRepeatInterval();
+//                            if (interval.equals("day")) {
+//                                tvTabRepeat.setText("Every day");
+//                            } else if (interval.equals("week")) {
+//                                tvTabRepeat.setText("Every week");
+//                            } else if (interval.equals("monthly")) {
+//                                tvTabRepeat.setText("Every month");
+//                            }
+//                            imgTabRepeat.setImageDrawable(getResources().getDrawable(R.drawable.tab_repeat));
+//                        }
+//                    }
+//                    btnOpenRelevantActivity.setOnClickListener(view -> {
+//                        Intent intent = new Intent(getContext(), ReminderActivity.class);
+//                        intent.putExtra("task", selectedTask);
+//                        startActivity(intent);
+//                    });
+//                    //setting up the subtasks tab view
+//                } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
+//                    rootView = inflater.inflate(R.layout.tab_subtasks, container, false);
+//                    btnOpenRelevantActivity = rootView.findViewById(R.id.btnTabSubtasks);
+//                    TextView tvTabNoSubtasks = rootView.findViewById(R.id.tvTabNoSubtasks);
+//                    SubtaskViewModel subtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel.class);
+//                    SubtasksPresenter subtasksPresenter = new SubtasksPresenterImpl(subtaskViewModel, selectedTask);
+//                    //checking if needed to display subtasks icon
+//                    List<Subtask> subtasks = subtasksPresenter.getSubtasksByParent(selectedTask.getId());
+//                    int subtasksSize = subtasks.size();
+//                    if (subtasksSize == 0) {
+//                        tvTabNoSubtasks.setVisibility(View.VISIBLE);
+//                    } else {
+//                        //Setting up the recycler view
+//                        RecyclerView recyclerView = rootView.findViewById(R.id.subTasksTabRecyclerView);
+//                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//                        recyclerView.setHasFixedSize(true);
+//
+//                        //setting up the adapter
+//                        final SubtasksAdapter subtasksAdapter = new SubtasksAdapter(this);
+//                        recyclerView.setAdapter(subtasksAdapter);
+//
+//                        //observing the recycler view items for changes
+//                        subtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel.class);
+//                        //need to specifically get subtasks belonging to parent task
+//                        subtaskViewModel.getAllSubtasks(subtasksPresenter.getId())
+//                                .observe(this, subtasksAdapter::setSubtasks);
+//                    }
+//                    btnOpenRelevantActivity.setOnClickListener(view -> {
+//                        Intent intent = new Intent(getContext(), SubtasksActivity.class);
+//                        intent.putExtra("task", selectedTask);
+//                        startActivity(intent);
+//                    });
+//                    //setting up the note tab view
+//                } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 3) {
+//                    rootView = inflater.inflate(R.layout.tab_note, container, false);
+//                    btnOpenRelevantActivity = rootView.findViewById(R.id.btnTabNote);
+//                    TextView tvTabNote = rootView.findViewById(R.id.tvTabNote);
+//                    TextView tvTabNoNote = rootView.findViewById(R.id.tvTabNoNote);
+//                    if (selectedTask.getNote() == null) {
+//                        tvTabNoNote.setVisibility(View.VISIBLE);
+//                    } else {
+//                        tvTabNote.setText(selectedTask.getNote());
+//                        tvTabNote.setMovementMethod(new ScrollingMovementMethod());
+//                    }
+//                    btnOpenRelevantActivity.setOnClickListener(view -> {
+//                        Intent intent = new Intent(getContext(), NoteActivity.class);
+//                        intent.putExtra("task", selectedTask);
+//                        startActivity(intent);
+//                    });
+//                }
+//            }
+//            return rootView;
+//        }
+//
+//        @Override
+//        public void editSubtask(Subtask currentSubtask) {
+//
+//        }
+//    }
 
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = null;
-            ImageButton btnOpenRelevantActivity;
-            if (selectedTask != null) {
-                //Setting up the reminder tab view
-                if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
-                    rootView = inflater.inflate(R.layout.tab_reminder, container, false);
-                    btnOpenRelevantActivity = rootView.findViewById(R.id.btnTabReminder);
-                    TextView tvTabDate = rootView.findViewById(R.id.tvTabDate);
-                    TextView tvTabTime = rootView.findViewById(R.id.tvTabTime);
-                    TextView tvTabRepeat = rootView.findViewById(R.id.tvTabRepeat);
-                    TextView tvTabNoReminder = rootView.findViewById(R.id.tvTabNoReminder);
-                    ImageView imgTabDate = rootView.findViewById(R.id.imgTabCalendar);
-                    ImageView imgTabTime = rootView.findViewById(R.id.imgTabTime);
-                    ImageView imgTabRepeat = rootView.findViewById(R.id.imgTabRepeat);
-                    if (selectedTask.getTimestamp() == 0) {
-                        tvTabDate.setVisibility(View.GONE);
-                        tvTabTime.setVisibility(View.GONE);
-                        tvTabRepeat.setVisibility(View.GONE);
-                        imgTabDate.setVisibility(View.GONE);
-                        imgTabTime.setVisibility(View.GONE);
-                        imgTabRepeat.setVisibility(View.GONE);
-                        tvTabNoReminder.setVisibility(View.VISIBLE);
-                    } else {
-                        Calendar calendar = Calendar.getInstance();
-                        calendar.setTimeInMillis(selectedTask.getTimestamp());
-                        String formattedDate = mainActivityPresenter.getFormattedDate(selectedTask.getTimestamp());
-                        tvTabDate.setText(formattedDate);
-                        String formattedTime = mainActivityPresenter.getFormattedTime(selectedTask.getTimestamp());
-                        tvTabTime.setText(formattedTime);
-                        if (selectedTask.getRepeatInterval() == null) {
-                            tvTabRepeat.setText("No repeat");
-                        } else {
-                            String interval = selectedTask.getRepeatInterval();
-                            if (interval.equals("day")) {
-                                tvTabRepeat.setText("Every day");
-                            } else if (interval.equals("week")) {
-                                tvTabRepeat.setText("Every week");
-                            } else if (interval.equals("monthly")) {
-                                tvTabRepeat.setText("Every month");
-                            }
-                            imgTabRepeat.setImageDrawable(getResources().getDrawable(R.drawable.tab_repeat));
-                        }
-                    }
-                    btnOpenRelevantActivity.setOnClickListener(view -> {
-                        Intent intent = new Intent(getContext(), ReminderActivity.class);
-                        intent.putExtra("task", selectedTask);
-                        startActivity(intent);
-                    });
-                    //setting up the subtasks tab view
-                } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
-                    rootView = inflater.inflate(R.layout.tab_subtasks, container, false);
-                    btnOpenRelevantActivity = rootView.findViewById(R.id.btnTabSubtasks);
-                    TextView tvTabNoSubtasks = rootView.findViewById(R.id.tvTabNoSubtasks);
-                    SubtaskViewModel subtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel.class);
-                    SubtasksPresenter subtasksPresenter = new SubtasksPresenterImpl(subtaskViewModel, selectedTask);
-                    //checking if needed to display subtasks icon
-                    List<Subtask> subtasks = subtasksPresenter.getSubtasksByParent(selectedTask.getId());
-                    int subtasksSize = subtasks.size();
-                    if (subtasksSize == 0) {
-                        tvTabNoSubtasks.setVisibility(View.VISIBLE);
-                    } else {
-                        //Setting up the recycler view
-                        RecyclerView recyclerView = rootView.findViewById(R.id.subTasksTabRecyclerView);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-                        recyclerView.setHasFixedSize(true);
-
-                        //setting up the adapter
-                        final SubtasksAdapter subtasksAdapter = new SubtasksAdapter(this);
-                        recyclerView.setAdapter(subtasksAdapter);
-
-                        //observing the recycler view items for changes
-                        subtaskViewModel = ViewModelProviders.of(this).get(SubtaskViewModel.class);
-                        //need to specifically get subtasks belonging to parent task
-                        subtaskViewModel.getAllSubtasks(subtasksPresenter.getId())
-                                .observe(this, subtasksAdapter::setSubtasks);
-                    }
-                    btnOpenRelevantActivity.setOnClickListener(view -> {
-                        Intent intent = new Intent(getContext(), SubtasksActivity.class);
-                        intent.putExtra("task", selectedTask);
-                        startActivity(intent);
-                    });
-                    //setting up the note tab view
-                } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 3) {
-                    rootView = inflater.inflate(R.layout.tab_note, container, false);
-                    btnOpenRelevantActivity = rootView.findViewById(R.id.btnTabNote);
-                    TextView tvTabNote = rootView.findViewById(R.id.tvTabNote);
-                    TextView tvTabNoNote = rootView.findViewById(R.id.tvTabNoNote);
-                    if (selectedTask.getNote() == null) {
-                        tvTabNoNote.setVisibility(View.VISIBLE);
-                    } else {
-                        tvTabNote.setText(selectedTask.getNote());
-                        tvTabNote.setMovementMethod(new ScrollingMovementMethod());
-                    }
-                    btnOpenRelevantActivity.setOnClickListener(view -> {
-                        Intent intent = new Intent(getContext(), NoteActivity.class);
-                        intent.putExtra("task", selectedTask);
-                        startActivity(intent);
-                    });
-                }
-            }
-            return rootView;
-        }
-
-        @Override
-        public void editSubtask(Subtask currentSubtask) {
-
-        }
-    }
-
-    public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
-
-        public SectionsPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public android.support.v4.app.Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
-        }
-
-        @Override
-        public int getCount() {
-            // Show 3 total pages.
-            return 3;
-        }
-
-        @Override
-        public int getItemPosition(Object object) {
-            return POSITION_NONE;
-        }
-
-
-    }
+//    public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
+//
+//        public SectionsPagerAdapter(FragmentManager fm) {
+//            super(fm);
+//        }
+//
+//        @Override
+//        public android.support.v4.app.Fragment getItem(int position) {
+//            // getItem is called to instantiate the fragment for the given page.
+//            // Return a PlaceholderFragment (defined as a static inner class below).
+//            return PlaceholderFragment.newInstance(position + 1);
+//        }
+//
+//        @Override
+//        public int getCount() {
+//            // Show 3 total pages.
+//            return 3;
+//        }
+//
+//        @Override
+//        public int getItemPosition(Object object) {
+//            return POSITION_NONE;
+//        }
+//
+//    }
 
     private void setImgNoTasks() {
         int orientation = getResources().getConfiguration().orientation;
@@ -1522,30 +1522,30 @@ public class MainActivity extends AppCompatActivity implements
         adapter.notifyDataSetChanged();
         toggleFab(true);
 
-        boolTabletLandscape = getDeviceAndOrientation();
+//        boolTabletLandscape = getDeviceAndOrientation();
 
-        if (boolResetAdapter && boolTabletLandscape) {
-
-            //the adapter which will return the fragments to be displayed
-            sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
-            viewPager = findViewById(R.id.viewPager);
-            viewPager.setAdapter(sectionsPagerAdapter);
-            viewPager.setCurrentItem(MainActivity.intViewableTab);
-
-            boolResetAdapter = false;
-
-        }
+//        if (boolResetAdapter && boolTabletLandscape) {
+//
+//            //the adapter which will return the fragments to be displayed
+//            sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+//
+//            viewPager = findViewById(R.id.viewPager);
+//            viewPager.setAdapter(sectionsPagerAdapter);
+//            viewPager.setCurrentItem(MainActivity.intViewableTab);
+//
+//            boolResetAdapter = false;
+//
+//        }
 
     }
 
-    private boolean getDeviceAndOrientation() {
-        if (((screenSize == 3 || screenSize == 4) && orientation == Configuration.ORIENTATION_LANDSCAPE)) {
-            return boolTabletLandscape = true;
-        } else {
-            return boolTabletLandscape = false;
-        }
-    }
+//    private boolean getDeviceAndOrientation() {
+//        if (((screenSize == 3 || screenSize == 4) && orientation == Configuration.ORIENTATION_LANDSCAPE)) {
+//            return boolTabletLandscape = true;
+//        } else {
+//            return boolTabletLandscape = false;
+//        }
+//    }
 
     @Override
     //Return to previous selection when back is pressed

@@ -149,7 +149,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
             //for better user experience tasks should not be clickable while keyboard is up
             if (!MainActivity.boolKeyboardShowing) {
                 //only show properties if there is no tab layout
-                if (!MainActivity.boolTabletLandscape) {
+//                if (!MainActivity.boolTabletLandscape) {
                     //removing any other visible properties
                     if (preferences.getInt(StringConstants.REFRESH_THIS_ITEM_KEY, 0) != position) {
                         notifyItemChanged(preferences.getInt(StringConstants.REFRESH_THIS_ITEM_KEY, 0));
@@ -178,18 +178,18 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskHolder> {
                             MainActivity.keyboard.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
                         }
                     }
-                } else {
-                    //setting all text views to black text
-                    if (preferences.getInt(StringConstants.REFRESH_THIS_ITEM_KEY, 0) != position) {
-                        notifyItemChanged(preferences.getInt(StringConstants.REFRESH_THIS_ITEM_KEY, 0));
-                    }
-                    preferences.edit().putInt(StringConstants.REFRESH_THIS_ITEM_KEY, position).apply();
-                    MainActivity.selectedTask = currentTask;
-//                    holder.viewTaskParent.setBackground(context.getDrawable(R.drawable.item_background_faded));
-                    holder.viewTaskParent.setBackgroundColor(Color.DKGRAY);
-                    MainActivity.viewPager.setCurrentItem(MainActivity.intViewableTab);
-                    MainActivity.sectionsPagerAdapter.notifyDataSetChanged();
-                }
+//                } else {
+//                    //setting all text views to black text
+//                    if (preferences.getInt(StringConstants.REFRESH_THIS_ITEM_KEY, 0) != position) {
+//                        notifyItemChanged(preferences.getInt(StringConstants.REFRESH_THIS_ITEM_KEY, 0));
+//                    }
+//                    preferences.edit().putInt(StringConstants.REFRESH_THIS_ITEM_KEY, position).apply();
+//                    MainActivity.selectedTask = currentTask;
+////                    holder.viewTaskParent.setBackground(context.getDrawable(R.drawable.item_background_faded));
+//                    holder.viewTaskParent.setBackgroundColor(Color.DKGRAY);
+//                    MainActivity.viewPager.setCurrentItem(MainActivity.intViewableTab);
+//                    MainActivity.sectionsPagerAdapter.notifyDataSetChanged();
+//                }
             }
         });
 
