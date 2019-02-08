@@ -64,7 +64,7 @@ public class AlertReceiver extends BroadcastReceiver {
 
         //Initialising variables for holding values from database
         boolean boolSnoozeStatus = intent.getBooleanExtra("snoozeStatus", false);
-        preferences = context.getSharedPreferences("com.violenthoboenterprises.taskkiller",
+        preferences = context.getSharedPreferences("com.violenthoboenterprises.taskkillernoexcuses",
                 Context.MODE_PRIVATE);
         this.context = context;
         int id = intent.getIntExtra("task", 0);

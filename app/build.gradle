@@ -5,12 +5,12 @@ android {
 //    compileSdkVersion 26
     compileSdkVersion 27
     defaultConfig {
-        applicationId "com.violenthoboenterprises.taskkiller"
+        applicationId "com.violenthoboenterprises.taskkillernoexcuses"
 //        minSdkVersion 16
         minSdkVersion 21
 //        targetSdkVersion 26
         targetSdkVersion 27
-        versionCode 13
+        versionCode 16
         versionName "1.12"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

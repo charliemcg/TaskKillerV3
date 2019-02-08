@@ -282,7 +282,7 @@ public class MainActivity extends AppCompatActivity implements
         tb = findViewById(R.id.tb);
         setSupportActionBar(tb);
 
-        preferences = this.getSharedPreferences("com.violenthoboenterprises.taskkiller",
+        preferences = this.getSharedPreferences("com.violenthoboenterprises.taskkillernoexcuses",
                 Context.MODE_PRIVATE);
 
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
