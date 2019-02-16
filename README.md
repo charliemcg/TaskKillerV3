@@ -7,11 +7,11 @@ This is a majorly refactored version of TaskKillerV2. Updates include a more rob
 This app is available at: https://play.google.com/store/apps/details?id=com.violenthoboenterprises.taskkillernoexcuses
 
 This app uses icons designed by the following authors from Flaticon:
-Freepik
-Smashicons
-Pixel Perfect
-Good Ware
-Surang
+Freepik,
+Smashicons,
+Pixel Perfect,
+Good Ware,
+Surang,
 Pixelmeetup
 
 This application uses an Open Source color picker.
